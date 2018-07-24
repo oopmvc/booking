@@ -1,9 +1,10 @@
 <?php include('header.php'); ?>
 
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
     <div class="row">
         <div class="container">
             <h1>Maurizio Barber Shop: Sistema di prenotazione</h1>
-            <p class="lead">Da oggi puoi prenotare il tuo posto in salone comodamente dal suo smartphone.</p>
             <!--<img src="https://www.mauriziobarbershop.com/images/logo-maurizio-barber-shop.png" alt="" class="img-fluid">-->
 
             <div class="py-5 text-left">
