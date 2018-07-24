@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                Maurizio Barber Shop
+                Maurizio Parrucchieri Group srls - Maurizio Barber Shop - P.IVA XXXXXXXXXX
             </div>
         </div>
     </div>
