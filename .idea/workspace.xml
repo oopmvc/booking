@@ -2,121 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a6aa924-53a8-433b-bd57-994f0ea58f65" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/bootstrap-login-template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/maurizio-barber-shop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/maurizio-barber-shop.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/12234901_469031619958384_3951718834406840629_n.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/12234901_469031619958384_3951718834406840629_n.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Authentication/AccessToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Authentication/AccessToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Authentication/AccessTokenMetadata.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Authentication/AccessTokenMetadata.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Authentication/OAuth2Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Authentication/OAuth2Client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookAuthenticationException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookAuthenticationException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookAuthorizationException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookAuthorizationException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookClientException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookClientException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookOtherException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookOtherException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookResponseException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookResponseException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookResumableUploadException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookResumableUploadException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookSDKException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookSDKException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookServerException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookServerException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Exceptions/FacebookThrottleException.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Exceptions/FacebookThrottleException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Facebook.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Facebook.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookApp.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookApp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookBatchRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookBatchRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookBatchResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookBatchResponse.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FacebookResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FacebookResponse.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FileUpload/FacebookFile.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FileUpload/FacebookFile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FileUpload/FacebookResumableUploader.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FileUpload/FacebookResumableUploader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FileUpload/FacebookTransferChunk.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FileUpload/FacebookTransferChunk.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FileUpload/FacebookVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FileUpload/FacebookVideo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/FileUpload/Mimetypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/FileUpload/Mimetypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/Birthday.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/Birthday.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/Collection.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/Collection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphAchievement.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphAchievement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphAlbum.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphAlbum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphApplication.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphApplication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphCoverPhoto.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphCoverPhoto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphEdge.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphEdge.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphList.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphLocation.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphLocation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphNode.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphNode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphNodeFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphNodeFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphObject.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphObjectFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphObjectFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphPage.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphPage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphPicture.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphPicture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphSessionInfo.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphSessionInfo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/GraphNodes/GraphUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/GraphNodes/GraphUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Helpers/FacebookCanvasHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Helpers/FacebookCanvasHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Helpers/FacebookJavaScriptHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Helpers/FacebookJavaScriptHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Helpers/FacebookPageTabHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Helpers/FacebookPageTabHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Helpers/FacebookRedirectLoginHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Helpers/FacebookRedirectLoginHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Helpers/FacebookSignedRequestFromInputHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Helpers/FacebookSignedRequestFromInputHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Http/GraphRawResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Http/GraphRawResponse.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Http/RequestBodyInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Http/RequestBodyInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Http/RequestBodyMultipart.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Http/RequestBodyMultipart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Http/RequestBodyUrlEncoded.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Http/RequestBodyUrlEncoded.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookCurl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookCurl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookCurlHttpClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookCurlHttpClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookGuzzleHttpClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookGuzzleHttpClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookHttpClientInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookHttpClientInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookStream.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookStream.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/FacebookStreamHttpClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/FacebookStreamHttpClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/HttpClientsFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/HttpClientsFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/HttpClients/certs/DigiCertHighAssuranceEVRootCA.pem" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/HttpClients/certs/DigiCertHighAssuranceEVRootCA.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PersistentData/FacebookMemoryPersistentDataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PersistentData/FacebookMemoryPersistentDataHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PersistentData/FacebookSessionPersistentDataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PersistentData/FacebookSessionPersistentDataHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PersistentData/PersistentDataFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PersistentData/PersistentDataFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PersistentData/PersistentDataInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PersistentData/PersistentDataInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/McryptPseudoRandomStringGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/McryptPseudoRandomStringGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/OpenSslPseudoRandomStringGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/OpenSslPseudoRandomStringGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/PseudoRandomStringGeneratorTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/RandomBytesPseudoRandomStringGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/RandomBytesPseudoRandomStringGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/PseudoRandomString/UrandomPseudoRandomStringGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/PseudoRandomString/UrandomPseudoRandomStringGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/SignedRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/SignedRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Url/FacebookUrlDetectionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Url/FacebookUrlDetectionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Url/FacebookUrlManipulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Url/FacebookUrlManipulator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/Url/UrlDetectionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/Url/UrlDetectionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Facebook/polyfills.php" beforeDir="false" afterPath="$PROJECT_DIR$/Facebook/polyfills.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fb-callback.php" beforeDir="false" afterPath="$PROJECT_DIR$/fb-callback.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/img/bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/logo-maurizio-barber-shop-foggia.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/img/logo-maurizio-barber-shop-foggia.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/activate.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/activate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/classes/password.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/classes/password.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/classes/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/classes/user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/includes/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/includes/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/layout/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/layout/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/layout/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/layout/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/logout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/memberpage.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/memberpage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/reset.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/reset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/resetPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/resetPassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loginregister-master/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/loginregister-master/style/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php-graph-sdk-5.x/CODE_OF_CONDUCT.md" beforeDir="false" afterPath="$PROJECT_DIR$/php-graph-sdk-5.x/CODE_OF_CONDUCT.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php-graph-sdk-5.x/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/php-graph-sdk-5.x/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php-graph-sdk-5.x/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/php-graph-sdk-5.x/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php-graph-sdk-5.x/phpcs.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/php-graph-sdk-5.x/phpcs.xml.dist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/step-1-scegli-servizio.php" beforeDir="false" afterPath="$PROJECT_DIR$/step-1-scegli-servizio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/step-2-scegli-data-ora.php" beforeDir="false" afterPath="$PROJECT_DIR$/step-2-scegli-data-ora.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/step-3-accedi-registrati.php" beforeDir="false" afterPath="$PROJECT_DIR$/step-3-accedi-registrati.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -133,8 +19,8 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="108" column="45" selection-start-line="108" selection-start-column="45" selection-end-line="108" selection-end-column="45" />
+            <state relative-caret-position="751">
+              <caret line="276" column="22" selection-start-line="276" selection-start-column="22" selection-end-line="276" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -268,12 +154,12 @@
       <updated>1531306014901</updated>
       <workItem from="1531306016106" duration="13253000" />
       <workItem from="1532330278698" duration="2496000" />
-      <workItem from="1532424748354" duration="3917000" />
+      <workItem from="1532424748354" duration="4510000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19666000" />
+    <option name="totallyTimeSpent" value="20259000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="990" extended-state="6" />
@@ -515,8 +401,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="108" column="45" selection-start-line="108" selection-start-column="45" selection-end-line="108" selection-end-column="45" />
+        <state relative-caret-position="751">
+          <caret line="276" column="22" selection-start-line="276" selection-start-column="22" selection-end-line="276" selection-end-column="22" />
         </state>
       </provider>
     </entry>
