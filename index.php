@@ -9,11 +9,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-2">
-            <img src="img/logo-maurizio-01.png" alt="logo maurizio barber shop foggia" class="img-fluid" style="max-width:160px;">
-        </div>
-        <div class="col-lg-10">
-            <h1 class="">Sistema di prenotazione</h1>
+        <div class="col-lg-12">
+            <h1 class="pt-4">Sistema di prenotazione</h1>
             <p class="lead mb-5">Da oggi puoi prenotare i nostri servizi ovunque tu sia.</p>
         </div>
     </div>
@@ -21,7 +18,7 @@
 
     <div class="row">
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">1. Scegli uno o più servizi</h4>
+            <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
             <div>
                 <?php
                     // Include config file
@@ -37,8 +34,8 @@
                                         echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
                                         echo '<td class="text-right">' . $row['price'] . " € </td>";
                                         echo "<td>
-                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record'   data-toggle='tooltip'>+</a>
-                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record'   data-toggle='tooltip'>-</a>
+                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'>+</a>
+                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'>-</a>
                                             </td>";
                                     echo "</tr>";
                                 }
@@ -128,7 +125,7 @@
                 <!-- END STEP 1: scegli servizi -->
 
                 <!-- BEGIN STEP 2: scegli con chi -->
-                <h4 class="pt-4 mb-4">2. Scegli con chi</h4>
+                <h4 class="pt-4 mb-4"><span class="bg-dark">2</span> Scegli con chi</h4>
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="country">Scegli con chi</label>
@@ -142,7 +139,7 @@
                 <!-- END STEP 2: scegli con chi -->
 
                 <!-- BEGIN STEP 2: scegli quando -->
-                <h4 class="pt-4 mb-4">3. Scegli quando</h4>
+                <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="country">Giorno</label>
