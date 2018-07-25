@@ -34,8 +34,8 @@
                                         echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
                                         echo '<td class="text-right">' . $row['price'] . " € </td>";
                                         echo "<td>
-                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'>+</a>
-                                                <a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'>-</a>
+                                                <a class='btn btn-sm btn-dark' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'><strong>+</strong></a>
+                                                <a class='btn btn-sm btn-dark' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'><strong>-</strong></a>
                                             </td>";
                                     echo "</tr>";
                                 }
