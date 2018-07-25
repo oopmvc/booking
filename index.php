@@ -1,5 +1,12 @@
 <?php include('header.php'); ?>
 
+<?php
+
+    session_start();
+    require("includes/connection.php");
+
+?>
+
 <div class="row">
     <div class="container">
         <img src="img/logo-maurizio-01.png" alt="logo maurizio barber shop foggia" class="img-fluid" style="max-width:140px;">
@@ -8,7 +15,58 @@
         <div class="row">
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">1. Scegli uno o più servizi</h4>
+                <div>
+                    <?php
+
+                        // Include config file
+                        require_once 'includes/connection.php';
+
+                        // Attempt select query execution
+
+                        $sql = "SELECT * FROM products ORDER BY name";
+
+                        if($result = mysqli_query($link, $sql)){
+
+                            if(mysqli_num_rows($result) > 0){
+
+                                echo "<table class='table'>";
+
+                                    echo "<tbody>";
+
+                                    while($row = mysqli_fetch_array($result)){
+
+                                        echo "<tr>";
+                                            echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
+                                            echo '<td class="text-right">' . $row['price'] . " € </td>";
+                                            echo "<td><a class='btn btn-sm btn-primary' href='read.php?id="  . $row['id_product'] ."' title='View Record'   data-toggle='tooltip'>+</a></td>";
+                                        echo "</tr>";
+
+                                    }
+                                    echo "</tbody>";
+                                echo "</table>";
+
+                                // Free result set
+                                mysqli_free_result($result);
+
+                            } else {
+                                echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
+                            }
+
+                        } else {
+                            echo "ERROR: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        mysqli_close($link);
+
+                    ?>
+                </div>
+
+
+
+
                 <form class="needs-validation" novalidate>
+
                     <!-- STEP 1: scegli servizi -->
                     <div>
                         <hr class="mb-4">
