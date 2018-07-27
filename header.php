@@ -16,6 +16,15 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- BEGIN calendar functions-->
+    <link href='fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
+    <link href='fullcalendar-3.9.0/scheduler.css' rel='stylesheet' />
+    <script src='fullcalendar-3.9.0/moment.js'></script>
+    <script src='fullcalendar-3.9.0/jquery.js'></script>
+    <script src='fullcalendar-3.9.0/fullcalendar.js'></script>
+    <script src='fullcalendar-3.9.0/scheduler.js'></script>
+    <!-- END calendar functions -->
 </head>
 <body>
 
@@ -70,8 +79,8 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-            <button class="btn btn-success my-2 my-sm-0 mr-2" type="submit">Accedi</button>
-            <button class="btn btn-primary my-2 my-sm-0 mr-2" type="submit">Registrati</button>
+            <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Accedi</button>
+            <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Registrati</button>
         </form>
     </div>
 </nav>

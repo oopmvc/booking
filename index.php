@@ -5,6 +5,46 @@
     session_start();
     require("includes/connection.php");
 
+/*
+    if(isset($_POST['add_to_cart'])) {
+        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+        if(!in_array($_GET["id"], $item_array_id))
+        {
+            $count = count($_SESSION["shopping_cart"]);
+            $item_array = array(
+                'item_id'       => $_GET["id"],
+                'item_name'     => $_POST["hidden_name"],
+                'item_price'    => $_POST["hidden_price"],
+                'item_quantity' => $_POST["quantity"]
+            );
+            $_SESSION["shopping_cart"][$count] = $item_array;
+        }
+        else
+        {
+            echo '<script>alert("Item Already Added")</script>';
+            echo '<script>window.location="cart.php"</script>';
+        }
+    } else {
+        items = array (
+            'item_id'       => $_GET['id_product'],
+            'item_name'     => $_POST['product_name'],
+            'item_price'    => $_POST['product_price'],
+            'item_quantity' => $_POST['product_quantity']
+        );
+    }
+
+    if(isset($_GET["action"])) {
+        if($_GET["action"] == "delete") {
+            foreach($_SESSION["shopping_cart"] as $keys => $values) {
+                if($values["item_id"] == $_GET["id"]) {
+                    unset($_SESSION["shopping_cart"][$keys]);
+                    echo '<script>alert("Item Removed")</script>';
+                    echo '<script>window.location="index.php"</script>';
+                }
+            }
+        }
+    }
+*/
 ?>
 
 <div class="container">
@@ -19,17 +59,18 @@
     <div class="row">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
-            <div>
+            <form action="" class="needs-validation" novalidate>
+
                 <?php
                     // Include config file
                     require_once 'includes/connection.php';
                     // Attempt select query execution
                     $sql = "SELECT * FROM products ORDER BY name";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
+                    if($result = $pdo->query($sql)){
+                        if($result->rowCount() > 0){
                             echo "<table class='table'>";
                                 echo "<tbody>";
-                                while($row = mysqli_fetch_array($result)){
+                                while($row = $result->fetch()) {
                                     echo "<tr>";
                                         echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
                                         echo '<td class="text-right">' . $row['price'] . " € </td>";
@@ -42,18 +83,16 @@
                                 echo "</tbody>";
                             echo "</table>";
                             // Free result set
-                            mysqli_free_result($result);
+                            unset($result);
                         } else {
                             echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
                         }
                     } else {
-                        echo "ERROR: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                        echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
                     }
                     // Close connection
-                    mysqli_close($link);
+                    // mysqli_close($link);
                 ?>
-            </div>
-            <form class="needs-validation" novalidate>
 
                 <!-- STEP 1: scegli servizi
                 <div>
@@ -76,51 +115,6 @@
                         </label>
                     </div>
                     <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-3">
-                        <label class="custom-control-label" for="servizio-3">
-                            <strong>Rasatura barba tradizionale</strong>
-                            <br>
-                            Barba tradizionale oppure rasata con la macchinetta (15 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-4">
-                        <label class="custom-control-label" for="servizio-4">
-                            <strong>Razor fade</strong>
-                            <br>
-                            Rasatura a lametta ai lati e dietro con taglio e shampoo (30 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-5">
-                        <label class="custom-control-label" for="servizio-5">
-                            <strong>Stiratura alla cheratina</strong>
-                            <br>
-                            Stiraggio ondulato/riccio/crespo (30 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-6">
-                        <label class="custom-control-label" for="servizio-6">
-                            <strong>Taglio Donna</strong>
-                            <br>
-                            Taglio Donna corto compreso di acconciatura (30 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-7">
-                        <label class="custom-control-label" for="servizio-7">
-                            <strong>Taglio Uomo</strong>
-                            <br>
-                            Taglio uomo compreso di shampoo e asciugatura naturale (30 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
                 </div>
                 <!-- END STEP 1: scegli servizi -->
 
@@ -129,16 +123,42 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="country">Scegli con chi</label>
-                        <select class="custom-select d-block w-100" id="country" required>
-                            <option value="Chiunque">Chiunque</option>
-                            <option value="Maurizio">Maurizio</option>
-                            <option value="Antonio">Antonio</option>
-                        </select>
+
+                        <?php
+                            // Include config file
+                            //require_once 'includes/connection.php';
+
+                            // Attempt select query execution
+                            $sql_resource = "SELECT * FROM resources";
+
+                            if($result_resource = $pdo->query($sql_resource)) {
+                                if($result_resource->rowCount() > 0){
+                                    echo "<select class='custom-select d-block w-100' id='country' required>";
+                                        while($row_resources = $result_resource->fetch()){
+                                            echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
+                                        }
+                                    echo "</select>";
+
+                                    // Free result set
+                                    unset($row_resource);
+                                } else {
+                                    echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
+                                }
+                            } else {
+                                echo "ERROR: Non posso eseguire la richiesta $sql_resource. " . mysqli_error($link);
+                            }
+
+                            // Close connection
+                            unset($pdo);
+                        ?>
+
                     </div>
                 </div>
                 <!-- END STEP 2: scegli con chi -->
 
-                <!-- BEGIN STEP 2: scegli quando -->
+
+
+                <!-- BEGIN STEP 3: scegli quando -->
                 <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -151,7 +171,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="country">Fascia oraria</label>
-                        <select class="custom-select d-block w-100" id="country" required>
+                        <select class="custom-select d-block w-100" id="slot_time" required>
                             <option value="08.00 - 08.30">08.00 - 08.30</option>
                             <option value="08.30 - 09.00">08.30 - 09.00</option>
                             <option value="09.00 - 09.30">09.00 - 09.30</option>
@@ -180,7 +200,7 @@
                         </select>
                     </div>
                 </div>
-                <!-- END STEP 2: scegli con chi -->
+                <!-- END STEP 3: scegli con chi -->
 
                 <button class="mt-4 mb-5 btn btn-lg btn-block btn-primary" type="submit">Prenota ora</button>
             </form>
@@ -203,7 +223,7 @@
             <hr class="mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">La tua prenotazione</span>
-                <span class="badge badge-secondary badge-pill">3</span>
+                <!--<span class="badge badge-secondary badge-pill">3</span>-->
             </h4>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
