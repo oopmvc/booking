@@ -60,21 +60,26 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Prodotti
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="product-management.php">Gestione Prodotti</a>
+                    <a class="dropdown-item" href="product-create.php">Crea Prodotto</a>
+                    <a class="dropdown-item" href="product-update.php">Modifica Prodotto</a>
+                    <a class="dropdown-item" href="product-delete.php">Elimina Prodotto</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Prenotazioni</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Prenotazioni
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Crea Prenotazione</a>
+                </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

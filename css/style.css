@@ -30,3 +30,7 @@ span.bg-dark {
     border-radius: 10px;
     color: white;
 }
+
+thead {
+    font-weight: bold;
+}

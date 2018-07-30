@@ -45,27 +45,39 @@
 
 ?>
 
-<div class="container">
+<div class="container mt-3 mb-5">
     <div class="row">
-        <div class="col-lg-12">
-            <h1>Crea Servizio</h1>
+        <div class="col-lg-8">
+            <h2 class="pt-3">Aggiungi Prodotto</h2>
+            <hr>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                <label for="name">Nome</label>
-                <input type='text' name='name' class='form-control' />
-
-                <label for="">Descrizione</label>
-                <textarea name='description' class='form-control'></textarea>
-
-                <label for="">Durata</label>
-                <input type='text' name='time' class='form-control' />
-
-                <label for="">Prezzo</label>
-                <input type='text' name='price' class='form-control' />
-
-                <input type='submit' value='Salva' class='btn btn-primary' />
-
-                <a href='index.php' class='btn btn-danger'>Annulla</a>
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="">Descrizione</label>
+                    <textarea name="description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="time">Durata</label>
+                    <input type="text" name="time" class="form-control input-lg" />
+                </div>
+                <div class="form-group">
+                    <label for="price">Prezzo</label>
+                    <input type="text" name="price" class="form-control" />
+                </div>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Salva" class="btn btn-primary" />
+                    <a href="index.php" class="btn btn-danger">Torna alla pagina iniziale</a>
+                </div>
             </form>
+        </div>
+        <div class="col-lg-4">
+            <h2 class="pt-3">Servizi</h2>
+            <hr>
         </div>
     </div>
 </div>
