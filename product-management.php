@@ -83,7 +83,7 @@
                                         echo "<td>" . $row['time']          . "</td>";
                                         echo "<td>" . $row['price']         . "</td>";
                                         echo "<td>
-                                                <!--<a class='btn btn-sm btn-success' href='product-read.php?id="           . $row['id_product'] ."' title='Apri Prodotto'     data-toggle='tooltip'>Apri</a>-->
+                                                <!--<a class='btn btn-sm btn-success' href='product-read.php?id_product="   . $row['id_product'] ."' title='Apri Prodotto'     data-toggle='tooltip'>Apri</a>-->
                                                 <a class='btn btn-sm btn-primary'     href='product-update.php?id_product=" . $row['id_product'] ."' title='Modifica Prodotto' data-toggle='tooltip'>Modifica</a>
                                                 <a class='btn btn-sm btn-danger'      href='product-delete.php?id_product=" . $row['id_product'] ."' title='Elimina Prodotto'  data-toggle='tooltip'>Elimina</a>
                                             </td>";

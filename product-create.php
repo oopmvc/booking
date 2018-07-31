@@ -47,7 +47,7 @@
 
 <div class="container mt-3 mb-5">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <h2 class="pt-3">Aggiungi Prodotto</h2>
             <hr>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
@@ -74,10 +74,6 @@
                     <a href="index.php" class="btn btn-danger">Torna alla pagina iniziale</a>
                 </div>
             </form>
-        </div>
-        <div class="col-lg-4">
-            <h2 class="pt-3">Servizi</h2>
-            <hr>
         </div>
     </div>
 </div>

@@ -5,89 +5,75 @@
     session_start();
     require("includes/connection.php");
 
-    if(isset($_POST["id_product"]) && !empty($_POST["id_product"])) {
+    try {
 
-        try {
+        $id_product = $_GET['id_product'];
+        $query = "SELECT * FROM products WHERE id_product = :id_product";
+        $statement = $pdo->prepare($query);
+        $statement->execute([ ':id_product' => $id_product ]);
 
-            // Get hidden input value
-            $id_product = $_POST["id_product"];
+        // store retrieved row to a variable
+        $row = $statement->fetch(PDO::FETCH_OBJ);
 
-            // insert query
-            $query_update_product = "UPDATE products SET name=:name, description=:description, time=:time, price=:price) WHERE id_product=:id_product";
+        if(isset($_POST['name']) && isset($_POST['description']) && isset($_POST['time']) && isset($_POST['price'])) {
 
-            // prepare query for execution
-            $statement = $pdo->prepare($query_update_product);
+            // values to fill up our form
+            $name           = $_POST['name'];
+            $description    = $_POST['description'];
+            $time           = $_POST['time'];
+            $price          = $_POST['price'];
 
-            // bind the parameters
-            $statement->bindParam(':id_product',    $param_id);
-            $statement->bindParam(':name',          $param_name);
-            $statement->bindParam(':description',   $param_description);
-            $statement->bindParam(':time',          $param_time);
-            $statement->bindParam(':price',         $param_price);
+            $query = "UPDATE products SET name = :name, description = :description, time = :time, price = :price WHERE id_product = :id_product";
+            $statement = $pdo->prepare($query);
 
-            // Set parameters
-            $param_id             = $id_product;
-            $param_name           = $name;
-            $param_description    = $description;
-            $param_time           = $time;
-            $param_price          = $price;
-
-            // Execute the query
-            if($statement->execute()){
+            if($statement->execute([ ':id_product' => $id_product, ':name' => $name, ':description' => $description, ':time' => $time, ':price' => $price ])) {
+                echo "<div class='alert alert-success'>Prodotto modificato correttamente!</div>";
+                //die();
                 header("location: product-management.php");
             } else {
-                echo "<div class='alert alert-danger'>Errore nella modifica del prodotto.</div>";
+                echo "<div class='alert alert-danger'>Errore nel salvataggio del servizio.</div>";
             }
 
-            // Close statement
-
-            unset($statement);
-
         }
 
+    }
 
-        // show error
-        catch(PDOException $exception){
-            die('ERROR: ' . $exception->getMessage());
-        }
-
+    // show error
+    catch(PDOException $exception){
+        die('ERROR: ' . $exception->getMessage());
     }
 
 ?>
 
 <div class="container mt-3 mb-5">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <h2 class="pt-3">Modifica Prodotto</h2>
             <hr>
-            <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id_product={$id_product}");?>" method="post">
                 <div class="form-group">
                     <label for="name">Nome</label>
-                    <input type="text" name="name" class="form-control" value="<?php echo $name; ?>"/>
+                    <input type="text" name="name" class="form-control" value="<?= $row->name; ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="">Descrizione</label>
-                    <textarea name="description" class="form-control"><?php echo $description; ?></textarea>
+                    <label for="description">Descrizione</label>
+                    <textarea name="description" class="form-control"><?= $row->description; ?></textarea>
                 </div>
                 <div class="form-group">
                     <label for="time">Durata</label>
-                    <input type="text" name="time" class="form-control input-lg" value="<?php echo $time; ?>"/>
+                    <input type="text" name="time" class="form-control input-lg" value="<?= $row->time; ?>"/>
                 </div>
                 <div class="form-group">
                     <label for="price">Prezzo</label>
-                    <input type="text" name="price" class="form-control" value="<?php echo $price; ?>"/>
+                    <input type="text" name="price" class="form-control" value="<?= $row->price; ?>"/>
                 </div>
                 <div class="form-group">
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Salva" class="btn btn-primary" />
-                    <a href="product-management.php" class="btn btn-danger">Torna alla pagina iniziale</a>
+                    <a href="product-management.php" class="btn btn-danger">Torna alla Gestione Prodotti</a>
                 </div>
             </form>
-        </div>
-        <div class="col-lg-4">
-            <h2 class="pt-3">Servizi</h2>
-            <hr>
         </div>
     </div>
 </div>

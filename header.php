@@ -62,17 +62,16 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
             <li class="nav-item">
                 <a class="nav-link" href="index.php">Home</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Prodotti
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="product-management.php">Gestione Prodotti</a>
-                    <a class="dropdown-item" href="product-create.php">Crea Prodotto</a>
-                    <a class="dropdown-item" href="product-update.php">Modifica Prodotto</a>
-                    <a class="dropdown-item" href="product-delete.php">Elimina Prodotto</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="product-management.php">Prodotti</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Collaboratori</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Prenotazioni</a>
+            </li>
+            <!--
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Prenotazioni
@@ -81,6 +80,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
                     <a class="dropdown-item" href="#">Crea Prenotazione</a>
                 </div>
             </li>
+            -->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
