@@ -5,46 +5,6 @@
     session_start();
     require("includes/connection.php");
 
-/*
-    if(isset($_POST['add_to_cart'])) {
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        if(!in_array($_GET["id"], $item_array_id))
-        {
-            $count = count($_SESSION["shopping_cart"]);
-            $item_array = array(
-                'item_id'       => $_GET["id"],
-                'item_name'     => $_POST["hidden_name"],
-                'item_price'    => $_POST["hidden_price"],
-                'item_quantity' => $_POST["quantity"]
-            );
-            $_SESSION["shopping_cart"][$count] = $item_array;
-        }
-        else
-        {
-            echo '<script>alert("Item Already Added")</script>';
-            echo '<script>window.location="cart.php"</script>';
-        }
-    } else {
-        items = array (
-            'item_id'       => $_GET['id_product'],
-            'item_name'     => $_POST['product_name'],
-            'item_price'    => $_POST['product_price'],
-            'item_quantity' => $_POST['product_quantity']
-        );
-    }
-
-    if(isset($_GET["action"])) {
-        if($_GET["action"] == "delete") {
-            foreach($_SESSION["shopping_cart"] as $keys => $values) {
-                if($values["item_id"] == $_GET["id"]) {
-                    unset($_SESSION["shopping_cart"][$keys]);
-                    echo '<script>alert("Item Removed")</script>';
-                    echo '<script>window.location="index.php"</script>';
-                }
-            }
-        }
-    }
-*/
 ?>
 
 <div class="container">
@@ -71,19 +31,18 @@
                             echo "<thead>";
                                 echo "<td>Nome</td>";
                                 echo "<td>Descrizione</td>";
-                                echo "<td>Durata</td>";
-                                echo "<td>Prezzo</td>";
-                                echo "<td>Azioni</td>";
+                                echo "<td class='text-right'>Durata</td>";
+                                echo "<td class='text-right'>Prezzo</td>";
+                                echo "<td class='text-center'>Azioni</td>";
                             echo "</thead>";
                             echo "<tbody>";
                                 while($row = $result->fetch()) {
                                     echo "<tr>";
                                         echo "<td>" . $row['name']          . "</td>";
                                         echo "<td>" . $row['description']   . "</td>";
-                                        echo "<td>" . $row['time']          . "</td>";
-                                        echo "<td>" . $row['price']         . "</td>";
-                                        echo "<td>
-                                                <!--<a class='btn btn-sm btn-success' href='product-read.php?id_product="   . $row['id_product'] ."' title='Apri Prodotto'     data-toggle='tooltip'>Apri</a>-->
+                                        echo "<td class='text-right'>" . $row['time']          . "</td>";
+                                        echo "<td class='text-right'>" . $row['price']         . " €</td>";
+                                        echo "<td class='text-center'>
                                                 <a class='btn btn-sm btn-primary'     href='product-update.php?id_product=" . $row['id_product'] ."' title='Modifica Prodotto' data-toggle='tooltip'>Modifica</a>
                                                 <a class='btn btn-sm btn-danger'      href='product-delete.php?id_product=" . $row['id_product'] ."' title='Elimina Prodotto'  data-toggle='tooltip'>Elimina</a>
                                             </td>";
