@@ -1,102 +1,8 @@
-<?php include('header.php'); ?>
-
 <?php
-
-    require("includes/connection.php");
-
-/*
-    if(isset($_POST['add_to_cart'])) {
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        if(!in_array($_GET["id"], $item_array_id))
-        {
-            $count = count($_SESSION["shopping_cart"]);
-            $item_array = array(
-                'item_id'       => $_GET["id"],
-                'item_name'     => $_POST["hidden_name"],
-                'item_price'    => $_POST["hidden_price"],
-                'item_quantity' => $_POST["quantity"]
-            );
-            $_SESSION["shopping_cart"][$count] = $item_array;
-        }
-        else
-        {
-            echo '<script>alert("Item Already Added")</script>';
-            echo '<script>window.location="cart.php"</script>';
-        }
-    } else {
-        items = array (
-            'item_id'       => $_GET['id_product'],
-            'item_name'     => $_POST['product_name'],
-            'item_price'    => $_POST['product_price'],
-            'item_quantity' => $_POST['product_quantity']
-        );
-    }
-
-    if(isset($_GET["action"])) {
-        if($_GET["action"] == "delete") {
-            foreach($_SESSION["shopping_cart"] as $keys => $values) {
-                if($values["item_id"] == $_GET["id"]) {
-                    unset($_SESSION["shopping_cart"][$keys]);
-                    echo '<script>alert("Item Removed")</script>';
-                    echo '<script>window.location="index.php"</script>';
-                }
-            }
-        }
-    }
-*/
+session_start();
+include('header.php');
+require("includes/connection.php");
 ?>
-
-
-
-<script>
-$(document).ready(function(){
-    $(".form-item").submit(function(e){
-        var form_data = $(this).serialize();
-        var button_content = $(this).find('button[type=submit]');
-        button_content.html('Adding...'); //Loading button text
-        $.ajax({ //make ajax request to cart_process.php
-            url: "cart-process.php",
-            type: "POST",
-            dataType:"json", //expect json value from server
-            data: form_data
-        }).done(function(data){ //on Ajax success
-            $("#cart-info").html(data.items); //total items in cart-info element
-            button_content.html('Add to Cart'); //reset button text to original text
-            alert("Item added to Cart!"); //alert user
-            if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
-                $(".cart-box").trigger( "click" ); //trigger click to update the cart box.
-            }
-        })
-        e.preventDefault();
-    });
-    //Show Items in Cart
-    $( ".cart-box").click(function(e) { //when user clicks on cart box
-        e.preventDefault();
-        $(".shopping-cart-box").fadeIn(); //display cart box
-        $("#shopping-cart-results").html('<img src="images/ajax-loader.gif">'); //show loading image
-        $("#shopping-cart-results" ).load( "cart-process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
-    });
-
-    //Close Cart
-    $( ".close-shopping-cart-box").click(function(e) { //user click on cart box close link
-        e.preventDefault();
-        $(".shopping-cart-box").fadeOut(); //close cart-box
-    });
-
-    //Remove items from cart
-    $("#shopping-cart-results").on('click', 'a.remove-item', function(e) {
-        e.preventDefault();
-        var pcode = $(this).attr("data-code"); //get product code
-        $(this).parent().fadeOut(); //remove item element from box
-        $.getJSON( "cart-process.php", {"remove_code":pcode} , function(data){ //get Item count from Server
-            $("#cart-info").html(data.items); //update Item count in cart-info
-            $(".cart-box").trigger( "click" ); //trigger click on cart-box to update the items list
-        });
-    });
-});
-</script>
-
-
 
 <div class="container">
     <div class="row">
@@ -106,68 +12,48 @@ $(document).ready(function(){
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
-            <form action="" class="needs-validation" novalidate>
+            <form action="" class="form-item needs-validation" novalidate>
 
+                <!-- STEP 1: scegli servizi -->
                 <?php
-                    // Include config file
-                    require_once 'includes/connection.php';
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM products ORDER BY name";
-                    if($result = $pdo->query($sql)){
-                        if($result->rowCount() > 0){
-                            echo "<table class='table'>";
-                                echo "<tbody>";
-                                while($row = $result->fetch()) {
-                                    echo "<tr>";
-                                        echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
-                                        echo '<td class="text-right">' . $row['price'] . " € </td>";
-                                        echo "<td>
-                                                <a class='btn btn-sm btn-dark' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'><strong>+</strong></a>
-                                                <a class='btn btn-sm btn-dark' href='read.php?id="  . $row['id_product'] ."' title='View Record' data-toggle='tooltip'><strong>-</strong></a>
-                                            </td>";
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";
-                            echo "</table>";
-                            // Free result set
-                            unset($result);
-                        } else {
-                            echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
+                // Include config file
+                require_once 'includes/connection.php';
+                // Attempt select query execution
+                $sql = "SELECT * FROM products ORDER BY name";
+                if($result = $pdo->query($sql)) {
+                    if($result->rowCount() > 0) {
+                        echo "<table class='table'>";
+                        echo "<tbody>";
+                        while($row = $result->fetch()) {
+                            echo "<tr>";
+                            echo "<td class='d-none'>" . $row['id_product'] . "</td>";
+                            echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
+                            echo '<td class="text-right">' . $row['price'] . " € </td>";
+                            echo "<td>
+                                <button class='btn btn-sm btn-dark add'    type='submit'><strong>+</strong></button>
+                                <button class='btn btn-sm btn-dark remove' type='submit'><strong>-</strong></button>
+                            </td>";
+                            echo "</tr>";
                         }
+                        echo "</tbody>";
+                        echo "</table>";
+                        // Free result set
+                        unset($result);
                     } else {
-                        echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                        echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
                     }
-                    // Close connection
-                    // mysqli_close($link);
+                } else {
+                    echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                }
+                // Close connection
+                // mysqli_close($link);
                 ?>
-
-                <!-- STEP 1: scegli servizi
-                <div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-1">
-                        <label class="custom-control-label" for="servizio-1">
-                            <strong>Acconciatura</strong>
-                            <br>
-                            <small>Acconciatura compresa di taglio e shampoo (30 minuti)</small>
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="servizio-2">
-                        <label class="custom-control-label" for="servizio-2">
-                            <strong>Acconciatura + Shampoo</strong>
-                            <br>
-                            Shampoo e acconciatura, piastrata e lavorata con spazzola e phon (30 minuti)
-                        </label>
-                    </div>
-                    <hr class="mb-4">
-                </div>
                 <!-- END STEP 1: scegli servizi -->
+
+
 
                 <!-- BEGIN STEP 2: scegli con chi -->
                 <h4 class="pt-4 mb-4"><span class="bg-dark">2</span> Scegli con chi</h4>
@@ -176,31 +62,31 @@ $(document).ready(function(){
                         <label for="country">Scegli con chi</label>
 
                         <?php
-                            // Include config file
-                            //require_once 'includes/connection.php';
+                        // Include config file
+                        //require_once 'includes/connection.php';
 
-                            // Attempt select query execution
-                            $sql_resource = "SELECT * FROM resources";
+                        // Attempt select query execution
+                        $sql_resource = "SELECT * FROM resources";
 
-                            if($result_resource = $pdo->query($sql_resource)) {
-                                if($result_resource->rowCount() > 0){
-                                    echo "<select class='custom-select d-block w-100' id='country' required>";
-                                        while($row_resources = $result_resource->fetch()){
-                                            echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
-                                        }
-                                    echo "</select>";
-
-                                    // Free result set
-                                    unset($row_resource);
-                                } else {
-                                    echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
+                        if($result_resource = $pdo->query($sql_resource)) {
+                            if($result_resource->rowCount() > 0) {
+                                echo "<select class='custom-select d-block w-100' id='resource' required>";
+                                while($row_resources = $result_resource->fetch()){
+                                    echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                                 }
-                            } else {
-                                echo "ERROR: Non posso eseguire la richiesta $sql_resource. " . mysqli_error($link);
-                            }
+                                echo "</select>";
 
-                            // Close connection
-                            unset($pdo);
+                                // Free result set
+                                unset($row_resource);
+                            } else {
+                                echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
+                            }
+                        } else {
+                            echo "ERROR: Non posso eseguire la richiesta $sql_resource. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        unset($pdo);
                         ?>
 
                     </div>
@@ -213,15 +99,15 @@ $(document).ready(function(){
                 <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="country">Giorno</label>
-                        <select class="custom-select d-block w-100" id="country" required>
+                        <label for="date">Giorno</label>
+                        <select class="custom-select d-block w-100" id="date" required>
                             <option value="Chiunque">Oggi</option>
                             <option value="Maurizio">Domani</option>
                             <option value="Antonio">Poidomani</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="country">Fascia oraria</label>
+                        <label for="slot_time">Fascia oraria</label>
                         <select class="custom-select d-block w-100" id="slot_time" required>
                             <option value="08.00 - 08.30">08.00 - 08.30</option>
                             <option value="08.30 - 09.00">08.30 - 09.00</option>
@@ -257,6 +143,8 @@ $(document).ready(function(){
             </form>
         </div>
 
+
+
         <!-- BEGIN carrello -->
 
         <div class="col-md-4 order-md-2 mb-4">
@@ -274,39 +162,47 @@ $(document).ready(function(){
             <hr class="mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">La tua prenotazione</span>
-                <!--<span class="badge badge-secondary badge-pill">3</span>-->
+                <span class="badge badge-secondary badge-pill">3</span>
             </h4>
             <ul class="list-group mb-3">
+                <div id="cart-container">
+                    <div id="cart">
+                        <i class="fa fa-shopping-cart fa-2x openCloseCart" aria-hidden="true"></i>
+                    </div>
+                    <span id="itemCount"></span>
+                </div>
+
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
+                    <strong>COSA</strong>
+                    <div id="cartItems">
+                        <!--
                         <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <small class="text-muted">Product description</small>
+                        -->
                     </div>
-                    <span class="text-muted">12 &euro;</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">8 &euro;</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">5 &euro;</span>
+                    <span class="text-muted"></span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Totale</span>
-                    <strong>20 &euro;</strong>
+                    <strong>CON CHI</strong>
+                    <span id="who"></span>
                 </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>QUANDO</strong>
+                    <span id="when"></span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Totale</strong></span>
+                    <span id="cartTotal"></span>
+                </li>
+
             </ul>
             <button type="submit" class="btn btn-lg btn-block btn-primary">Prenota ora</button>
         </div>
         <!-- END carrello -->
+
     </div>
 </div>
 
