@@ -13,10 +13,6 @@ require("includes/connection.php");
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Pannello di Controllo</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Condividi</button>
-                        <button class="btn btn-sm btn-outline-secondary">Esporta</button>
-                    </div>
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
                         <span data-feather="calendar"></span>
                         Questa settimana
@@ -24,7 +20,7 @@ require("includes/connection.php");
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="card text-white bg-dark mb-3">
                         <div class="card-header"><i class="fas fa-calendar-alt fa-2x"></i></div>
                         <div class="card-body">
@@ -35,7 +31,7 @@ require("includes/connection.php");
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="card text-white bg-info mb-3">
                         <div class="card-header"><i class="fas fa-user fa-2x"></i></div>
                         <div class="card-body">
@@ -46,7 +42,7 @@ require("includes/connection.php");
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="card text-white bg-success mb-3">
                         <div class="card-header"><i class="fas fa-sitemap fa-2x"></i></div>
                         <div class="card-body">
@@ -57,7 +53,7 @@ require("includes/connection.php");
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="card text-white bg-warning mb-3">
                         <div class="card-header"><i class="fas fa-cut fa-2x"></i></div>
                         <div class="card-body">
@@ -68,9 +64,41 @@ require("includes/connection.php");
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-2">
+                    <div class="card text-white bg-danger mb-3">
+                        <div class="card-header"><i class="fas fa-euro-sign fa-2x"></i></div>
+                        <div class="card-body">
+                            <a class="text-white" href="#">
+                                <h1 class="card-title">7.000 €</h1>
+                                Incasso Totale
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card text-white bg-secondary mb-3">
+                        <div class="card-header"><i class="fas fa-clock fa-2x"></i></div>
+                        <div class="card-body">
+                            <a class="text-white" href="#">
+                                <h1 class="card-title">1 anno</h1>
+                                Tempo Lavorato
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6 bg-light report">
+                    <h2 class="mt-3">Prenotazioni Settimanali</h2>
+                    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                </div>
+                <div class="col-lg-6 bg-light">
+                    <h2 class="mt-3">Guadagno Settimanale</h2>
+                    <canvas class="my-4 w-100" id="myChart2" width="900" height="380"></canvas>
+                </div>
+            </div>
 
             <h2>Prenotazioni</h2>
             <div class="table-responsive">

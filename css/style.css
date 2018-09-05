@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Bree+Serif');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 body {
-    background: #f6f8f8;
+    /* background: #f6f8f8; */
+    background: #efefef;
     font-family: Arial, Verdana, Times;
     font-size:14px;
     /*
@@ -12,13 +14,19 @@ body {
     */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bree Serif', serif;
+h1, h2, h3, h4, h5, h6, .sidebar {
+    font-family: 'Montserrat','Bree Serif', serif !important;
+}
+
+.report {
+    margin: 0px !important;
+    border-radius:100px solid lightgray;
 }
 
 label {
     font-weight: bold;
 }
+
 footer {
     padding:20px;
     background: #40454c;
@@ -35,4 +43,17 @@ span.bg-dark {
 
 thead {
     font-weight: bold;
+}
+
+.nav-item {
+    border-bottom: 1px dotted gray;
+}
+
+.nav-item a {
+    color: white !important;
+}
+
+h6.sidebar-heading {
+    text-transform: uppercase;
+    font-size: 18px;
 }
