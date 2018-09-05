@@ -56,7 +56,7 @@ setlocale(LC_MONETARY,"it_IT"); // IT national format (see : http://php.net/mone
             $cart_box .= '<div class="cart-products-total">Total : '.$currency.sprintf("%01.2f",$total).' <u><a href="view_cart.php" title="Review Cart and Check-Out">Check-out</a></u></div>';
             die($cart_box); //exit and output content
         } else {
-            die("Your Cart is empty"); //we have empty cart
+            die("Il tuo carrello è vuoto"); //we have empty cart
         }
     }
 

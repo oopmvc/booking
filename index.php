@@ -174,6 +174,22 @@ require("includes/connection.php");
 
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <strong>COSA</strong>
+                    <a href="#" class="cart-box" id="cart-info" title="Vedi Carrello">
+                        <?php
+                        if(isset($_SESSION["products"])){
+                            echo count($_SESSION["products"]);
+                        }else{
+                            echo 0;
+                        }
+                        ?>
+                    </a>
+
+                    <div class="shopping-cart-box">
+                        <a href="#" class="close-shopping-cart-box" >Chiudi</a>
+                        <h3>Carrello</h3>
+                        <div id="shopping-cart-results">
+                        </div>
+                    </div>
                     <div id="cartItems">
                         <!--
                         <h6 class="my-0">Product name</h6>
