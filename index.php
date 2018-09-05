@@ -4,7 +4,7 @@ include('header.php');
 require("includes/connection.php");
 ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="pt-4">Sistema di prenotazione</h1>
@@ -30,7 +30,7 @@ require("includes/connection.php");
                         while($row = $result->fetch()) {
                             echo "<tr>";
                             echo "<td class='d-none'>" . $row['id_product'] . "</td>";
-                            echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . ")</td>";
+                            echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . " minuti)</td>";
                             echo '<td class="text-right">' . $row['price'] . " € </td>";
                             echo "<td>
                                 <button class='btn btn-sm btn-dark add'    type='submit'><strong>+</strong></button>

@@ -1,8 +1,13 @@
         <footer>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
-                        Maurizio Parrucchieri Group srls - Maurizio Barber Shop - P.IVA XXXXXXXXXX
+                    <div class="col-lg-10">
+                        Maurizio Parrucchieri Group srls - Maurizio Barber Shop - P.IVA 03996650713
+
+                    </div>
+                    <div class="col-lg-2 text-right ">
+                        <a class="text-white pr-3" target="_blank" href="https://www.facebook.com/MaurizioBarberShop/"><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-white pr-0" target="_blank" href="https://www.instagram.com/barbershop_maurizio/"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

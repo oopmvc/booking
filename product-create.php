@@ -1,55 +1,62 @@
-<?php require('header.php'); ?>
-
 <?php
 
-    session_start();
-    require("includes/connection.php");
+session_start();
+include('header.php');
+require("includes/connection.php");
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        try {
+    try {
 
-            // insert query
-            $query_create_product = "INSERT INTO products (name, description, time, price) VALUES (:name, :description, :time, :price)";
+        // insert query
+        $query_create_product = "INSERT INTO products (name, description, time, price) VALUES (:name, :description, :time, :price)";
 
-            // prepare query for execution
-            $statement = $pdo->prepare($query_create_product);
+        // prepare query for execution
+        $statement = $pdo->prepare($query_create_product);
 
-            // posted values
-            $name           = $_POST['name'];
-            $description    = $_POST['description'];
-            $time           = $_POST['time'];
-            $price          = $_POST['price'];
+        // posted values
+        $name           = $_POST['name'];
+        $description    = $_POST['description'];
+        $time           = $_POST['time'];
+        $price          = $_POST['price'];
 
-            // bind the parameters
-            $statement->bindParam(':name', $name);
-            $statement->bindParam(':description', $description);
-            $statement->bindParam(':time', $time);
-            $statement->bindParam(':price', $price);
+        // bind the parameters
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':description', $description);
+        $statement->bindParam(':time', $time);
+        $statement->bindParam(':price', $price);
 
-            // Execute the query
-            if($statement->execute()){
-                echo "<div class='alert alert-success'>Servizio salvato correttamente!</div>";
-            } else {
-                echo "<div class='alert alert-danger'>Errore nel salvataggio del servizio.</div>";
-            }
-
-        }
-
-        // show error
-        catch(PDOException $exception){
-            die('ERROR: ' . $exception->getMessage());
+        // Execute the query
+        if($statement->execute()){
+            echo "<div class='alert alert-success'>Servizio salvato correttamente!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Errore nel salvataggio del servizio.</div>";
         }
 
     }
 
+    // show error
+    catch(PDOException $exception){
+        die('ERROR: ' . $exception->getMessage());
+    }
+
+}
+
 ?>
 
-<div class="container mt-3 mb-5">
+
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="pt-3">Aggiungi Prodotto</h2>
-            <hr>
+
+        <?php include('dashboard-sidebar.php'); ?>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Aggiungi Prodotto</h1>
+            </div>
+
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <div class="form-group">
                     <label for="name">Nome</label>
@@ -71,11 +78,13 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Salva" class="btn btn-primary" />
-                    <a href="index.php" class="btn btn-danger">Torna alla pagina iniziale</a>
+                    <a href="product-management.php" class="btn btn-danger">Torna alla pagina iniziale</a>
                 </div>
             </form>
-        </div>
+        </main>
     </div>
 </div>
 
-<?php require('footer.php'); ?>
+
+
+<?php include('footer.php'); ?>

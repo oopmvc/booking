@@ -1,24 +1,22 @@
-<?php require('header.php'); ?>
-
 <?php
 
-    session_start();
-    require("includes/connection.php");
+session_start();
+require("includes/connection.php");
 
-    try {
+try {
 
-        $id_product = $_GET['id_product'];
-        $query = "DELETE FROM products WHERE id_product = :id_product";
-        $statement = $pdo->prepare($query);
-        $statement->execute([ ':id_product' => $id_product ]);
+    $id_product = $_GET['id_product'];
+    $query = "DELETE FROM products WHERE id_product = :id_product";
+    $statement = $pdo->prepare($query);
+    $statement->execute([ ':id_product' => $id_product ]);
 
-        header("location: product-management.php");
+    header("location: product-management.php");
 
-    }
+}
 
-    // show error
-    catch(PDOException $exception){
-        die('ERROR: ' . $exception->getMessage());
-    }
+// show error
+catch(PDOException $exception){
+    die('ERROR: ' . $exception->getMessage());
+}
 
 ?>

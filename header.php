@@ -3,6 +3,7 @@
 require_once "config.php";
 
 $redirectURL = "http://localhost/maurizio-barber-shop/Facebook/fb-callback.php";
+
 $permissions = ['email'];
 $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
@@ -119,6 +120,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <!--
             <li class="nav-item">
                 <a class="nav-link" href="index.php">Home</a>
             </li>
@@ -126,15 +128,15 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
                 <a class="nav-link" href="product-management.php">Prodotti</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Collaboratori</a>
+                <a class="nav-link" href="resource-management.php">Staff</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Prenotazioni</a>
+                <a class="nav-link" href="reservation-management.php">Prenotazioni</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php">Dashboard</a>
             </li>
-            <!--
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Prenotazioni
@@ -150,5 +152,6 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
             <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Accedi</button>
             <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Registrati</button>
         </form>
+        <a class="btn btn-sm btn-info" href="/maurizio-barber-shop">Torna al sito</a>
     </div>
 </nav>
