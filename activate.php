@@ -1,5 +1,5 @@
 <?php
-require('includes/config.php');
+require('includes/connection.php');
 
 //collect values from the url
 $memberID = trim($_GET['x']);
@@ -9,7 +9,7 @@ $active = trim($_GET['y']);
 if(is_numeric($memberID) && !empty($active)){
 
 	//update users record set the active column to Yes where the memberID and active value match the ones provided in the array
-	$stmt = $db->prepare("UPDATE members SET active = 'Yes' WHERE memberID = :memberID AND active = :active");
+	$stmt = $pdo->prepare("UPDATE members SET active = 'Yes' WHERE memberID = :memberID AND active = :active");
 	$stmt->execute(array(
 		':memberID' => $memberID,
 		':active' => $active
@@ -23,8 +23,8 @@ if(is_numeric($memberID) && !empty($active)){
 		exit;
 
 	} else {
-		echo "Your account could not be activated."; 
+		echo "Il tuo account non può essere attivato.";
 	}
-	
+
 }
 ?>

@@ -3,7 +3,6 @@
                 <div class="row">
                     <div class="col-lg-10">
                         Maurizio Parrucchieri Group srls - Maurizio Barber Shop - P.IVA 03996650713
-
                     </div>
                     <div class="col-lg-2 text-right ">
                         <a class="text-white pr-3" target="_blank" href="https://www.facebook.com/MaurizioBarberShop/"><i class="fab fa-facebook-f"></i></a>
@@ -32,14 +31,15 @@
 
             <!-- Graphs -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
             <script>
             var ctx = document.getElementById("myChart");
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    labels: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdi", "Sabato", "Domenica"],
                     datasets: [{
-                        data: [1339, 21345, 1883, 24003, 23489, 24092, 12034],
+                        data: [0, 80, 130, 150, 120, 200, 0],
                         lineTension: 0,
                         backgroundColor: 'transparent',
                         borderColor: '#007bff',
@@ -64,9 +64,9 @@
             var myChart2 = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    labels: ["Servizio 1", "Servizio 2", "Servizio 3", "Servizio 4", "Servizio 5", "Taglio Donna", "Taglio Uomo"],
                     datasets: [{
-                        data: [1339, 21345, 1883, 24003, 23489, 24092, 12034],
+                        data: [13, 12, 4, 8, 20, 5, 100],
                         lineTension: 0,
                         backgroundColor: 'transparent',
                         borderColor: '#007bff',

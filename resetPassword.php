@@ -1,7 +1,7 @@
-<?php require('includes/config.php'); 
+<?php require('includes/connection.php');
 
 //if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); exit(); }
+if( $user->is_logged_in() ){ header('Location: index.php'); exit(); }
 
 $resetToken = hash('SHA256', ($_GET['key']));
 
@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
 
 	//basic validation
 	if(strlen($_POST['password']) < 3){
-		$error[] = 'Password is too short.';
+		$error[] = 'La Password è troppo corta.';
 	}
 
 	if(strlen($_POST['passwordConfirm']) < 3){
@@ -66,7 +66,7 @@ if(isset($_POST['submit'])){
 $title = 'Reset Account';
 
 //include header template
-require('layout/header.php'); 
+require('layout/header.php');
 ?>
 
 <div class="container">
@@ -117,7 +117,7 @@ require('layout/header.php');
 							</div>
 						</div>
 					</div>
-					
+
 					<hr>
 					<div class="row">
 						<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Change Password" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
@@ -131,7 +131,7 @@ require('layout/header.php');
 
 </div>
 
-<?php 
+<?php
 //include header template
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>

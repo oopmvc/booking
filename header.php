@@ -149,9 +149,12 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-            <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Accedi</button>
-            <button class="btn btn-sm btn-info my-2 my-sm-0 mr-2" type="submit">Registrati</button>
+            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
         </form>
-        <a class="btn btn-sm btn-info" href="/maurizio-barber-shop">Torna al sito</a>
+        <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
+        <p class="text-white">
+             <!-- <php echo("Ciao " . $_SESSION['username']); ?> -->
+        </p>
     </div>
 </nav>

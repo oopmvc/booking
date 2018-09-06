@@ -25,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $statement->bindParam(':description', $description);
 
         // Execute the query
-        if($statement->execute()){
+        if($statement->execute()) {
             echo "<div class='alert alert-success'>Collaboratore aggiunto correttamente!</div>";
         } else {
             echo "<div class='alert alert-danger'>Errore nel salvataggio del Collaboratore.</div>";
@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // show error
-    catch(PDOException $exception){
+    catch(PDOException $exception) {
         die('ERROR: ' . $exception->getMessage());
     }
 
