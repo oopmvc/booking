@@ -1,79 +1,89 @@
 <?php
-//include config
+
+// Facebook Login
+require_once('config.php');
+$redirectURL = "http://localhost/mauriziobarbershop/fb-callback.php";
+$permissions = ['email'];
+$loginURL = $helper->getLoginUrl($redirectURL, $permissions);
+echo $loginURL;
+
+// Database Connection
 require_once('includes/connection.php');
 
 //check if already logged in move to home page
-if( $user->is_logged_in() ){ header('Location: login.php'); exit(); }
+if($user->is_logged_in()) {
+	header('Location: login.php');
+	exit();
+}
 
 //process login form if submitted
-if(isset($_POST['submit'])){
+if(isset($_POST['submit'])) {
 
 	if (!isset($_POST['username'])) $error[] = "Compila tutti i campi";
 	if (!isset($_POST['password'])) $error[] = "Compila tutti i campi";
 
 	$username = $_POST['username'];
-	if ( $user->isValidUsername($username)){
-		if (!isset($_POST['password'])){
+
+	if ( $user->isValidUsername($username)) {
+		if (!isset($_POST['password'])) {
 			$error[] = 'E\' necessario inserire una password';
 		}
+
 		$password = $_POST['password'];
 
-		if($user->login($username,$password)){
+		if($user->login($username, $password)) {
 			$_SESSION['username'] = $username;
-			header('Location: memberpage.php');
+			header('Location: dashboard.php');
 			exit;
-
 		} else {
-			$error[] = 'Nome utente o password sono errati oppure il tuo account non è stato attivato.';
+			$error[] = 'Nome utente o password sono errati oppure il tuo account non è stato attivato (per attivarlo controlla la posta elettronica).';
 		}
-	}else{
+	} else {
 		$error[] = 'Il nome utente deve essere alfanumerico e deve avere una lunghezza da 3 a 16 caratteri';
 	}
 
-
-
-}//end if submit
+} //end if submit
 
 //define page title
 $title = 'Login';
 
 //include header template
 require('header.php');
+
 ?>
 
 
 <div class="container-fluid">
-
 	<div class="row">
-
 	    <div class="col-lg-4 col-sm-8 col-md-6 offset-lg-4 offset-sm-2 offset-md-3 mt-3">
 			<form role="form" method="post" action="" autocomplete="off">
 				<h2>Accedi</h2>
-                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-                <hr>
+				<input type="button" name="submit" value="Accedi con Facebook" class="btn btn-primary btn-block btn-lg mb-5" tabindex="6" onclick="window.location = '<?php echo $loginURL; ?>';">
+
+				<hr>
 				<p><a href='./'>Torna alla Home</a></p>
 				<hr>
 
 				<?php
 				//check for any errors
-				if(isset($error)){
-					foreach($error as $error){
-						echo '<p class="bg-danger">'.$error.'</p>';
+				if(isset($error)) {
+					foreach($error as $error) {
+						echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
 					}
 				}
 
-				if(isset($_GET['action'])){
+				if(isset($_GET['action'])) {
 
 					//check the action
-					switch ($_GET['action']) {
+					switch($_GET['action']) {
 						case 'active':
-							echo "<h2 class='bg-success'>Your account is now active you may now log in.</h2>";
+							echo "<h2 class='bg-success'>Il tuo account è ora attivo e ora puoi effettuare il login.</h2>";
 							break;
 						case 'reset':
-							echo "<h2 class='bg-success'>Please check your inbox for a reset link.</h2>";
+							echo "<h2 class='bg-success'>Controlla la tua casella di posta per il ripristino.</h2>";
 							break;
 						case 'resetAccount':
-							echo "<h2 class='bg-success'>Password changed, you may now login.</h2>";
+							echo "<h2 class='bg-success'>Password cambiata, ora puoi effettuare il login.</h2>";
 							break;
 					}
 
@@ -100,7 +110,7 @@ require('header.php');
 				<div class="row">
 					<div class="col-lg-12 col-xs-12 col-md-12">
                         <input type="submit" name="submit" value="Accedi" class="btn btn-primary btn-block btn-lg mb-5" tabindex="5">
-                    </div>
+					</div>
 				</div>
 
 			</form>

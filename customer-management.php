@@ -15,7 +15,6 @@ require("includes/connection.php");
                 <h1 class="h2">Clienti</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Condividi</button>
                         <button class="btn btn-sm btn-outline-secondary">Esporta</button>
                     </div>
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
@@ -25,70 +24,60 @@ require("includes/connection.php");
                 </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>N.</th>
-                            <th>Cliente</th>
-                            <th>Servizi</th>
-                            <th>Collaboratore</th>
-                            <th>Persone</th>
-                            <th>Data/ora</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <?php
+                // Include config file
+                require_once 'includes/connection.php';
+                // Attempt select query execution
+                $sql = "SELECT * FROM members ORDER BY email";
+                if($result = $pdo->query($sql)){
+                    if($result->rowCount() > 0){
+                        echo
+                            "<div class='table-responsive'>
+                                <table class='table table-striped table-sm'>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome utente</th>
+                                            <th>Nome</th>
+                                            <th>Cognome</th>
+                                            <th>E-mail</th>
+                                            <th>Cellulare</th>
+                                            <th>Attivo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            ";
+
+                        while($row = $result->fetch()) {
+                            echo "<tr>";
+                            echo "<td>" . $row['memberID']   . "</td>";
+                            echo "<td>" . $row['username']   . "</td>";
+                            echo "<td>" . $row['first_name'] . "</td>";
+                            echo "<td>" . $row['last_name']  . "</td>";
+                            echo "<td>" . $row['email']      . "</td>";
+                            echo "<td>" . $row['phone']      . "</td>";
+                            if($row['active'] != null) {
+                                echo "<td>Si</td>";
+                            } else {
+                                echo "<td>No</td>";
+                            }
+                            echo "</tr>";
+                        }
+                        echo "
+                            </tbody>
+                        </table>";
+                        // Free result set
+                        unset($result);
+                    } else {
+                        echo "<p class='lead'><em>Nessun cliente trovato.</em></p>";
+                    }
+                } else {
+                    echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                }
+                // Close connection
+                // mysqli_close($link);
+            ?>
+
         </main>
     </div>
 </div>

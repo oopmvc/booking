@@ -35,8 +35,10 @@ require("includes/connection.php");
                     <div class="card text-white bg-secondary mb-3">
                         <div class="card-header"><i class="fas fa-user fa-2x"></i></div>
                         <div class="card-body">
-                            <a class="text-white" href="resource-management.php">
-                                <h1 class="card-title">0</h1>
+                            <a class="text-white" href="customer-management.php">
+                                <h1 class="card-title">
+                                    <?php echo($product_qty = $pdo->query("SELECT count(*) FROM members")->fetchColumn()); ?>
+                                </h1>
                                 Clienti
                             </a>
                         </div>

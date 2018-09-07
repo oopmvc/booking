@@ -2,7 +2,7 @@
 
 require_once "config.php";
 
-$redirectURL = "http://localhost/maurizio-barber-shop/Facebook/fb-callback.php";
+$redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
 
 $permissions = ['email'];
 $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
@@ -76,7 +76,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     </script>
     <!-- END shopping cart -->
 
-    <!-- BEGIN calendar functions
+    <!-- BEGIN calendar functions -->
     <link href='fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar-3.9.0/scheduler.css' rel='stylesheet' />
     <script src='fullcalendar-3.9.0/moment.js'></script>
@@ -89,18 +89,14 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 </head>
 <body>
 
-
-    <script>
+<script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '373162053089946',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v3.0'
+            appId            : '373162053089946',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v3.1'
         });
-
-        FB.AppEvents.logPageView();
-
     };
 
     (function(d, s, id){
@@ -120,41 +116,18 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="product-management.php">Prodotti</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="resource-management.php">Staff</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reservation-management.php">Prenotazioni</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">Dashboard</a>
-            </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Prenotazioni
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Crea Prenotazione</a>
-                </div>
-            </li>
-            -->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
             <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
             <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
         </form>
         <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
         <p class="text-white">
-             <!-- <php echo("Ciao " . $_SESSION['username']); ?> -->
+            <?php echo "Ciao " . $_SESSION['username']; ?>
+            <?php echo "Ciao " . $_SESSION['userData']['first_name']; ?>
         </p>
     </div>
 </nav>

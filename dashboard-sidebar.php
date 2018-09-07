@@ -1,7 +1,7 @@
 <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
     <div class="sidebar-sticky">
 
-        <img src="img/logo-maurizio-02.png" alt="logo maurizio barber shop foggia" class="img-fluid">
+        <a href="dashboard.php"><img src="img/logo-maurizio-02.png" alt="logo maurizio barber shop foggia" class="img-fluid"></a>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted ">
             <span class="text-white">Menu</span>
         </h6>
@@ -47,16 +47,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-file-alt"></i> Oggi
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-file-alt"></i> Settimana Corrente
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-file-alt"></i> Settimana Prossima
                 </a>
             </li>
             <li class="nav-item">

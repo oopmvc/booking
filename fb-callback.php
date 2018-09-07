@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: giuseppe
- * Date: 11/07/18
- * Time: 14.12
- */
 
     require_once 'config.php';
 
