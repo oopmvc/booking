@@ -1,6 +1,6 @@
 <?php
     // maybe its called from other entry point (check this)
-    session_start();
+    //session_start();
 
     require_once "Facebook/autoload.php";
 
@@ -11,5 +11,10 @@
     ]);
 
     $helper = $FB->getRedirectLoginHelper();
+
+    // Added for bypass this: "SDK Exception: Cross-site request forgery validation failed. Required param "state" missing from persistent data."
+    if (isset($_GET['state'])) {
+    $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+}
 
 ?>

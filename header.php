@@ -28,7 +28,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         $(".form-item").submit(function(e) {
             var form_data = $(this).serialize();
             var button_content = $(this).find('button[type=submit]');
-            button_content.html('Aggiungendo...'); //Loading button text
+            //button_content.html('Aggiungendo...'); //Loading button text
             $.ajax({ //make ajax request to cart_process.php
                 url: "cart_process.php",
                 type: "POST",
@@ -42,8 +42,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
                     $(".cart-box").trigger( "click" ); //trigger click to update the cart box.
                 }
             })
-            console.log('Debug on .form-item');
-            alert('ciao');
+            console.log('Hai premuto il tasto + o -');
             e.preventDefault();
         });
 
@@ -89,6 +88,9 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 </head>
 <body>
 
+
+
+<!-- Facebook Login BEGIN -->
 <script>
     window.fbAsyncInit = function() {
         FB.init({
@@ -102,11 +104,14 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s); js.3id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<!-- Facebook Login END -->
+
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/"><img src="img/logo-maurizio-02.png" alt="logo maurizio barber shop foggia" class="img-fluid" style="max-width:70px;"></a>
@@ -126,8 +131,16 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         </form>
         <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
         <p class="text-white">
-            <?php echo "Ciao " . $_SESSION['username']; ?>
-            <?php echo "Ciao " . $_SESSION['userData']['first_name']; ?>
+            <?php
+                echo "<a class='pl-2 pt-5 text-white' href='#'>Ciao ";
+                if(isset($_SESSION['username'])) {
+                    echo $_SESSION['username'];
+                }
+                if(isset( $_SESSION['userData']['first_name'])) {
+                    echo $_SESSION['userData']['first_name'];
+                }
+                echo "</a>";
+            ?>
         </p>
     </div>
 </nav>
