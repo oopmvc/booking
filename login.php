@@ -76,14 +76,17 @@ require('header.php');
 
 					//check the action
 					switch($_GET['action']) {
+						case 'joined':
+							echo "<div class='alert alert-danger'><strong>Ti abbiamo inviato una email. Accedi alla tua casella di posta elettronica per attivare il tuo account.</strong></div>";
+							break;
 						case 'active':
-							echo "<h2 class='bg-success'>Il tuo account è ora attivo e ora puoi effettuare il login.</h2>";
+							echo "<div class='alert alert-success'>Il tuo account è ora attivo e ora puoi effettuare il login.</div>";
 							break;
 						case 'reset':
-							echo "<h2 class='bg-success'>Controlla la tua casella di posta per il ripristino.</h2>";
+							echo "<div class='alert alert-success'>Controlla la tua casella di posta per il ripristino.</div>";
 							break;
 						case 'resetAccount':
-							echo "<h2 class='bg-success'>Password cambiata, ora puoi effettuare il login.</h2>";
+							echo "<div class='alert alert-success'>Password cambiata, ora puoi effettuare il login.</div>";
 							break;
 					}
 

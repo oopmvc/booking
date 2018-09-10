@@ -31,27 +31,31 @@
                     <i class="fas fa-sitemap"></i> Staff
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">
-                    <i class="fas fa-chart-bar"></i> Reports
+                <a class="nav-link" href="opening-time-management.php">
+                    <i class="fas fa-clock"></i> Orari Apertura
                 </a>
             </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-5 mb-1 text-muted ">
-            <span class="text-white">Prenotazioni</span>
+            <span class="text-white">Report</span>
         </h6>
 
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-file-alt"></i> Oggi
+                    <i class="fas fa-chart-bar"></i> Prenotazioni (Oggi)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-file-alt"></i> Tutte
+                    <i class="fas fa-chart-bar"></i> Prenotazioni (Tutte)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="customer-idle.php">
+                    <i class="fas fa-chart-bar"></i> Clienti Inattivi
                 </a>
             </li>
         </ul>

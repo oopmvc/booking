@@ -16,20 +16,20 @@ if(isset($_POST['submit'])){
     $username = $_POST['username'];
 
     //very basic validation
-    if(!$user->isValidUsername($username)){
+    if(!$user->isValidUsername($username)) {
         $error[] = 'Il nome utente deve essere composto da almeno 3 caratteri alfanumerici.';
     } else {
         $stmt = $pdo->prepare('SELECT username FROM members WHERE username = :username');
         $stmt->execute(array(':username' => $username));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if(!empty($row['username'])){
+        if(!empty($row['username'])) {
             $error[] = 'Il nome utente scelto è già stato utilizzato.';
         }
 
     }
 
-    if(strlen($_POST['password']) < 3){
+    if(strlen($_POST['password']) < 3) {
         $error[] = 'La Password è troppo corta.';
     }
 
@@ -74,8 +74,7 @@ if(isset($_POST['submit'])){
 
             //insert into database with a prepared statement
             $stmt = $pdo->prepare('INSERT INTO members (username, first_name, last_name, email, phone, password, active) VALUES (:username, :first_name, :last_name, :email, :phone, :password, :active)');
-            // echo("cognome: " . $_POST['last_name']);
-            // die();
+
             $stmt->execute(array(
                 ':username' => $username,
                 ':first_name' => $first_name,
@@ -91,12 +90,9 @@ if(isset($_POST['submit'])){
             //send email
             $to = $_POST['email'];
             $subject = "Conferma di registrazione";
-            // $body = "<p>Grazie per aver effettuato la registrazione sul mio sito.</p>
-            // <p>Per attivta il tuo account, per favore clicca su questo link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-            // <p>Maurizio Barber Shop</p>";
-            $body = "<p>Thank you for registering at demo site.</p>
-			<p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-			<p>Regards Site Admin</p>";
+            $body = "<p>Grazie per aver effettuato la registrazione sul mio sito.</p>
+            <p>Per attivta il tuo account, per favore clicca su questo link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+            <p>Maurizio Barber Shop</p>";
 
             $mail = new Mail();
             $mail->setFrom(SITEEMAIL);
@@ -106,7 +102,8 @@ if(isset($_POST['submit'])){
             $mail->send();
 
             //redirect to index page
-            header('Location: index.php?action=joined');
+            //header('Location: index.php?action=joined');
+            header('Location: login.php?action=joined');
             exit;
 
             //else catch the exception and show the error.
@@ -117,9 +114,6 @@ if(isset($_POST['submit'])){
     }
 
 }
-
-//define page title
-$title = 'Demo';
 
 //include header template
 require('header.php');

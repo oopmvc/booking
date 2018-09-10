@@ -31,9 +31,8 @@ require("includes/connection.php");
                                     <table class='table table-striped table-sm'>
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Nome Prodotto</th>
-                                                <th>Descrizione</th>
+                                                <th class='col-50'>Descrizione</th>
                                                 <th class='text-right'>Tempo</th>
                                                 <th class='text-right'>Prezzo</th>
                                                 <th class='text-center'>Azione</th>
@@ -44,7 +43,6 @@ require("includes/connection.php");
 
                             while($row = $result->fetch()) {
                                 echo "<tr>";
-                                echo "<td>" . $row['id_product']          . "</td>";
                                 echo "<td>" . $row['name']          . "</td>";
                                 echo "<td>" . $row['description']   . "</td>";
                                 echo "<td class='text-right'>" . $row['time']          . " minuti</td>";

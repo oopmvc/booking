@@ -6,7 +6,9 @@
     define('DB_NAME', 'mauriziobarbershop');
 
     // if you remove last char (slash) from follow URL then you can create activation link problem
-    define('DIR','localhost/mauriziobarbershop/');
+    define('DIR','http://localhost/maurizio-barber-shop/');
+
+    // change with noreply@mauriziobarbershop.com
     define('SITEEMAIL','info@mauriziobarbershop.com');
 
     try {

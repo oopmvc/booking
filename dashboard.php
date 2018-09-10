@@ -51,9 +51,7 @@ require("includes/connection.php");
                             <a class="text-white" href="resource-management.php">
                                 <h1 class="card-title">
                                     <?php
-                                        $product_qty = $pdo->query("SELECT COUNT(id_resource) FROM resources")->fetchColumn();
-                                        // Chiunque non è un collaboratore quindi ecco spiegato il decremento del totale dei prodotti
-                                        echo ($product_qty-1);
+                                        echo ($product_qty = $pdo->query("SELECT COUNT(id_resource) FROM resources")->fetchColumn());
                                     ?>
                                 </h1>
                                 Collaboratori

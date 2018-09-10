@@ -75,7 +75,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     </script>
     <!-- END shopping cart -->
 
-    <!-- BEGIN calendar functions -->
+    <!-- BEGIN calendar functions
     <link href='fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar-3.9.0/scheduler.css' rel='stylesheet' />
     <script src='fullcalendar-3.9.0/moment.js'></script>
@@ -104,7 +104,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.3id = id;
+        js = d.createElement(s); js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -124,10 +124,10 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
             <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
             <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
             <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
+            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="memberpage.php">Profilo</a>
         </form>
         <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
         <p class="text-white">

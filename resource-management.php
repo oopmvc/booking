@@ -31,7 +31,6 @@ require("includes/connection.php");
                                     <table class='table table-striped table-sm'>
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Nome</th>
                                                 <th>Cognome</th>
                                                 <th>Descrizione</th>
@@ -43,7 +42,6 @@ require("includes/connection.php");
 
                             while($row = $result->fetch()) {
                                 echo "<tr>";
-                                echo "<td>" . $row['id_resource'] . "</td>";
                                 echo "<td>" . $row['first_name'] . "</td>";
                                 echo "<td>" . $row['last_name'] . "</td>";
                                 echo "<td>" . $row['description']. "</td>";

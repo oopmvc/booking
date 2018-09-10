@@ -45,6 +45,10 @@ thead {
     font-weight: bold;
 }
 
+th.col-50 {
+    width: 55%;
+}
+
 .nav-item {
     border-bottom: 1px dotted gray;
 }
