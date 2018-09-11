@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container-fluid">
     <div class="row">
 
-        <?php include('dashboard-sidebar.php'); ?>
+        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 

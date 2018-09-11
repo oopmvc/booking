@@ -1,13 +1,20 @@
 <?php
-session_start();
-include('header.php');
+
 require("includes/connection.php");
+include('header.php');
+
+//if not logged in redirect to login page
+if($user->is_logged_in()) {
+	header('Location: login.php');
+	exit();
+}
+
 ?>
 
 <div class="container-fluid">
     <div class="row">
 
-        <?php include('dashboard-sidebar.php'); ?>
+        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -25,7 +32,10 @@ require("includes/connection.php");
                         <div class="card-header"><i class="fas fa-calendar-alt fa-2x"></i></div>
                         <div class="card-body">
                             <a class="text-white" href="product-management.php">
-                                <h1 class="card-title">0</h1>
+                                <h1 class="card-title">
+									0
+									<!-- <php echo($reservation_qty = $pdo->query("SELECT count(id_reservation) FROM reservations")->fetchColumn()); ?> -->
+								</h1>
                                 Prenotazioni
                             </a>
                         </div>
@@ -37,7 +47,7 @@ require("includes/connection.php");
                         <div class="card-body">
                             <a class="text-white" href="customer-management.php">
                                 <h1 class="card-title">
-                                    <?php echo($product_qty = $pdo->query("SELECT count(*) FROM members")->fetchColumn()); ?>
+                                    <?php echo($product_qty = $pdo->query("SELECT count(memberID) FROM members")->fetchColumn()); ?>
                                 </h1>
                                 Clienti
                             </a>
@@ -65,7 +75,7 @@ require("includes/connection.php");
                         <div class="card-body">
                             <a class="text-white" href="product-management.php">
                                 <h1 class="card-title">
-                                    <?php echo($product_qty = $pdo->query("SELECT count(*) FROM products")->fetchColumn()); ?>
+                                    <?php echo($product_qty = $pdo->query("SELECT count(id_product) FROM products")->fetchColumn()); ?>
                                 </h1>
                                 Prodotti
                             </a>
@@ -125,46 +135,6 @@ require("includes/connection.php");
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mario Rossi</td>
-                            <td>Razor Fade</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td>20/09/2018 - 10.30</td>
-                        </tr>
                         <tr>
                             <td>1</td>
                             <td>Mario Rossi</td>

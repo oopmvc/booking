@@ -1,6 +1,7 @@
 <?php
 
-// Facebook Login
+session_start();
+// Import Facebook Login
 require_once('config.php');
 $redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
 $permissions = ['email'];
@@ -12,7 +13,7 @@ require_once('includes/connection.php');
 
 //check if already logged in move to home page
 if($user->is_logged_in()) {
-	header('Location: login.php');
+	header('Location: dashboard.php');
 	exit();
 }
 
@@ -32,11 +33,11 @@ if(isset($_POST['submit'])) {
 		$password = $_POST['password'];
 
 		if($user->login($username, $password)) {
-			$_SESSION['username'] = $username;
 			header('Location: dashboard.php');
 			exit;
 		} else {
-			$error[] = 'Nome utente o password sono errati oppure il tuo account non è stato attivato (per attivarlo controlla la posta elettronica).';
+			$error[] = 'Nome utente o password sono errati oppure il tuo account non è stato attivato.';
+			
 		}
 	} else {
 		$error[] = 'Il nome utente deve essere alfanumerico e deve avere una lunghezza da 3 a 16 caratteri';
@@ -44,10 +45,6 @@ if(isset($_POST['submit'])) {
 
 } //end if submit
 
-//define page title
-$title = 'Login';
-
-//include header template
 require('header.php');
 
 ?>

@@ -1,8 +1,10 @@
-<?php require('includes/connection.php');
+<?php
+
+require('includes/connection.php');
 
 //if logged in redirect to members page
 if( $user->is_logged_in()) {
-    header('Location: memberpage.php');
+    header('Location: dashboard.php');
     exit();
 }
 

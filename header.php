@@ -23,7 +23,7 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
     <!-- BEGIN shopping cart -->
     <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         $(".form-item").submit(function(e) {
             var form_data = $(this).serialize();
@@ -123,24 +123,20 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         <ul class="navbar-nav mr-auto">
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
-            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
-            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
-            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="memberpage.php">Profilo</a>
-        </form>
+        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
+        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
+        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="memberpage.php">Profilo</a>
         <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
-        <p class="text-white">
+        <a class='pl-2 pt-5 text-white' href='#'>
             <?php
-                echo "<a class='pl-2 pt-5 text-white' href='#'>Ciao ";
                 if(isset($_SESSION['username'])) {
-                    echo $_SESSION['username'];
+                    echo 'Ciao ' . $_SESSION['username'];
+                } else {
+                    echo 'Ops, non trovo il tuo nome utente!';
                 }
-                if(isset( $_SESSION['userData']['first_name'])) {
-                    echo $_SESSION['userData']['first_name'];
-                }
-                echo "</a>";
             ?>
-        </p>
+        </a>
     </div>
 </nav>
