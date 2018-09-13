@@ -1,51 +1,57 @@
 <?php
 
-session_start();
-// Import Facebook Login
-require_once('config.php');
-$redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
-$permissions = ['email'];
-$loginURL = $helper->getLoginUrl($redirectURL, $permissions);
-echo $loginURL;
+// import Facebook Login
+// require_once('config.php');
+// $redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
+// $permissions = ['email'];
+// $loginURL = $helper->getLoginUrl($redirectURL, $permissions);
+// echo $loginURL;
 
 // Database Connection
 require_once('includes/connection.php');
 
 //check if already logged in move to home page
-if($user->is_logged_in()) {
+if( $user->is_logged_in() ) {
 	header('Location: dashboard.php');
 	exit();
 }
 
+
 //process login form if submitted
 if(isset($_POST['submit'])) {
 
-	if (!isset($_POST['username'])) $error[] = "Compila tutti i campi";
-	if (!isset($_POST['password'])) $error[] = "Compila tutti i campi";
+	if (!isset($_POST['username'])) {
+		$error[] = "Inserisci il nome utente.";
+	}
+	if (!isset($_POST['password'])) {
+		$error[] = "Inserisci la password.";
+	}
 
 	$username = $_POST['username'];
 
 	if ( $user->isValidUsername($username)) {
-		if (!isset($_POST['password'])) {
-			$error[] = 'E\' necessario inserire una password';
+		if (!isset($_POST['password'])){
+			$error[] = "E\' necessario inserire una password";
 		}
-
 		$password = $_POST['password'];
 
-		if($user->login($username, $password)) {
+		if($user->login($username,$password)) {
+			$_SESSION['username'] = $username;
 			header('Location: dashboard.php');
 			exit;
+
 		} else {
 			$error[] = 'Nome utente o password sono errati oppure il tuo account non è stato attivato.';
-			
 		}
 	} else {
 		$error[] = 'Il nome utente deve essere alfanumerico e deve avere una lunghezza da 3 a 16 caratteri';
 	}
 
-} //end if submit
 
-require('header.php');
+
+}
+
+include('header.php');
 
 ?>
 
@@ -53,7 +59,7 @@ require('header.php');
 <div class="container-fluid">
 	<div class="row">
 	    <div class="col-lg-4 col-sm-8 col-md-6 offset-lg-4 offset-sm-2 offset-md-3 mt-3">
-			<form role="form" method="post" action="" autocomplete="off">
+			<form role="form" method="post"  autocomplete="off">
 				<h2>Accedi</h2>
 				<input type="button" name="submit" value="Accedi con Facebook" class="btn btn-primary btn-block btn-lg mb-5" onclick="window.location = '<?php echo $loginURL; ?>';">
 
@@ -118,11 +124,7 @@ require('header.php');
 	</div>
 
 
-
 </div>
 
 
-<?php
-//include header template
-require('footer.php');
-?>
+<?php include('footer.php'); ?>

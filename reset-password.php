@@ -16,7 +16,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //if no token from db then kill the page
 if(empty($row['resetToken'])) {
-	$stop = 'Token fornito non valido fornito, si prega di utilizzare il link presente nella e-mail di ripristino.';
+	$stop = 'Ti abbiamo inviato una email. Clicca sul link presente nella e-mail di ripristino.';
 } elseif($row['resetComplete'] == 'Yes') {
 	$stop = 'La tua password e\' gia\' stata cambiata!';
 }
@@ -67,14 +67,15 @@ if(isset($_POST['submit'])) {
 
 }
 
-require('header.php');
+include('header.php');
+
 ?>
 
 <div class="container">
 	<div class="row">
-	    <div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3 mt-3 mb-4">
+	    <div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3 mt-3 mb-3">
 	    	<?php if(isset($stop)){
-	    		echo "<p class='bg-danger'>$stop</p>";
+	    		echo('<div class="alert alert-danger" role="alert">' . $stop . '</div>');
 	    	} else { ?>
 
 				<form role="form" method="post" action="" autocomplete="off">
@@ -85,20 +86,17 @@ require('header.php');
 					//check for any errors
 					if(isset($error)) {
 						foreach($error as $error) {
-							echo "<div class='alert alert-danger' role='alert'>" . $error . "</div>";
+							echo('<div class="alert alert-success" role="alert">' . $error . '</div>');
 						}
 					}
 
-                    echo "sono arrivato qui";
-                    echo "<h4>AZIONE:</h4> " . $_GET['action'];
-
-					//check the action
+                	//check the action
 					switch($_GET['action']) {
 						case 'active':
-							echo "<div class='alert alert-success' role='alert'>Il tuo account è ora attivo e ora puoi effettuare il login.</div>";
+							echo('<div class="alert alert-success" role="alert">Il tuo account è ora attivo e ora puoi effettuare il login.</div>');
 							break;
 						case 'reset':
-							echo "<div class='alert alert-danger' role='alert'>Controlla la tua casella di posta per ripristinare la password.</div>";
+							echo('<div class="alert alert-success" role="alert">Inserisci la nuova password.</div>');
 							break;
 					}
 					?>
@@ -129,4 +127,4 @@ require('header.php');
 
 </div>
 
-<?php require("footer.php"); ?>
+<?php include("footer.php"); ?>

@@ -1,7 +1,7 @@
 <?php
-session_start();
-include('header.php');
+
 require("includes/connection.php");
+include('header.php');
 
 try {
 

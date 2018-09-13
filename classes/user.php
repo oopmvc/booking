@@ -8,20 +8,20 @@ class User extends Password {
 
 
 
-    private $_db;
+    private $_pdo;
 
 
 
-    function __construct($db){
+    function __construct($pdo){
         parent::__construct();
-        $this->_db = $db;
+        $this->_pdo = $pdo;
     }
 
 
 
     private function get_user_hash($username){
         try {
-            $stmt = $this->_db->prepare('SELECT password, username, memberID FROM members WHERE username = :username AND active="Yes" ');
+            $stmt = $this->_pdo->prepare('SELECT password, username, memberID FROM members WHERE username = :username AND active="Yes" ');
             $stmt->execute(array('username' => $username));
             return $stmt->fetch();
         } catch(PDOException $e) {

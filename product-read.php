@@ -1,10 +1,6 @@
-<?php inculude('header.php'); ?>
-
 <?php
-
-    session_start();
-    require("includes/connection.php");
-
+require("includes/connection.php");
+inculude('header.php');
 ?>
 
 <div class="container">

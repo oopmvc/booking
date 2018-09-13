@@ -1,11 +1,12 @@
 <?php
 
-require_once "config.php";
+//Facebook Login
+//require_once "config.php";
 
-$redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
-
-$permissions = ['email'];
-$loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
+// $redirectURL = "http://localhost/maurizio-barber-shop/fb-callback.php";
+//
+// $permissions = ['email'];
+// $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
 
 ?>
 
@@ -123,20 +124,25 @@ $loginURL    = $helper->getLoginUrl($redirectURL, $permissions);
         <ul class="navbar-nav mr-auto">
 
         </ul>
-        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
-        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
-        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
-        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
-        <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="memberpage.php">Profilo</a>
+
+        <?php
+            if(isset($_SESSION['username'])) {
+                echo ('
+                    <a class="text-white btn btn-sm mr-2" href="member-update.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
+                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
+                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
+                ');
+            }
+
+            if(!isset($_SESSION['username'])) {
+                echo '
+                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+                ';
+            }
+        ?>
+
+
         <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
-        <a class='pl-2 pt-5 text-white' href='#'>
-            <?php
-                if(isset($_SESSION['username'])) {
-                    echo 'Ciao ' . $_SESSION['username'];
-                } else {
-                    echo 'Ops, non trovo il tuo nome utente!';
-                }
-            ?>
-        </a>
     </div>
 </nav>

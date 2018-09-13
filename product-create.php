@@ -1,10 +1,10 @@
 <?php
 
-session_start();
+require('includes/connection.php');
 include('header.php');
-require("includes/connection.php");
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER['
+REQUEST_METHOD'] == 'POST') {
 
     try {
 

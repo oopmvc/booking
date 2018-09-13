@@ -1,13 +1,15 @@
 <?php
 
 require("includes/connection.php");
-include('header.php');
+
 
 //if not logged in redirect to login page
-if($user->is_logged_in()) {
+if(!$user->is_logged_in()) {
 	header('Location: login.php');
 	exit();
 }
+
+include('header.php');
 
 ?>
 

@@ -1,7 +1,6 @@
 <?php
-session_start();
-include('header.php');
 require("includes/connection.php");
+include('header.php');
 ?>
 
 
@@ -43,10 +42,10 @@ require("includes/connection.php");
 
                             while($row = $result->fetch()) {
                                 echo "<tr>";
-                                echo "<td>" . $row['name']          . "</td>";
-                                echo "<td>" . $row['description']   . "</td>";
-                                echo "<td class='text-right'>" . $row['time']          . " minuti</td>";
-                                echo "<td class='text-right'>" . $row['price']         . " €</td>";
+                                echo "<td>"                     . $row['name']          . "</td>";
+                                echo "<td>"                     . $row['description']   . "</td>";
+                                echo "<td class='text-right'>"  . $row['time']          . " minuti</td>";
+                                echo "<td class='text-right'>"  . $row['price']         . " €</td>";
                                 echo "<td class='text-center'>
                                         <a class='btn btn-sm btn-primary'     href='product-update.php?id_product=" . $row['id_product'] ."' title='Modifica Prodotto' data-toggle='tooltip'>Modifica</a>
                                         <a class='btn btn-sm btn-danger'      href='product-delete.php?id_product=" . $row['id_product'] ."' title='Elimina Prodotto'  data-toggle='tooltip'>Elimina</a>

@@ -1,7 +1,6 @@
 <?php
-session_start();
-include('header.php');
 require("includes/connection.php");
+include('header.php');
 ?>
 
 <div class="container-fluid">
@@ -25,8 +24,7 @@ require("includes/connection.php");
             </div>
 
             <?php
-                // Include config file
-                require_once 'includes/connection.php';
+
                 // Attempt select query execution
                 $sql = "SELECT * FROM members ORDER BY email";
                 if($result = $pdo->query($sql)){

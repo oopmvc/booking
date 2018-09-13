@@ -91,7 +91,7 @@ require('header.php');
 				//check for any errors
 				if(isset($error)){
 					foreach($error as $error){
-						echo '<p class="bg-danger">'.$error.'</p>';
+						echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
 					}
 				}
 
@@ -103,7 +103,7 @@ require('header.php');
 							echo "<div class='alert alert-success' role='alert'>Il tuo account è ora attivo e ora puoi effettuare il login.</div>";
 							break;
 						case 'reset':
-							echo "<div class='alert alert-danger' role='alert'>Controlla la tua casella di posta per ripristinare la password.</div>";
+							echo "<div class='alert alert-danger' role='alert'>Inserisci la nuova password.</div>"; //Controlla la tua casella di posta per ripristinare la password
 							break;
 					}
 				}
@@ -115,7 +115,7 @@ require('header.php');
 
 				<hr>
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Reset Password" class="btn btn-primary btn-block btn-lg" tabindex="2"></div>
+					<div class="col-xs-12 col-md-12"><input type="submit" name="submit" value="Reset Password" class="btn btn-lg btn-block btn-primary" tabindex="2"></div>
 				</div>
 			</form>
 		</div>

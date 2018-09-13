@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("includes/connection.php");
 include('header.php');
 ?>

@@ -1,8 +1,9 @@
 <?php
-session_start();
-include('header.php');
 require("includes/connection.php");
+include('header.php');
 ?>
+
+
 
 <div class="container-fluid">
     <div class="row">
@@ -16,7 +17,7 @@ require("includes/connection.php");
                 <a href="#" class="float-right btn btn btn-success" type="submit">Aggiungi</a>
             </div>
 
-            <!-- <?php
+            <?php
                 // Include config file
                 require_once 'includes/connection.php';
                 // Attempt select query execution
@@ -28,13 +29,11 @@ require("includes/connection.php");
                                 <table class='table table-striped table-sm'>
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Nome utente</th>
-                                            <th>Nome</th>
-                                            <th>Cognome</th>
-                                            <th>E-mail</th>
-                                            <th>Cellulare</th>
-                                            <th>Attivo</th>
+                                            <th>Giorno</th>
+                                            <th>Aperto</th>
+                                            <th>Da</th>
+                                            <th>A</th>
+                                            <th>Aggiungi orari</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,9 +41,8 @@ require("includes/connection.php");
 
                         while($row = $result->fetch()) {
                             echo "<tr>";
-                            echo "<td>" . $row['memberID']   . "</td>";
-                            echo "<td>" . $row['username']   . "</td>";
-                            echo "<td>" . $row['first_name'] . "</td>";
+                            echo "<td>" . /*$row['username']*/ "Lunedì"   . "</td>";
+                            echo "<td>" . /*$row['first_name']*/ "Sì" . "</td>";
                             echo "<td>" . $row['last_name']  . "</td>";
                             echo "<td>" . $row['email']      . "</td>";
                             echo "<td>" . $row['phone']      . "</td>";
@@ -68,7 +66,7 @@ require("includes/connection.php");
                 }
                 // Close connection
                 // mysqli_close($link);
-            ?> -->
+            ?>
 
         </main>
     </div>
