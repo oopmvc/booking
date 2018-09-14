@@ -39,6 +39,10 @@ include('header.php');
                                             <th>Cognome</th>
                                             <th>E-mail</th>
                                             <th>Cellulare</th>
+                                            <th>Indirizzo</th>
+                                            <th>CAP</th>
+                                            <th>Città</th>
+                                            <th>Nazione</th>
                                             <th>Attivo</th>
                                         </tr>
                                     </thead>
@@ -52,6 +56,10 @@ include('header.php');
                             echo "<td>" . $row['last_name']  . "</td>";
                             echo "<td>" . $row['email']      . "</td>";
                             echo "<td>" . $row['phone']      . "</td>";
+                            echo "<td>" . $row['address']    . "</td>";
+                            echo "<td>" . $row['postal_code']. "</td>";
+                            echo "<td>" . $row['city']       . "</td>";
+                            echo "<td>" . $row['country']    . "</td>";
                             if($row['active'] != null) {
                                 echo "<td>Si</td>";
                             } else {

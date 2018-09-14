@@ -128,7 +128,7 @@
         <?php
             if(isset($_SESSION['username'])) {
                 echo ('
-                    <a class="text-white btn btn-sm mr-2" href="member-update.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
+                    <a class="text-white btn btn-sm mr-2" href="member-read.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
                 ');

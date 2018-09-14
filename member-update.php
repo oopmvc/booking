@@ -20,16 +20,20 @@ try {
         $last_name  = $_POST['last_name'];
         $email      = $_POST['email'];
         $phone      = $_POST['phone'];
+        $address    = $_POST['address'];
+        $postal_code = $_POST['postal_code'];
+        $city       = $_POST['city'];
+        $country    = $_POST['country'];
 
-        $query = "UPDATE members SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone WHERE username = :username";
+        $query = "UPDATE members SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone, address = :address, postal_code = :postal_code, city = :city, country = :country WHERE username = :username";
         $statement = $pdo->prepare($query);
 
-        if($statement->execute([ ':username' => $username, ':first_name' => $first_name, ':last_name' => $last_name, ':email' => $email, ':phone' => $phone ])) {
-            echo "<div class='alert alert-success'>Profilo modificato correttamente!</div>";
+        if($statement->execute([ ':username' => $username, ':first_name' => $first_name, ':last_name' => $last_name, ':email' => $email, ':phone' => $phone, 'address' => $address, 'postal_code' => $postal_code, 'city' => $city, 'country' => $country])) {
+            echo('<div class="alert alert-success">Profilo modificato correttamente!</div>');
             // refresh after save
-            header('Refresh: 1; url=./member-read.php');
+            header('Refresh: 0; url=./member-read.php');
         } else {
-            echo "<div class='alert alert-danger'>Errore nel salvataggio del profilo.</div>";
+            echo('<div class="alert alert-danger">"Errore nel salvataggio del profilo.</div>');
         }
 
     }
@@ -74,6 +78,20 @@ catch(PDOException $exception){
                     <input type="text" name="phone" class="form-control" value="<?= $row->phone; ?>"/>
                 </div>
                 <div class="form-group">
+                    <label for="address">Indirizzo</label>
+                    <input type="text" name="address" class="form-control" value="<?= $row->address; ?>"/>
+                </div>
+                <div class="form-group">
+                    <label for="postal_code">CAP</label>
+                    <input type="text" name="postal_code" class="form-control" value="<?= $row->postal_code; ?>"/>
+                </div>
+                <div class="form-group">
+                    <label for="city">Città</label>
+                    <input type="text" name="city" class="form-control" value="<?= $row->city; ?>"/>
+                </div>
+                <div class="form-group">
+                    <label for="country">Nazione</label>
+                    <input type="text" name="country" class="form-control" value="<?= $row->country; ?>"/>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Salva" class="btn btn-primary" />

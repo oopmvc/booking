@@ -29,31 +29,21 @@ include('header.php');
                                     <tbody>
                             ';
                         while($row = $result->fetch()) {
-
-                            echo "<tr>" .
-                                    "<th>Username</th>".
-                                    "<th>" . $row['username']  . "</th>" .
-                                "</tr>";
-                            echo "<tr>" .
-                                    "<th>Nome</th>".
-                                    "<th>" . $row['first_name']  . "</th>" .
-                                "</tr>";
-                            echo "<tr>" .
-                                    "<th>Cognome</th>".
-                                    "<th>" . $row['last_name']  . "</th>" .
-                                "</tr>";
-                            echo "<tr>" .
-                                    "<th>Email</th>".
-                                    "<th>" . $row['email']  . "</th>" .
-                                "</tr>";
-                            echo "<tr>" .
-                                    "<th>Cellulare</th>".
-                                    "<th>" . $row['phone']  . "</th>" .
-                                "</tr>";
+                            echo "<tr><th>Username  </th><td>" . $row['username']      . "</td></tr>";
+                            echo "<tr><th>Nome      </th><td>" . $row['first_name']    . "</td></tr>";
+                            echo "<tr><th>Cognome   </th><td>" . $row['last_name']     . "</td></tr>";
+                            echo "<tr><th>Email     </th><td>" . $row['email']         . "</td></tr>";
+                            echo "<tr><th>Cellulare </th><td>" . $row['phone']         . "</td></tr>";
+                            echo "<tr><th>Indirizzo </th><td>" . $row['address']       . "</td></tr>";
+                            echo "<tr><th>CAP       </th><td>" . $row['postal_code']   . "</td></tr>";
+                            echo "<tr><th>Città     </th><td>" . $row['city']          . "</td></tr>";
+                            echo "<tr><th>Nazione   </th><td>" . $row['country']       . "</td></tr>";
                         }
                         echo "
-                            </tbody>
-                        </table>";
+                                    </tbody>
+                                </table>
+                            </div>
+                            ";
 
                         // Free result set
                         unset($result);
