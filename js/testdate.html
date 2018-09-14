@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Data in un input la data di compleanno il sistema restituisce il giorno della settimana (vedi console del browser).</h1>
+        <div id="giorno">
+
+        </div>
+
+
+
+        <script type="text/javascript">
+
+            var birthday = new Date('11/07/1987');
+            var day = birthday.getDay();
+
+            // expected output: 6
+            console.log("il 7 novembre 1987 era " );
+
+            // Domenica - Sabato : 0 - 6
+            switch (day) {
+                case 0:
+                    console.log('domenica');
+                    break;
+                case 1:
+                    console.log('lunedì');
+                    break;
+                case 2:
+                    console.log('martedì');
+                    break;
+                case 3:
+                    console.log('mercoledì');
+                    break;
+                case 4:
+                    console.log('giovedì');
+                    break;
+                case 5:
+                    console.log('venerdì');
+                    break;
+                case 6:
+                    console.log('sabato');
+                    break;
+                default:
+                    console.log('Non riesco a calcola il giorno della settimana!');
+                    break;
+            }
+
+        </script>
+
+    </body>
+</html>

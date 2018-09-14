@@ -1,5 +1,5 @@
 <?php
-require("includes/connection.php");
+require('includes/connection.php');
 include('header.php');
 ?>
 
@@ -20,4 +20,4 @@ include('header.php');
 
 
 
-<?php include('footer.php'); ?>
+<?php include('./footer.php'); ?>

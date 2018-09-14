@@ -14,7 +14,7 @@ include('header.php');
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Prodotti</h1>
-                    <a href="product-create.php" class="float-right btn btn btn-success" type="submit">Aggiungi Prodotto</a>
+                <a href="product-create.php" class="float-right btn btn btn-success" type="submit">Aggiungi Prodotto</a>
             </div>
 
             <form class="needs-validation" novalidate>

@@ -1,10 +1,8 @@
 <?php
-
 require('includes/connection.php');
 include('header.php');
 
-if($_SERVER['
-REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
 
@@ -63,7 +61,7 @@ REQUEST_METHOD'] == 'POST') {
                     <input type="text" name="name" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label for="">Descrizione</label>
+                    <label for="description">Descrizione</label>
                     <textarea name="description" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
@@ -75,10 +73,8 @@ REQUEST_METHOD'] == 'POST') {
                     <input type="text" name="price" class="form-control" />
                 </div>
                 <div class="form-group">
-                </div>
-                <div class="form-group">
                     <input type="submit" value="Salva" class="btn btn-primary" />
-                    <a href="product-management.php" class="btn btn-danger">Torna alla pagina iniziale</a>
+                    <a href="product-management.php" class="btn btn-danger">Indietro</a>
                 </div>
             </form>
         </main>
