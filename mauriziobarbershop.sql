@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Set 11, 2018 alle 18:14
+-- Creato il: Set 14, 2018 alle 18:04
 -- Versione del server: 10.1.32-MariaDB
 -- Versione PHP: 7.2.5
 
@@ -38,15 +38,19 @@ CREATE TABLE `members` (
   `resetComplete` varchar(3) DEFAULT 'No',
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `phone` varchar(20) NOT NULL
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
+  `city` varchar(40) DEFAULT NULL,
+  `country` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `members`
 --
 
-INSERT INTO `members` (`memberID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`) VALUES
-(14, 'giuseppe', '$2y$10$1p3gmUayXlg0ibv6t51Hr.GfKaMIvvwez1FgalDlafurCgAhZwKvW', 'giuseppe.lamatrice@webkom.agency', 'Yes', '5f0eca5fcc9b7d2385ed7ecff13ce4c9729bec9897254a30798d1ef2f31d85a8', 'No', 'g', 'l', '347');
+INSERT INTO `members` (`memberID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`, `address`, `postal_code`, `city`, `country`) VALUES
+(14, 'giuseppe', '$2y$10$1mjhyCEm4BeT9l.IsFJTT.S4XEyHAimfqGk3HwnIWD7MUlogGX6Fm', 'giuseppe.lamatrice@webkom.agency', 'Yes', '6fc100c9b3cc32d7260640f8823f706a8914a7727878e314b08372e34dd7d633', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia');
 
 -- --------------------------------------------------------
 
@@ -99,6 +103,30 @@ INSERT INTO `resources` (`id_resource`, `first_name`, `last_name`, `description`
 (4, 'Alessandro', '', 'Collaboratore'),
 (8, 'Vincenzo', '', 'Collaboratore');
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `slot_time`
+--
+
+CREATE TABLE `slot_time` (
+  `id_slot_time` int(11) NOT NULL,
+  `day` int(1) DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `end` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `slot_time`
+--
+
+INSERT INTO `slot_time` (`id_slot_time`, `day`, `start`, `end`) VALUES
+(1, 2, '08:00:00', '08:30:00'),
+(2, 2, '08:30:00', '09:00:00'),
+(3, 2, '09:00:00', '09:30:00'),
+(4, 2, '10:00:00', '10:30:00'),
+(5, 2, '10:30:00', '11:00:00');
+
 --
 -- Indici per le tabelle scaricate
 --
@@ -122,6 +150,12 @@ ALTER TABLE `resources`
   ADD PRIMARY KEY (`id_resource`);
 
 --
+-- Indici per le tabelle `slot_time`
+--
+ALTER TABLE `slot_time`
+  ADD PRIMARY KEY (`id_slot_time`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
@@ -142,6 +176,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `resources`
   MODIFY `id_resource` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT per la tabella `slot_time`
+--
+ALTER TABLE `slot_time`
+  MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
