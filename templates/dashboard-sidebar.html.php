@@ -38,24 +38,34 @@
             </li>
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-5 mb-1 text-muted ">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-5 mb-1 text-muteds">
             <span class="text-white">Report</span>
         </h6>
 
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-chart-bar"></i> Prenotazioni (Oggi)
+                <a class="nav-link" href="report-reservation-today.php">
+                    <i class="fas fa-chart-bar"></i> Prenotazioni di Oggi
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-chart-bar"></i> Prenotazioni (Tutte)
+                <a class="nav-link" href="report-reservation-week.php">
+                    <i class="fas fa-chart-bar"></i> Prenotazioni della Settimana
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="customer-idle.php">
+                <a class="nav-link" href="report-reservation-all.php">
+                    <i class="fas fa-chart-bar"></i> Prenotazioni di Sempre
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="report-customer-not-active.php">
                     <i class="fas fa-chart-bar"></i> Clienti Inattivi
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="report-customer-top.php">
+                    <i class="fas fa-chart-bar"></i> Clienti Top 100
                 </a>
             </li>
         </ul>

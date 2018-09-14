@@ -148,6 +148,34 @@ include('header.php');
                     </tbody>
                 </table>
             </div>
+
+
+			<h2 class="mt-5">TOP 5 Clienti</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>N.</th>
+                            <th>Cliente</th>
+                            <th>Servizi</th>
+                            <th>Collaboratore</th>
+                            <th>Persone</th>
+                            <th>Data/ora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mario Rossi</td>
+                            <td>Razor Fade</td>
+                            <td>Maurizio P.</td>
+                            <td>1</td>
+                            <td>20/09/2018 - 10.30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
 </div>
