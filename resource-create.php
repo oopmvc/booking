@@ -1,8 +1,8 @@
 <?php
 
-session_start();
+require('includes/connection.php');
+include('classes/user-checked.php');
 include('header.php');
-require("includes/connection.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 

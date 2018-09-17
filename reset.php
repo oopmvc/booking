@@ -1,10 +1,7 @@
-<?php require('includes/connection.php');
+<?php
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ) {
-    header('Location: memberpage.php');
-    exit();
-}
+require('includes/connection.php');
+include('classes/user-checked.php');
 
 //if form has been submitted process it
 if(isset($_POST['submit'])) {

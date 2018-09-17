@@ -1,5 +1,5 @@
 <?php
-session_start(); //start session
+
 include_once("config.php"); //include config file
 setlocale(LC_MONETARY,"it_IT"); // IT national format (see : http://php.net/money_format)
 

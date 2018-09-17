@@ -1,6 +1,7 @@
 <?php
 
-require("includes/connection.php");
+require('includes/connection.php');
+include('classes/user-checked.php');
 include('header.php');
 
 try {
@@ -25,7 +26,10 @@ try {
         $statement = $pdo->prepare($query);
 
         if($statement->execute([ ':id_product' => $id_product, ':name' => $name, ':description' => $description, ':time' => $time, ':price' => $price ])) {
+
             echo "<div class='alert alert-success'>Prodotto modificato correttamente!</div>";
+            header('Location: product-management.php');
+
         } else {
             echo "<div class='alert alert-danger'>Errore nel salvataggio del servizio.</div>";
         }

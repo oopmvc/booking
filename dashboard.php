@@ -1,14 +1,7 @@
 <?php
 
-require("includes/connection.php");
-
-
-//if not logged in redirect to login page
-if(!$user->is_logged_in()) {
-	header('Location: login.php');
-	exit();
-}
-
+require('includes/connection.php');
+include('classes/user-checked.php');
 include('header.php');
 
 ?>

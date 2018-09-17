@@ -1,12 +1,7 @@
 <?php
 
 require('includes/connection.php');
-
-//if logged in redirect to members page
-if( $user->is_logged_in()) {
-    header('Location: dashboard.php');
-    exit();
-}
+include('classes/user-checked.php');
 
 $resetToken = hash('SHA256', ($_GET['key']));
 

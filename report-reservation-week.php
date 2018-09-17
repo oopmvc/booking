@@ -1,5 +1,6 @@
 <?php
-require("includes/connection.php");
+require('includes/connection.php');
+include('classes/user-checked.php');
 include('header.php');
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-require("includes/connection.php");
+require('includes/connection.php');
 include('header.php');
 ?>
 

@@ -1,7 +1,7 @@
 <?php
-session_start();
+require('includes/connection.php');
+include('classes/user-checked.php');
 include('header.php');
-require("includes/connection.php");
 
 try {
 
@@ -25,6 +25,7 @@ try {
 
         if($statement->execute([ ':id_resource' => $id_resource, ':first_name' => $first_name, ':last_name' => $last_name, ':description' => $description ])) {
             echo "<div class='alert alert-success'>Collaboratore modificato correttamente!</div>";
+            header('Location: resource-management.php');
         } else {
             echo "<div class='alert alert-danger'>Errore nel salvataggio del Collaboratore.</div>";
         }
@@ -45,7 +46,7 @@ catch(PDOException $exception){
 <div class="container-fluid">
     <div class="row">
 
-        <?php include('dashboard-sidebar.php'); ?>
+        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
