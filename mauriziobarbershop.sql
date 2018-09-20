@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Set 14, 2018 alle 18:04
+-- Creato il: Set 20, 2018 alle 18:21
 -- Versione del server: 10.1.32-MariaDB
 -- Versione PHP: 7.2.5
 
@@ -51,6 +51,22 @@ CREATE TABLE `members` (
 
 INSERT INTO `members` (`memberID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`, `address`, `postal_code`, `city`, `country`) VALUES
 (14, 'giuseppe', '$2y$10$1mjhyCEm4BeT9l.IsFJTT.S4XEyHAimfqGk3HwnIWD7MUlogGX6Fm', 'giuseppe.lamatrice@webkom.agency', 'Yes', '6fc100c9b3cc32d7260640f8823f706a8914a7727878e314b08372e34dd7d633', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `orders`
+--
+
+CREATE TABLE `orders` (
+  `id_order` int(11) NOT NULL,
+  `order_date` date DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `resource_name` varchar(30) DEFAULT NULL,
+  `customer` varchar(30) DEFAULT NULL,
+  `status` varchar(30) DEFAULT NULL,
+  `note` varchar(160) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -111,21 +127,47 @@ INSERT INTO `resources` (`id_resource`, `first_name`, `last_name`, `description`
 
 CREATE TABLE `slot_time` (
   `id_slot_time` int(11) NOT NULL,
-  `day` int(1) DEFAULT NULL,
-  `start` time DEFAULT NULL,
-  `end` time DEFAULT NULL
+  `start_slot` time NOT NULL,
+  `end_slot` time NOT NULL,
+  `sunday` tinyint(1) NOT NULL,
+  `monday` tinyint(1) NOT NULL,
+  `tuesday` tinyint(1) NOT NULL,
+  `wednesday` tinyint(1) NOT NULL,
+  `thursday` tinyint(1) NOT NULL,
+  `friday` tinyint(1) NOT NULL,
+  `saturday` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `slot_time`
 --
 
-INSERT INTO `slot_time` (`id_slot_time`, `day`, `start`, `end`) VALUES
-(1, 2, '08:00:00', '08:30:00'),
-(2, 2, '08:30:00', '09:00:00'),
-(3, 2, '09:00:00', '09:30:00'),
-(4, 2, '10:00:00', '10:30:00'),
-(5, 2, '10:30:00', '11:00:00');
+INSERT INTO `slot_time` (`id_slot_time`, `start_slot`, `end_slot`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`) VALUES
+(1, '08:00:00', '08:30:00', 0, 0, 1, 1, 1, 1, 1),
+(2, '08:30:00', '09:00:00', 0, 0, 1, 1, 1, 1, 1),
+(3, '09:00:00', '09:30:00', 0, 0, 1, 1, 1, 1, 1),
+(4, '09:30:00', '10:00:00', 0, 0, 1, 1, 1, 1, 1),
+(5, '10:00:00', '10:30:00', 0, 0, 1, 1, 1, 1, 1),
+(6, '10:30:00', '11:00:00', 0, 0, 1, 1, 1, 1, 1),
+(7, '11:30:00', '12:00:00', 0, 0, 1, 1, 1, 1, 1),
+(8, '12:00:00', '12:30:00', 0, 0, 1, 1, 1, 1, 1),
+(9, '12:30:00', '13:00:00', 0, 0, 1, 1, 1, 1, 1),
+(10, '15:30:00', '16:00:00', 0, 0, 1, 1, 1, 1, 1),
+(11, '16:00:00', '16:30:00', 0, 0, 1, 1, 1, 1, 1),
+(12, '16:30:00', '17:00:00', 0, 0, 1, 1, 1, 1, 1),
+(13, '17:00:00', '17:30:00', 0, 0, 1, 1, 1, 1, 1),
+(14, '17:30:00', '18:00:00', 0, 0, 1, 1, 1, 1, 1),
+(15, '18:00:00', '18:30:00', 0, 0, 1, 1, 1, 1, 1),
+(16, '18:30:00', '19:00:00', 0, 0, 1, 1, 1, 1, 1),
+(17, '19:00:00', '19:30:00', 0, 0, 1, 1, 1, 1, 1),
+(19, '19:30:00', '20:00:00', 0, 0, 1, 1, 1, 1, 1),
+(20, '20:00:00', '20:30:00', 0, 0, 1, 1, 1, 1, 1),
+(21, '11:00:00', '11:30:00', 0, 0, 1, 1, 1, 1, 1),
+(22, '13:00:00', '13:30:00', 0, 0, 0, 0, 0, 0, 1),
+(23, '13:30:00', '14:00:00', 0, 0, 0, 0, 0, 0, 1),
+(24, '14:00:00', '14:30:00', 0, 0, 0, 0, 0, 0, 1),
+(25, '14:30:00', '15:00:00', 0, 0, 0, 0, 0, 0, 1),
+(26, '15:00:00', '15:30:00', 0, 0, 0, 0, 0, 0, 1);
 
 --
 -- Indici per le tabelle scaricate
@@ -136,6 +178,12 @@ INSERT INTO `slot_time` (`id_slot_time`, `day`, `start`, `end`) VALUES
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`memberID`);
+
+--
+-- Indici per le tabelle `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id_order`);
 
 --
 -- Indici per le tabelle `products`
@@ -166,6 +214,12 @@ ALTER TABLE `members`
   MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT per la tabella `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `products`
 --
 ALTER TABLE `products`
@@ -181,7 +235,7 @@ ALTER TABLE `resources`
 -- AUTO_INCREMENT per la tabella `slot_time`
 --
 ALTER TABLE `slot_time`
-  MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
