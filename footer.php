@@ -27,66 +27,7 @@
             <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
             <script>
             feather.replace()
-            </script>
+        </script>
 
-            <!-- Graphs -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-
-            <script>
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdi", "Sabato", "Domenica"],
-                    datasets: [{
-                        data: [0, 80, 130, 150, 120, 200, 0],
-                        lineTension: 0,
-                        backgroundColor: 'transparent',
-                        borderColor: '#007bff',
-                        borderWidth: 4,
-                        pointBackgroundColor: '#007bff'
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: false
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: false,
-                    }
-                }
-            });
-            var ctx = document.getElementById("myChart2");
-            var myChart2 = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["Servizio 1", "Servizio 2", "Servizio 3", "Servizio 4", "Servizio 5", "Taglio Donna", "Taglio Uomo"],
-                    datasets: [{
-                        data: [13, 12, 4, 8, 20, 5, 100],
-                        lineTension: 0,
-                        backgroundColor: 'transparent',
-                        borderColor: '#007bff',
-                        borderWidth: 4,
-                        pointBackgroundColor: '#007bff'
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: false
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: false,
-                    }
-                }
-            });
-            </script>
     </body>
 </html>

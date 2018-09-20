@@ -3,7 +3,9 @@ require('includes/connection.php');
 include('header.php');
 ?>
 
-<div class="container-fluid">
+
+
+<div class="container">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="pt-4">Sistema di prenotazione</h1>
@@ -14,41 +16,62 @@ include('header.php');
     <div class="row">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
-            <form action="" class="form-item needs-validation" novalidate>
+
+            <div class="needs-validation">
 
                 <!-- STEP 1: scegli servizi -->
                 <?php
-                // Include config file
-                require_once 'includes/connection.php';
+
                 // Attempt select query execution
                 $sql = "SELECT * FROM products ORDER BY name";
                 if($result = $pdo->query($sql)) {
                     if($result->rowCount() > 0) {
-                        echo "<table class='table'>";
-                        echo "<tbody>";
+
+                        // echo "<table class='table'>";
+                        //     echo "<tbody>";
+                        //     while($row = $result->fetch()) {
+                        //         echo "<tr>";
+                        //             echo "<td class='d-none'><input name='id_product' type='hidden' value='" . $row['id_product'] . "'>" . $row['id_product'] . "</td>";
+                        //             echo "<td><strong>" . $row['name'] . " " . $row['price'] . " € </strong><br>" . $row['description'] . " (" . $row['time'] . " minuti)</td>";
+                        //             echo "<td><button class='btn btn-md btn-success' type='submit'>Aggiungi</button></td>";
+                        //         echo "</tr>";
+                        //     }
+                        //     echo "</tbody>";
+                        // echo "</table>";
+
                         while($row = $result->fetch()) {
-                            echo "<tr>";
-                            echo "<td class='d-none'>" . $row['id_product'] . "</td>";
-                            echo "<td><strong>" . $row['name']  . '</strong><br>' . $row['description'] . " (" . $row['time'] . " minuti)</td>";
-                            echo '<td class="text-right">' . $row['price'] . " € </td>";
-                            echo "<td>
-                                <button class='btn btn-sm btn-dark add'    type='submit'><strong>+</strong></button>
-                                <button class='btn btn-sm btn-dark remove' type='submit'><strong>-</strong></button>
-                            </td>";
-                            echo "</tr>";
+                            echo '
+                                <form class="form-item">
+                                    <div class="row pb-5">
+                                        <div class="col-lg-8">
+                                            <input class="d-none" name="id_product" type="hidden" value="' . $row['id_product'] . '">' . '
+                                              <strong>' . $row['name'] . ' ' . $row['price'] . ' € </strong><br>' . $row['description'] . ' (' . $row['time'] . ' minuti)
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <select class="custom-select d-block w-100" name="quantity" required>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-md btn-success" type="submit">Aggiungi</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            ';
                         }
-                        echo "</tbody>";
-                        echo "</table>";
                         // Free result set
                         unset($result);
                     } else {
                         echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
                     }
                 } else {
-                    echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+                    echo "ERRORE: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
                 }
-                // Close connection
-                // mysqli_close($link);
+
                 ?>
                 <!-- END STEP 1: scegli servizi -->
 
@@ -61,8 +84,6 @@ include('header.php');
                         <label for="country">Scegli con chi</label>
 
                         <?php
-                        // Include config file
-                        //require_once 'includes/connection.php';
 
                         // Attempt select query execution
                         $sql_resource = "SELECT * FROM resources";
@@ -70,7 +91,7 @@ include('header.php');
                         if($result_resource = $pdo->query($sql_resource)) {
                             if($result_resource->rowCount() > 0) {
                                 echo "<select class='custom-select d-block w-100' id='resource' required>";
-                                while($row_resources = $result_resource->fetch()){
+                                while($row_resources = $result_resource->fetch()) {
                                     echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                                 }
                                 echo "</select>";
@@ -81,11 +102,9 @@ include('header.php');
                                 echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
                             }
                         } else {
-                            echo "ERROR: Non posso eseguire la richiesta $sql_resource. " . mysqli_error($link);
+                            echo "ERROR: Non posso eseguire la richiesta " . $sql_resource . mysqli_error($link);
                         }
 
-                        // Close connection
-                        unset($pdo);
                         ?>
 
                     </div>
@@ -99,47 +118,47 @@ include('header.php');
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="date">Giorno</label>
-                        <select class="custom-select d-block w-100" id="date" required>
-                            <option value="Chiunque">Oggi</option>
-                            <option value="Maurizio">Domani</option>
-                            <option value="Antonio">Poidomani</option>
-                        </select>
+                        <input type="text" id="datepicker" class="form-control">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="slot_time">Fascia oraria</label>
-                        <select class="custom-select d-block w-100" id="slot_time" required>
-                            <option value="08.00 - 08.30">08.00 - 08.30</option>
-                            <option value="08.30 - 09.00">08.30 - 09.00</option>
-                            <option value="09.00 - 09.30">09.00 - 09.30</option>
-                            <option value="09.30 - 10.00">09.30 - 10.00</option>
-                            <option value="10.00 - 10.30">10.00 - 10.30</option>
-                            <option value="10.30 - 11.00">10.30 - 11.00</option>
-                            <option value="11.00 - 11.30">11.00 - 11.30</option>
-                            <option value="11.30 - 12.00">11.30 - 12.00</option>
-                            <option value="12.00 - 12.30">12.00 - 12.30</option>
-                            <option value="12.30 - 13.00">12.30 - 13.00</option>
-                            <option value="13.00 - 13.30 (solo sabato)">13.00 - 13.30 (solo sabato)</option>
-                            <option value="13.30 - 14.00 (solo sabato)">13.30 - 14.00 (solo sabato)</option>
-                            <option value="14.00 - 14.30 (solo sabato)">14.00 - 14.30 (solo sabato)</option>
-                            <option value="14.30 - 15.00 (solo sabato)">14.30 - 15.00 (solo sabato)</option>
-                            <option value="15.00 - 15.30 (solo sabato)">15.00 - 15.30 (solo sabato)</option>
-                            <option value="15.30 - 16.00">15.30 - 16.00</option>
-                            <option value="16.00 - 16.30">16.00 - 16.30</option>
-                            <option value="16.30 - 17.00">16.30 - 17.00</option>
-                            <option value="17.00 - 17.30">17.00 - 17.30</option>
-                            <option value="17.30 - 18.00">17.30 - 18.00</option>
-                            <option value="18.00 - 18.30">18.00 - 18.30</option>
-                            <option value="18.30 - 19.00">18.30 - 19.00</option>
-                            <option value="19.00 - 19.30">19.00 - 19.30</option>
-                            <option value="19.30 - 20.00">19.30 - 20.00</option>
-                            <option value="20.00 - 20.30">20.00 - 20.30</option>
-                        </select>
+
+                        <?php
+
+                        // Attempt select query execution
+                        $sql = "SELECT * FROM slot_time";
+
+                        if($result = $pdo->query($sql)) {
+                            if($result->rowCount() > 0) {
+                                echo "<select class='custom-select d-block w-100' id='slot_time' required>";
+                                while($row = $result->fetch()){
+                                    $from = substr($row['start_slot'],0,5);
+                                    $to = substr($row['end_slot'],0,5);
+                                    if($row['start_slot'] >= date("H:i:s")) {
+                                        echo "<option value='" . $row['start_slot'] . ' ' . $row['end_slot'] .  "'>" . $from . ' - ' . $to . "</option>";
+                                    }
+                                }
+                                echo "</select>";
+
+                                // Free result set
+                                unset($row);
+                            } else {
+                                echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
+                            }
+                        } else {
+                            echo "ERROR: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        //unset($pdo);
+                        ?>
+
                     </div>
                 </div>
                 <!-- END STEP 3: scegli con chi -->
 
-                <button class="mt-4 mb-5 btn btn-lg btn-block btn-primary" type="submit">Prenota ora</button>
-            </form>
+                <button class="mt-4 mb-5 btn btn-lg btn-block btn-danger" type="submit">Prenota ora</button>
+            </div>
         </div>
 
 
@@ -147,7 +166,7 @@ include('header.php');
         <!-- BEGIN carrello -->
 
         <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="mb-3">Orari di apertura</h4>
+            <!-- <h4 class="mb-3">Orari di apertura</h4>
             <hr class="mb-4">
             <ul style="list-style:none; padding:0px;">
                 <li><strong>Lun</strong> CHIUSO </li>
@@ -158,30 +177,27 @@ include('header.php');
                 <li><strong>Sab</strong> 8.00 - 20.30</li>
                 <li><strong>Dom</strong> CHIUSO</li>
             </ul>
-            <hr class="mb-4">
+            <hr class="mb-4"> -->
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">La tua prenotazione</span>
-                <span class="badge badge-secondary badge-pill">3</span>
+                <span>La tua prenotazione</span>  <!--class="text-muted"-->
+                <span class="badge badge-secondary badge-pill">
+                    <i class="fa fa-shopping-cart fa-1x openCloseCart" aria-hidden="true"></i>
+                    <?php
+                    if(isset($_SESSION['products'])) {
+                        echo count($_SESSION["products"]);
+                    } else {
+                        echo 0;
+                    }
+                    ?>
+                </span>
             </h4>
+
+
+
             <ul class="list-group mb-3">
-                <div id="cart-container">
-                    <div id="cart">
-                        <i class="fa fa-shopping-cart fa-2x openCloseCart" aria-hidden="true"></i>
-                    </div>
-                    <span id="itemCount"></span>
-                </div>
 
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <strong>COSA</strong>
-                    <a href="#" class="cart-box" id="cart-info" title="Vedi Carrello">
-                        <?php
-                        if(isset($_SESSION["products"])){
-                            echo count($_SESSION["products"]);
-                        }else{
-                            echo 0;
-                        }
-                        ?>
-                    </a>
+                    <strong>Cosa</strong>
 
                     <div class="shopping-cart-box">
                         <a href="#" class="close-shopping-cart-box" >Chiudi</a>
@@ -189,22 +205,20 @@ include('header.php');
                         <div id="shopping-cart-results">
                         </div>
                     </div>
-                    <div id="cartItems">
-                        <!--
+                    <!-- <div id="cartItems">
                         <h6 class="my-0">Product name</h6>
                         <small class="text-muted">Product description</small>
-                        -->
-                    </div>
+                    </div> -->
                     <span class="text-muted"></span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between">
-                    <strong>CON CHI</strong>
+                    <strong>Con chi</strong>
                     <span id="who"></span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between">
-                    <strong>QUANDO</strong>
+                    <strong>Quando</strong>
                     <span id="when"></span>
                 </li>
 
@@ -214,11 +228,21 @@ include('header.php');
                 </li>
 
             </ul>
-            <button type="submit" class="btn btn-lg btn-block btn-primary">Prenota ora</button>
+            <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button>
+            <hr>
+            <div id="cart-container">
+                <div id="cart">
+                    <i class="fa fa-shopping-cart fa-2x openCloseCart" aria-hidden="true"></i>
+                </div>
+                <span id="itemCount"></span>
+            </div>
+
         </div>
         <!-- END carrello -->
 
     </div>
 </div>
+
+
 
 <?php include('footer.php'); ?>

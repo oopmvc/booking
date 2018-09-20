@@ -20,46 +20,67 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custom.css">
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+
+    <!-- CSS calendar -->
+    <!-- <link rel="stylesheet" href="assets/style.css"> -->
+    <link rel="stylesheet" href="assets/dateTimePicker.css">
+    <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- BEGIN JCalendar -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(function() {
+      $("#datepicker").datepicker();
+    });
+    </script>
+    <!-- END JCalendar -->
+
+
 
     <!-- BEGIN shopping cart -->
     <script>
-    $(document).ready(function() {
 
-        $(".form-item").submit(function(e) {
-            var form_data = $(this).serialize();
-            var button_content = $(this).find('button[type=submit]');
-            //button_content.html('Aggiungendo...'); //Loading button text
+    $(document).ready(function(){
+
+        //Add Item to Cart
+        $(".form-item").submit(function(e) { //user clicks form submit button
+
+            var form_data = $(this).serialize(); //prepare form data for Ajax post
+            console.log("form_data: " + form_data);
+
+            var button_content = $(this).find('button[type=submit]'); //get clicked button info
+            button_content.html('Aggiungendo...'); //Loading button text //change button text
+
             $.ajax({ //make ajax request to cart_process.php
                 url: "cart_process.php",
                 type: "POST",
-                dataType:"json", //expect json value from server
+                dataType: "json", //expect json value from server
                 data: form_data
             }).done(function(data) { //on Ajax success
-                $("#cart-info").html(data.items); //total items in cart-info element
-                button_content.html('+ Aggiungi'); //reset button text to original text
-                alert("Servizio aggiunto!"); //alert user
-                if($(".shopping-cart-box").css("display") == "block") { //if cart box is still visible
+
+                alert("inizio!'");
+
+                $("#cart-info").html(data.items); //total items count fetch in cart-info element
+                button_content.html('Aggiungi al carrello'); //reset button text to original text
+
+                alert("Prodotto aggiunto al carrello!"); //alert user
+
+                if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
                     $(".cart-box").trigger( "click" ); //trigger click to update the cart box.
                 }
+
+                alert("Ben fatto!'");
+
             })
-            console.log('Hai premuto il tasto + o -');
+            .fail(function() {
+                alert("Errore nell'inserimento del prodotto nel carrello");
+            })
             e.preventDefault();
-        });
-
-        //Show Items in Cart
-        $( ".cart-box").click(function(e) { //when user clicks on cart box
-            e.preventDefault();
-            $(".shopping-cart-box").fadeIn(); //display cart box
-            $("#shopping-cart-results").html('<img src="images/ajax-loader.gif">'); //show loading image
-            $("#shopping-cart-results" ).load( "cart_process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
-        });
-
-        //Close Cart
-        $( ".close-shopping-cart-box").click(function(e){ //user click on cart box close link
-            e.preventDefault();
-            $(".shopping-cart-box").fadeOut(); //close cart-box
         });
 
         //Remove items from cart
@@ -73,18 +94,22 @@
             });
         });
 
+        //Show Items in Cart
+        $( ".cart-box").click(function(e) { //when user clicks on cart box
+            e.preventDefault();
+            $(".shopping-cart-box").fadeIn(); //display cart box
+            $("#shopping-cart-results").html('<img src="img/ajax-loader.gif">'); //show loading image
+            $("#shopping-cart-results" ).load( "cart_process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
+        });
+        $( ".close-shopping-cart-box").click(function(e){ //user click on cart box close link
+            e.preventDefault();
+            $(".shopping-cart-box").fadeOut(); //close cart-box
+        });
     });
+
     </script>
     <!-- END shopping cart -->
 
-    <!-- BEGIN calendar functions
-    <link href='fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
-    <link href='fullcalendar-3.9.0/scheduler.css' rel='stylesheet' />
-    <script src='fullcalendar-3.9.0/moment.js'></script>
-    <script src='fullcalendar-3.9.0/jquery.js'></script>
-    <script src='fullcalendar-3.9.0/fullcalendar.js'></script>
-    <script src='fullcalendar-3.9.0/scheduler.js'></script>
-    <!-- END calendar functions -->
 
 
 </head>
@@ -110,6 +135,12 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+    function addResourceCart() {
+        var r = document.getElementById("resource").value;
+        document.getElementById("resourceCart").innerHTML = r;
+    }
 </script>
 <!-- Facebook Login END -->
 
@@ -143,7 +174,7 @@
             }
         ?>
 
-
-        <a class="btn btn-sm btn-primary" href="/maurizio-barber-shop">Prenota ora</a>
+        <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
+        <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a>
     </div>
 </nav>
