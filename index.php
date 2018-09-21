@@ -181,15 +181,18 @@ include('header.php');
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span>La tua prenotazione</span>  <!--class="text-muted"-->
                 <span class="badge badge-secondary badge-pill">
-                    <i class="fa fa-shopping-cart fa-1x openCloseCart" aria-hidden="true"></i>
-                    <?php
-                    if(isset($_SESSION['products'])) {
-                        echo count($_SESSION["products"]);
-                    } else {
-                        echo 0;
-                    }
-                    ?>
+                    
+                    <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
+                        <?php
+                        if(isset($_SESSION['products'])) {
+                            echo count($_SESSION["products"]);
+                        } else {
+                            echo 0;
+                        }
+                        ?>
+                    </a>
                 </span>
+
             </h4>
 
 
@@ -205,10 +208,10 @@ include('header.php');
                         <div id="shopping-cart-results">
                         </div>
                     </div>
-                    <!-- <div id="cartItems">
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Product description</small>
-                    </div> -->
+                    <div id="cartItems">
+                        <!-- <h6 class="my-0">Product name</h6>
+                        <small class="text-muted">Product description</small> -->
+                    </div>
                     <span class="text-muted"></span>
                 </li>
 
@@ -228,14 +231,9 @@ include('header.php');
                 </li>
 
             </ul>
-            <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button>
+            <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
+            <a href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
             <hr>
-            <div id="cart-container">
-                <div id="cart">
-                    <i class="fa fa-shopping-cart fa-2x openCloseCart" aria-hidden="true"></i>
-                </div>
-                <span id="itemCount"></span>
-            </div>
 
         </div>
         <!-- END carrello -->
