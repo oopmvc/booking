@@ -3,13 +3,23 @@
     ob_start();
     session_start();
 
-    define('DB_SERVER', 'localhost');
-    define('DB_USERNAME', 'giuseppe_admin');
-    define('DB_PASSWORD', 'Lamatrice1');
-    define('DB_NAME', 'giuseppe_mauriziobarbershop');
-
-    // if you remove last char (slash) from follow URL then you can create activation link problem
-    define('DIR','http://localhost/maurizio-barber-shop/');
+    /*** LOCAL ***/
+    if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false) {
+        define('DB_SERVER', 'localhost');
+        define('DB_USERNAME', 'admin');
+        define('DB_PASSWORD', 'admin');
+        define('DB_NAME', 'mauriziobarbershop');
+        // if you remove last char (slash) from follow URL then you can create activation link problem
+        define('DIR', 'http://localhost/maurizio-barber-shop/');
+    /*** PRODUCTION ***/
+    } else {
+        define('DB_SERVER', 'localhost');
+        define('DB_USERNAME', 'admin');
+        define('DB_PASSWORD', 'admin');
+        define('DB_NAME', 'mauriziobarbershop');
+        // if you remove last char (slash) from follow URL then you can create activation link problem
+        define('DIR', 'https://booking.mauriziobarbershop.com/');
+    }
 
     // change with noreply@mauriziobarbershop.com
     define('SITEEMAIL','info@mauriziobarbershop.com');
