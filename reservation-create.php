@@ -2,7 +2,7 @@
 require('includes/connection.php');
 include('classes/user-checked.php');
 include('header.php');
-
+$userType = $_SESSION['type'];
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {

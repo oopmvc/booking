@@ -21,7 +21,7 @@ class User extends Password {
 
     private function get_user_hash($username){
         try {
-            $stmt = $this->_pdo->prepare('SELECT password, username, memberID FROM members WHERE username = :username AND active="Yes" ');
+            $stmt = $this->_pdo->prepare('SELECT password, username, memberID, type FROM members WHERE username = :username AND active="Yes" ');
             $stmt->execute(array('username' => $username));
             return $stmt->fetch();
         } catch(PDOException $e) {
@@ -48,6 +48,7 @@ class User extends Password {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $row['username'];
             $_SESSION['memberID'] = $row['memberID'];
+            $_SESSION['type'] = $row['type']; // for user type 1 : admin , 2 : customer
             return true;
         }
     }

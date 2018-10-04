@@ -7,23 +7,36 @@ include('header.php');
 <div class="container-fluid">
     <div class="row">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+        <?php
+        include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Prenotazioni</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="reservation-create.php" class="float-right btn btn-sm btn-success ml-2" type="submit">Aggiungi Prenotazione</a>
+            <?php if ($_SESSION['type'] == 1): ?>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Prenotazioni</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <a href="reservation-create.php" class="float-right btn btn-sm btn-success ml-2" type="submit">Aggiungi
+                            Prenotazione</a>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <div class="table-responsive">
+                <?php
 
-                <!-- <button class="btn btn-sm btn-primary" onclick="sortTable()">Ordina</button> -->
+                $type = $_SESSION['type'];
+                $sql_resource = "SELECT * FROM orders left JOIN  resources on (orders.resource = resources.id_resource)";
+                 $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
 
-                <table id="myTable" class="table table-striped table-sm">
-                    <thead>
+                if ($result_resource = $pdo->prepare($sql_resource)) {
+                    ($result_resource->execute());
+                    $result = ($result_resource->fetchAll());
+
+
+                    ?>
+                    <table id="myTable" class="table table-striped table-sm">
+                        <thead>
                         <tr>
                             <th>Data/ora</th>
                             <th>Cliente</th>
@@ -31,31 +44,36 @@ include('header.php');
                             <th>Persone</th>
                             <th>Stato</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="#">31/08/2018 - 09.30</a></td>
-                            <td>Mario Rossi</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td><i class="fas fa-times"></i> Annullato</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">21/09/2018 - 10.30</a></td>
-                            <td>Mario Rossi</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td><i class="fas fa-check-circle text-orange"></i> Aperto</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">21/09/2018 - 11.00</a></td>
-                            <td>Cristiano Ronaldo</td>
-                            <td>Maurizio P.</td>
-                            <td>1</td>
-                            <td><i class="fas fa-check-circle"></i> Chiuso</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($result as $item):
+                            // get order details
+                            $sql = $pdo->prepare("select * from order_details where order_details.order_id = " . $item['id_order']);
+                            $sql->execute();
+                            $orderDetails = $sql->fetchAll();
+                            $countPersonNumber = 0;
+                            foreach ($orderDetails as $itemDetail) {
+                                $countPersonNumber += $itemDetail['product_quantity'];
+                            }
+                            ?>
+                            <tr>
+                                <td><a><?= $item["order_date"] ?> - <?= $item["start_time"] ?> </a></td>
+                                <td>Mario Rossi</td>
+                                <td><?= $item['first_name'] . " " . $item['last_name']; ?></td>
+                                <td><?= $countPersonNumber; ?></td>
+                                <td><i class="fas fa-times"></i> Annullato</td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php
+                } else {
+                    echo "No record to display";
+                }
+                ?>
+
+
             </div>
         </main>
     </div>

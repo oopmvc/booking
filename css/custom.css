@@ -91,6 +91,7 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	font: small Verdana, Geneva, sans-serif;
 	margin-top: 10px;
 	display:none;
+	z-index: 999;
 }
 .shopping-cart-box a{
 	color: #FFD5D5;
@@ -169,3 +170,12 @@ hr{
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 /* shopping cart END */
+#productInCartNames ul {
+	list-style-type: none;
+	padding: 0px;
+}
+#LastActionOncartResume  {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 2em ;
+}

@@ -2,9 +2,6 @@
 require('includes/connection.php');
 include('header.php');
 ?>
-
-
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -18,28 +15,13 @@ include('header.php');
             <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
 
             <div class="needs-validation">
-
                 <!-- STEP 1: scegli servizi -->
                 <?php
-
                 // Attempt select query execution
                 $sql = "SELECT * FROM products ORDER BY name";
-                if($result = $pdo->query($sql)) {
-                    if($result->rowCount() > 0) {
-
-                        // echo "<table class='table'>";
-                        //     echo "<tbody>";
-                        //     while($row = $result->fetch()) {
-                        //         echo "<tr>";
-                        //             echo "<td class='d-none'><input name='id_product' type='hidden' value='" . $row['id_product'] . "'>" . $row['id_product'] . "</td>";
-                        //             echo "<td><strong>" . $row['name'] . " " . $row['price'] . " € </strong><br>" . $row['description'] . " (" . $row['time'] . " minuti)</td>";
-                        //             echo "<td><button class='btn btn-md btn-success' type='submit'>Aggiungi</button></td>";
-                        //         echo "</tr>";
-                        //     }
-                        //     echo "</tbody>";
-                        // echo "</table>";
-
-                        while($row = $result->fetch()) {
+                if ($result = $pdo->query($sql)) {
+                    if ($result->rowCount() > 0) {
+                        while ($row = $result->fetch()) {
                             echo '
                                 <form class="form-item">
                                     <div class="row pb-5">
@@ -57,7 +39,7 @@ include('header.php');
                                             </select>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button class="btn btn-md btn-success" type="submit">Aggiungi</button>
+                                            <button class="btn btn-md btn-success" type="button" onclick="addProductSelection(jQuery(form).serialize())"  >Aggiungi</button>
                                         </div>
                                     </div>
                                 </form>
@@ -71,14 +53,12 @@ include('header.php');
                 } else {
                     echo "ERRORE: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
                 }
-
                 ?>
                 <!-- END STEP 1: scegli servizi -->
 
 
-
                 <!-- BEGIN STEP 2: scegli con chi -->
-                <h4 class="pt-4 mb-4"><span class="bg-dark">2</span> Scegli con chi</h4>
+                <h4 class="pt-4 mb-4" id="ressroucesSelection"><span class="bg-dark">2</span> Scegli con chi</h4>
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="country">Scegli con chi</label>
@@ -88,11 +68,11 @@ include('header.php');
                         // Attempt select query execution
                         $sql_resource = "SELECT * FROM resources";
 
-                        if($result_resource = $pdo->query($sql_resource)) {
-                            if($result_resource->rowCount() > 0) {
-                                echo "<select class='custom-select d-block w-100' id='resource' required>";
-                                while($row_resources = $result_resource->fetch()) {
-                                    echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
+                        if ($result_resource = $pdo->query($sql_resource)) {
+                            if ($result_resource->rowCount() > 0) {
+                                echo "<select class='custom-select d-block w-100' onchange='fetchDatremove-itemeAvailability()' id='resource' required>";
+                                while ($row_resources = $result_resource->fetch()) {
+                                    echo "<option value='" . $row_resources['id_resource'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                                 }
                                 echo "</select>";
 
@@ -112,55 +92,31 @@ include('header.php');
                 <!-- END STEP 2: scegli con chi -->
 
 
-
                 <!-- BEGIN STEP 3: scegli quando -->
                 <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="date">Giorno</label>
-                        <input type="text" id="datepicker" class="form-control">
+                        <input type="text" id="datepicker" class="form-control" onchange="fetchDateAvailability()">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="slot_time">Fascia oraria</label>
 
                         <?php
-
-                        // Attempt select query execution
-                        $sql = "SELECT * FROM slot_time";
-
-                        if($result = $pdo->query($sql)) {
-                            if($result->rowCount() > 0) {
-                                echo "<select class='custom-select d-block w-100' id='slot_time' required>";
-                                while($row = $result->fetch()){
-                                    $from = substr($row['start_slot'],0,5);
-                                    $to = substr($row['end_slot'],0,5);
-                                    if($row['start_slot'] >= date("H:i:s")) {
-                                        echo "<option value='" . $row['start_slot'] . ' ' . $row['end_slot'] .  "'>" . $from . ' - ' . $to . "</option>";
-                                    }
-                                }
-                                echo "</select>";
-
-                                // Free result set
-                                unset($row);
-                            } else {
-                                echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
-                            }
-                        } else {
-                            echo "ERROR: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
-                        }
-
-                        // Close connection
-                        //unset($pdo);
+                        echo '<select disabled  class="custom-select d-block w-100"  id="timeSlotSelection" >';
+                        require 'opening-time-hour.php';
+                        echo '</select>';
                         ?>
 
                     </div>
                 </div>
                 <!-- END STEP 3: scegli con chi -->
 
-                <button class="mt-4 mb-5 btn btn-lg btn-block btn-danger" type="submit">Prenota ora</button>
+                <button class="mt-4 mb-5 btn btn-lg btn-block btn-danger" type="button"
+                        onclick="submitProductRequets()">Prenota ora
+                </button>
             </div>
         </div>
-
 
 
         <!-- BEGIN carrello -->
@@ -184,53 +140,21 @@ include('header.php');
                     
                     <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
                         <?php
-                        if(isset($_SESSION['products'])) {
-                            echo count($_SESSION["products"]);
-                        } else {
-                            echo 0;
-                        }
+                        if (isset($_SESSION['products'])):
+                            if (isset($_SESSION['products'])) {
+                                echo count($_SESSION["products"]);
+                            } else {
+                                echo 0;
+                            } endif;
+
                         ?>
                     </a>
                 </span>
 
             </h4>
-
-
-
-            <ul class="list-group mb-3">
-
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <strong>Cosa</strong>
-
-                    <div class="shopping-cart-box">
-                        <a href="#" class="close-shopping-cart-box" >Chiudi</a>
-                        <h3>Carrello</h3>
-                        <div id="shopping-cart-results">
-                        </div>
-                    </div>
-                    <div id="cartItems">
-                        <!-- <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Product description</small> -->
-                    </div>
-                    <span class="text-muted"></span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between">
-                    <strong>Con chi</strong>
-                    <span id="who"></span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between">
-                    <strong>Quando</strong>
-                    <span id="when"></span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between">
-                    <span><strong>Totale</strong></span>
-                    <span id="cartTotal"></span>
-                </li>
-
-            </ul>
+            <div id="cartResumer">
+                <ul id="LastActionOncartResume"></ul>
+            </div>
             <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
             <a href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
             <hr>
@@ -240,7 +164,6 @@ include('header.php');
 
     </div>
 </div>
-
 
 
 <?php include('footer.php'); ?>

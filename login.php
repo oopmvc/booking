@@ -61,8 +61,6 @@ include('header.php');
 	    <div class="col-lg-4 col-sm-8 col-md-6 offset-lg-4 offset-sm-2 offset-md-3 mt-3">
 			<form role="form" method="post"  autocomplete="off">
 				<h2>Accedi</h2>
-				<input type="button" name="submit" value="Accedi con Facebook" class="btn btn-primary btn-block btn-lg mb-5" onclick="window.location = '<?php echo $loginURL; ?>';">
-
 				<hr>
 				<p><a href='./'>Torna alla Home</a></p>
 				<hr>
