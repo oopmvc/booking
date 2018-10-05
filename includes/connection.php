@@ -10,13 +10,13 @@
         define('DB_PASSWORD', 'admin');
         define('DB_NAME', 'mauriziobarbershop');
         // if you remove last char (slash) from follow URL then you can create activation link problem
-        define('DIR', 'http://localhost/maurizio-barber-shop/');
+        define('DIR', 'https://localhost/maurizio-barber-shop/');
     /*** PRODUCTION ***/
     } else {
         define('DB_SERVER', 'localhost');
-        define('DB_USERNAME', 'admin');
-        define('DB_PASSWORD', 'admin');
-        define('DB_NAME', 'mauriziobarbershop');
+        define('DB_USERNAME', 'avodvovr_mauriziobarbershop');
+        define('DB_PASSWORD', 'Lamatrice1');
+        define('DB_NAME', 'avodvovr_bookingmauriziobarbershop');
         // if you remove last char (slash) from follow URL then you can create activation link problem
         define('DIR', 'https://booking.mauriziobarbershop.com/');
     }
