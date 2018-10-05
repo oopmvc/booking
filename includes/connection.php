@@ -21,8 +21,7 @@
         define('DIR', 'https://booking.mauriziobarbershop.com/');
     }
 
-    // change with noreply@mauriziobarbershop.com
-    define('SITEEMAIL','info@mauriziobarbershop.com');
+    define('SITEEMAIL','noreply@mauriziobarbershop.com');
 
     try {
         /* Attempt to connect to MySQL database */
