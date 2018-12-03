@@ -1,7 +1,7 @@
 <?php
 
 require('includes/connection.php');
-include('classes/user-checked.php');
+//include('classes/user-checked.php');
 
 $resetToken = hash('SHA256', ($_GET['key']));
 

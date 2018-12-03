@@ -370,7 +370,7 @@ if (isset($_POST['save_to_db'])) {
         $_SESSION["order_details"]['customer'] = $_SESSION['memberID'];
 
     $order_details = $_SESSION["order_details"];
-    echo $customerID = ($_SESSION["memberID"]);
+    $customerID = ($_SESSION["memberID"]);
 //    var_dump($_SESSION["order_details"]);
 
 // insert the new order to the DB
@@ -418,13 +418,40 @@ if (isset($_POST['save_to_db'])) {
                 $values .= " , ";
             $i++;
         }
-        echo$sql .= " VALUES " . $values;
+        $sql .= " VALUES " . $values;
         $statement = $pdo->prepare($sql);
         if ($statement->execute()) {
-            echo $pdo->lastInsertId();
-            die();
+            $pdo->lastInsertId();
+
+            //send email to customer
+            $ressourceName = "";
+            $requested_product = "<b>prodotti</b><br><ul>";
+            foreach ($_SESSION['products'] as $value) {
+                $ressourceName = $value['ressourceName'];
+                $requested_product .= "<li> " . $value['product_name'] . " prezzo " . $value['product_price'] . "&euro; </li>";
+            }
+
+            $subject = "Maurizio Barber Shop : Conferma della prenotazione";
+
+            $body = "Si riceve questa email a seguito di una prenotazione effettuata sul sito mauriziobarbershop.com, Di seguito i dettagli della prenotazione: <br>";
+            $body .= " <ul>
+             <li>La data: " . $order_details['date'] . " alle " . $order_details['slotTime'] . " </li>
+             <li>Con : " . $ressourceName . " </li>";
+
+            $body .= '</ul>';
+            $body .= $requested_product . "</ul>";
+            if ($order_details['note'] != "")
+                $body .= "<ul><li>Commento: " . $order_details['note'] . " </li></ul>";
+
+            $to = $_SESSION['user_email'];
+            $from = "From: " . SITEEMAIL;
+            mail($to, $subject, $body, $from);
+
+            die("So cool");
+
             //unset($_SESSION['products']);
-            //echo json_encode(true);
+
+            echo json_encode(true);
         }
     } else
         echo json_encode(false);

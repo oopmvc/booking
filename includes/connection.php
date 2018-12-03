@@ -10,7 +10,7 @@
         define('DB_PASSWORD', 'admin');
         define('DB_NAME', 'mauriziobarbershop');
         // if you remove last char (slash) from follow URL then you can create activation link problem
-        define('DIR', 'https://localhost/maurizio-barber-shop/');
+        define('DIR', 'http://localhost/maurizio-barber-shop/');
     /*** PRODUCTION ***/
     } else {
         define('DB_SERVER', 'localhost');
@@ -21,7 +21,8 @@
         define('DIR', 'https://booking.mauriziobarbershop.com/');
     }
 
-    define('SITEEMAIL','noreply@mauriziobarbershop.com');
+    // change with noreply@mauriziobarbershop.com
+    define('SITEEMAIL','info@mauriziobarbershop.com');
 
     try {
         /* Attempt to connect to MySQL database */

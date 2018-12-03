@@ -128,6 +128,40 @@ require('header.php');
                 <p>Sei già registrato? <a href='login.php'>Accedi</a></p>
                 <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
                 <hr>
+                <fb:login-button
+                  scope="public_profile,email"
+                  onlogin="checkLoginState();">
+                </fb:login-button>
+                <div id="status"></div>
+                <div class="" onclick="logout()">
+                    Logout
+                </div>
+                <script type="text/javascript">
+                function logoutX (){
+
+                     FB.logout(function(response) {
+                        console.log("Logged out")})
+                };
+
+                function statusChangeCallback(response) {
+                       console.log('statusChangeCallback');
+                       console.log(response);
+
+                       if (response.status === 'connected') {
+                           // Logged into your app and Facebook.
+
+                           FB.api('/me?scope=email', function (response) {
+                                    console.table(response);
+                               document.getElementById('status').innerHTML ='Thanks for logging in, ' + response + '!';
+                           });
+                       } else {
+                           // The person is not logged into your app or we are unable to tell.
+                           document.getElementById('status').innerHTML = 'Please log ' +
+                             'into this app.';
+                       }
+                   }
+                </script>
+                <hr>
 
                 <?php
                 //check for any errors

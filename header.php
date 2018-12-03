@@ -213,13 +213,17 @@ error_reporting(E_ALL);
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '373162053089946',
+            appId: '251349018864231',
             autoLogAppEvents: true,
             xfbml: true,
             version: 'v3.1'
         });
     };
-
+    function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+    });
+    }
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {

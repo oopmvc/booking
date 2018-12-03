@@ -5,7 +5,6 @@ include('classes/user-checked.php');
 include('header.php');
 
 $userType = $_SESSION['type'];
-var_dump( $_SESSION);
 ?>
 
 <div class="container-fluid">
