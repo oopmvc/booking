@@ -57,16 +57,26 @@ error_reporting(E_ALL);
          *
          */
         function submitProductRequets() {
+            // get selected options
+            tableObject = [];
+            selectedOptions =
+                [...document.querySelectorAll("form[name='reservation-form'] select")].filter(item => item.value !== "");
+            selectedOptions.forEach(
+                item => {
+                    tableObject.push({"product_id": item.getAttribute("data-value"), "qty": item.value})
+                }
+            )
             //user clicks form submit button
-            var form_data = tmpProduct + "&ressource=" + jQuery("#resource").val() +
+            var form_data = JSON.stringify(tableObject) + "&ressource=" + jQuery("#resource").val() +
                 "&slotTime=" + jQuery("#timeSlotSelection").val() +
                 "&date=" + jQuery('#datepicker').val() +
                 "&ressourceName=" + jQuery("#resource option:selected").text();
+            console.log(tableObject)
             // check if all fields are ok
-            if (jQuery("#resource").val() === ""
+            if (
+                jQuery("#resource").val() === ""
                 || jQuery("#timeSlotSelection").val() === ""
-                || jQuery("#timeSlotSelection").val() === ""
-                || jQuery('#datepicker').val() === "" || !tmpProduct) {
+                || jQuery('#datepicker').val() === "" || selectedOptions.length === 0) {
                 alert("Please fill all the required fields");
                 return false;
             }
@@ -76,12 +86,11 @@ error_reporting(E_ALL);
                 dataType: "html",
                 data: form_data,
                 success: function (data) { //on Ajax success
-                    if(data !== "false")
-                    {
+                    if (data !== "false") {
                         jQuery("#LastActionOncartResume").html(data)
                         alert('Product add to cart')
-                    }
-                    else {
+                        //window.location.href = "/view_cart.php";
+                    } else {
                         alert("Can't process request")
                     }
                 }
@@ -141,8 +150,7 @@ error_reporting(E_ALL);
                     if (xhr === true) {
                         alert("Order processed succesfully, \n thank you");
                         window.location.href = "dashboard.php";
-                    }
-                    else
+                    } else
                         alert("Sorry, can't process you order now \nplease retry later");
                 }
             })
@@ -219,11 +227,13 @@ error_reporting(E_ALL);
             version: 'v3.1'
         });
     };
+
     function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    });
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
     }
+
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {

@@ -21,30 +21,30 @@ include('header.php');
                 $sql = "SELECT * FROM products ORDER BY name";
                 if ($result = $pdo->query($sql)) {
                     if ($result->rowCount() > 0) {
+                        echo '<form class="form-item" name="reservation-form" >';
                         while ($row = $result->fetch()) {
+                            $index = $row['id_product'];
                             echo '
-                                <form class="form-item">
                                     <div class="row pb-5">
                                         <div class="col-lg-8">
-                                            <input class="d-none" name="id_product" type="hidden" value="' . $row['id_product'] . '">' . '
+                                            <input class="d-none" name="product" type="hidden" value="' . $row['id_product'] . '">' . '
                                               <strong>' . $row['name'] . ' ' . $row['price'] . ' € </strong><br>' . $row['description'] . ' (' . $row['time'] . ' minuti)
                                         </div>
                                         <div class="col-lg-2">
-                                            <select class="custom-select d-block w-100" name="quantity" required>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                            <select class="custom-select d-block w-100"  data-value="' . $index . '" name="qty" required>
+                                                <option value="">-</option>
+                                                <option  value="1">1</option>
+                                                <option  value="2">2</option>
+                                                <option  value="3">3</option>
+                                                <option  value="4">4</option>
+                                                <option  value="5">5</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <button class="btn btn-md btn-success" type="button" onclick="addProductSelection(jQuery(form).serialize())"  >Aggiungi</button>
-                                        </div>
                                     </div>
-                                </form>
+                                
                             ';
                         }
+                        echo '</form>';
                         // Free result set
                         unset($result);
                     } else {
@@ -70,7 +70,7 @@ include('header.php');
 
                         if ($result_resource = $pdo->query($sql_resource)) {
                             if ($result_resource->rowCount() > 0) {
-                                echo "<select class='custom-select d-block w-100' onchange='fetchDatremove-itemeAvailability()' id='resource' required>";
+                                echo "<select class='custom-select d-block w-100' onchange='fetchDateAvailability()' id='resource' required>";
                                 while ($row_resources = $result_resource->fetch()) {
                                     echo "<option value='" . $row_resources['id_resource'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                                 }
@@ -164,6 +164,4 @@ include('header.php');
 
     </div>
 </div>
-
-
 <?php include('footer.php'); ?>
