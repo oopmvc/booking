@@ -63,11 +63,16 @@ error_reporting(E_ALL);
                 [...document.querySelectorAll("form[name='reservation-form'] select")].filter(item => item.value !== "");
             selectedOptions.forEach(
                 item => {
-                    tableObject.push({"product_id": item.getAttribute("data-value"), "qty": item.value})
+                    tableObject.push({
+                        "product_id": item.getAttribute("data-value"),
+                        "qty": item.value,
+                        "name": item.getAttribute("data-name"),
+                        "price": item.getAttribute("data-price")
+                    })
                 }
             )
             //user clicks form submit button
-            var form_data = JSON.stringify(tableObject) + "&ressource=" + jQuery("#resource").val() +
+            var form_data = "products_selection=" + JSON.stringify(tableObject) + "&ressource=" + jQuery("#resource").val() +
                 "&slotTime=" + jQuery("#timeSlotSelection").val() +
                 "&date=" + jQuery('#datepicker').val() +
                 "&ressourceName=" + jQuery("#resource option:selected").text();
@@ -89,7 +94,7 @@ error_reporting(E_ALL);
                     if (data !== "false") {
                         jQuery("#LastActionOncartResume").html(data)
                         alert('Product add to cart')
-                        //window.location.href = "/view_cart.php";
+                        window.location.href = "/view_cart.php";
                     } else {
                         alert("Can't process request")
                     }
@@ -208,6 +213,31 @@ error_reporting(E_ALL);
             // jQuery.getJSON("cart_process.php", , function (data) { //get Item count from Server
             //
             // });
+        }
+
+        function getOrderDetails(order_id, customer_name) {
+
+            if (order_id === false)
+                return;
+            $.ajax({
+                url: "cart_process.php",
+                type: "POST",
+                data: {"order_id": order_id, "customer_name": customer_name},
+                success: function (data) {
+                    var html = "";
+                    html += "<b>Con:</b> <span>" + customer_name + "</span>";
+                    html += "<div>Produtto:</div>";
+                    html += "<ul>";
+                    JSON.parse(data).forEach(item => {
+                    html += "<li>" +  item.name + " : " + item.product_quantity +  "</li>";
+                    });
+                    html += "</ul>";
+
+                    $("#modalBodyContainer").html(html);
+                    $(".modal").modal();
+                }
+            });
+
         }
     </script>
     <!-- END shopping cart -->

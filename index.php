@@ -23,6 +23,7 @@ include('header.php');
                     if ($result->rowCount() > 0) {
                         echo '<form class="form-item" name="reservation-form" >';
                         while ($row = $result->fetch()) {
+//                            var_dump($row);
                             $index = $row['id_product'];
                             echo '
                                     <div class="row pb-5">
@@ -31,7 +32,11 @@ include('header.php');
                                               <strong>' . $row['name'] . ' ' . $row['price'] . ' € </strong><br>' . $row['description'] . ' (' . $row['time'] . ' minuti)
                                         </div>
                                         <div class="col-lg-2">
-                                            <select class="custom-select d-block w-100"  data-value="' . $index . '" name="qty" required>
+                                            <select class="custom-select d-block w-100"  
+                                             data-price="'. $row['price']  .'" 
+                                             data-value="' . $index . '" 
+                                             data-name="'. $row['name'] .'"
+                                             name="qty" required>
                                                 <option value="">-</option>
                                                 <option  value="1">1</option>
                                                 <option  value="2">2</option>
@@ -148,20 +153,20 @@ include('header.php');
                             } endif;
 
                         ?>
-                    </a>
+                </a>
                 </span>
 
-            </h4>
-            <div id="cartResumer">
-                <ul id="LastActionOncartResume"></ul>
+                </h4>
+                <div id="cartResumer">
+                    <ul id="LastActionOncartResume"></ul>
+                </div>
+                <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
+                <a href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
+                <hr>
+
             </div>
-            <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
-            <a href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
-            <hr>
+            <!-- END carrello -->
 
         </div>
-        <!-- END carrello -->
-
     </div>
-</div>
-<?php include('footer.php'); ?>
+    <?php include('footer.php'); ?>

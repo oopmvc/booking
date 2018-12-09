@@ -20,29 +20,27 @@ if (isset($_POST['checkTimeSlot'])) {
         echo json_encode($statement->fetchAll());
     else  echo 0;
 }
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /** add products to session */
-if (isset($_POST['id_product'])) {
+if (isset($_POST['products_selection'])) {
 //    check if date is available
-    foreach ($_POST as $key => $value) {
-        $new_product[$key] = filter_var($value, FILTER_SANITIZE_STRING); //create a new product array
-    }
-    // we need to get product name and price from database
-    $sql = 'SELECT name, price FROM products WHERE id_product=:s LIMIT 1';
-    $statement = $pdo->prepare($sql);
-    $statement->execute(array('s' => $new_product['id_product']));
-
-    while ($product = $statement->fetch()) {
-        $new_product['product_name'] = $product['name']; //fetch product name from database
-        $new_product['product_price'] = $product['price'];  //fetch product price from database
-        $new_product['product_qty'] = $_POST['quantity'];  //fetch product price from database
+    $products = json_decode($_POST['products_selection']);
+    foreach ($products as $product) {
+        $new_product['product_id'] = $product->product_id; //fetch product name from database
+        $new_product['product_name'] = $product->name; //fetch product name from database
+        $new_product['product_price'] = $product->price;  //fetch product price from database
+        $new_product['product_qty'] = $product->qty;  //fetch product price from database
         $new_product['ressource'] = $_POST['ressource'];  //fetch product price from database
-//        $new_product['ressource_name'] =      $_POST['ressourceName'];  //fetch product price from database
+        $new_product['ressourceName'] = $_POST['ressourceName'];  //fetch product price from database
+
         $new_product['date'] = $_POST['date'];  //fetch product price from database
         $new_product['slotTime'] = $_POST['slotTime'];  //fetch product price from database
+
         if (isset($_SESSION['products'])) {  //if session var already exist
-            if (isset($_SESSION['products'][$new_product['id_product']])) { //check item exist in products array
-                unset($_SESSION['products'][$new_product['id_product']]); //unset old item
+
+            if (isset($_SESSION['products'][$new_product['product_id']])) { //check item exist in products array
+                unset($_SESSION['products'][$new_product['product_id']]); //unset old item
             }
         }
         /**
@@ -60,8 +58,12 @@ if (isset($_POST['id_product'])) {
             "date" => $_POST['date'],
             "slotTime" => $_POST['slotTime'],
         );
-        $_SESSION['products'][$new_product['id_product']] = $new_product; //update products with new item array
+
+
+        $_SESSION['ressourceName'] = $new_product['ressourceName']; //update products with new item array
+        $_SESSION['products'][$product->product_id] = $new_product; //update products with new item array
     }
+
     $total_items = count($_SESSION['products']); //count total items
     if ($total_items > 0) {
         die(GenerateCartView()); //output json
@@ -110,7 +112,7 @@ function GenerateCartView()
                              if ($i > 0)
                                  break;
                              ?>
-                             <?php echo $product["ressourceName"] ?>
+                             <?php echo $_POST["ressourceName"] ?>
                              <?php
                              $i++;
                          endforeach;
@@ -371,9 +373,7 @@ if (isset($_POST['save_to_db'])) {
 
     $order_details = $_SESSION["order_details"];
     $customerID = ($_SESSION["memberID"]);
-//    var_dump($_SESSION["order_details"]);
 
-// insert the new order to the DB
     $sql = 'INSERT INTO `orders`(
           `order_date`, 
           `start_time`, 
@@ -396,10 +396,10 @@ if (isset($_POST['save_to_db'])) {
     $statement->bindParam(":status", $order_details['status']);
     $statement->bindParam(":note", $order_details['note']);
     $statement->execute();
+
     if ($lastInsertedId = $pdo->lastInsertId()) {
 
         $products = $_SESSION['products'];
-
 
         $sql = 'INSERT INTO `order_details`(
           `order_id`, 
@@ -411,7 +411,7 @@ if (isset($_POST['save_to_db'])) {
         foreach ($products as $key => $product) {
             $values .= "( '"
                 . $lastInsertedId . "' , '"
-                . $product['id_product'] . "' , '"
+                . $product['product_id'] . "' , '"
                 . $product['product_qty'] . "' 
                    )  ";
             if ($i < $productNbr)
@@ -422,7 +422,6 @@ if (isset($_POST['save_to_db'])) {
         $statement = $pdo->prepare($sql);
         if ($statement->execute()) {
             $pdo->lastInsertId();
-
             //send email to customer
             $ressourceName = "";
             $requested_product = "<b>prodotti</b><br><ul>";
@@ -447,12 +446,25 @@ if (isset($_POST['save_to_db'])) {
             $from = "From: " . SITEEMAIL;
             mail($to, $subject, $body, $from);
 
-            die("So cool");
-
-            //unset($_SESSION['products']);
+            unset($_SESSION['products']);
 
             echo json_encode(true);
         }
     } else
         echo json_encode(false);
+}
+
+
+/**
+ * Get order details
+ */
+
+if (isset($_POST["order_id"])) {
+    $sql = "SELECT * FROM order_details left join products on (products.id_product = order_details.product_id) WHERE order_id = :order_id ";
+    $statement = $pdo->prepare($sql);
+    $statement->bindParam(":order_id", $_POST['order_id']);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $json = json_encode($results);
+    echo $json;
 }
