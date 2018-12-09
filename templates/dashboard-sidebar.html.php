@@ -11,11 +11,13 @@ $userType = $_SESSION['type'];
             <span class="text-white">Menu</span>
         </h6>
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="dashboard.php">
-                    <i class="fas fa-home"></i> Pannello di Controllo
-                </a>
-            </li>
+            <?php if ($userType == 1): ?>
+                <li class="nav-item">
+                    <a class="nav-link active" href="dashboard.php">
+                        <i class="fas fa-home"></i> Pannello di Controllo
+                    </a>
+                </li>
+            <?php endif; ?>
             <li class="nav-item">
                 <a class="nav-link" href="reservation-management.php">
                     <i class="fas fa-calendar-alt"></i> Prenotazioni

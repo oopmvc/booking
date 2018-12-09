@@ -3,70 +3,82 @@ require('includes/connection.php');
 include('classes/user-checked.php');
 include('header.php');
 $userType = $_SESSION['type'];
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    try {
-
-        // insert query
-        $query = "INSERT INTO slot_time (start_slot, end_slot, sunday, monday, tuesday, wednesday, thursday, friday, saturday) VALUES (:start_slot, :end_slot, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)";
-
-        // prepare query for execution
-        $statement = $pdo->prepare($query);
-
-        // posted values
-        $start_slot = $_POST['start_slot'];
-        $end_slot   = $_POST['end_slot'];
-        $sunday     = isset($_POST['sunday'])       ? '1' : '0' ;
-        $monday     = isset($_POST['monday'])       ? '1' : '0' ;
-        $tuesday    = isset($_POST['tuesday'])      ? '1' : '0' ;
-        $wednesday  = isset($_POST['wednesday'])    ? '1' : '0' ;
-        $thursday   = isset($_POST['thursday'])     ? '1' : '0' ;
-        $friday     = isset($_POST['friday'])       ? '1' : '0' ;
-        $saturday   = isset($_POST['saturday'])     ? '1' : '0' ;
-
-        // bind the parameters
-        $statement->bindParam(':start_slot',$start_slot);
-        $statement->bindParam(':end_slot',  $end_slot);
-        $statement->bindParam(':sunday',    $sunday);
-        $statement->bindParam(':monday',    $monday);
-        $statement->bindParam(':tuesday',   $tuesday);
-        $statement->bindParam(':wednesday', $wednesday);
-        $statement->bindParam(':thursday',  $thursday);
-        $statement->bindParam(':friday',    $friday);
-        $statement->bindParam(':saturday',  $saturday);
-
-        // Execute the query
-        if($statement->execute()) {
-            echo "<div class='alert alert-success'>Orario di apertura salvato correttamente!</div>";
-        } else {
-            echo "<div class='alert alert-danger'>Errore nel salvataggio dell'orario di apertura.</div>";
-        }
-
-    }
-
-    // show error
-    catch(PDOException $exception){
-        die('ERROR: ' . $exception->getMessage());
-    }
-
-}
-
+$customerID = $_SESSION["memberID"];
 ?>
-
 
 
 <div class="container-fluid">
     <div class="row">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+        <?php include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                try {
+                    $customerID;
+                    $sql = 'INSERT INTO `orders`(
+          `order_date`, 
+          `start_time`, 
+          `resource`, 
+          `customer`)
+              VALUES (
+                    :order_date ,     
+                    :start_time ,   
+                    :resource ,    
+                    :customer
+                    )';
+                    $statement = $pdo->prepare($sql);
+
+                    $statement->bindParam(":order_date", $_POST['date']);
+                    $statement->bindParam(":start_time", $_POST['slotTime']);
+                    $statement->bindParam(":resource", $_POST['ressource']);
+                    $statement->bindParam(":customer", $customerID);
+                    $statement->execute();
+
+                    if ($lastInsertedId = $pdo->lastInsertId()) {
+
+                        $products = $_POST['product'];
+
+                        $sql = 'INSERT INTO `order_details`(
+          `order_id`, 
+          `product_id`, 
+          `product_quantity`) ';
+                        $values = "";
+                        $productNbr = count($products);
+                        $i = 1;
+
+                        foreach ($products as $key => $product) {
+                            $values .= "( '"
+                                . $lastInsertedId . "' , '"
+                                . $product['product_id'] . "' , '"
+                                . $product['product_qty'] . "' 
+                   )  ";
+                            if ($i < $productNbr)
+                                $values .= " , ";
+                            $i++;
+                        }
+                        $sql .= " VALUES " . $values;
+                        $statement = $pdo->prepare($sql);
+                        if ($statement->execute()) {
+                            echo "<br><p></p><div class='alert alert-success'>Prenotazione salvata correttamente</div>";
+                        }
+                    } else
+                        echo "<br><div class='alert alert-danger'>La prenotazione non è stata salvata correttamente</div>";
+
+                } // show error
+                catch (PDOException $exception) {
+                    die('ERROR: ' . $exception->getMessage());
+                }
+
+            }
+            ?>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Nuova Prenotazione</h1>
             </div>
 
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-group">
                     <label for="start">Con chi?</label>
                     <?php
@@ -74,11 +86,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Attempt select query execution
                     $sql_resource = "SELECT * FROM resources";
 
-                    if($result_resource = $pdo->query($sql_resource)) {
-                        if($result_resource->rowCount() > 0) {
+                    if ($result_resource = $pdo->query($sql_resource)) {
+                        if ($result_resource->rowCount() > 0) {
                             echo "<select class='custom-select d-block w-100' id='resource' required>";
-                            while($row_resources = $result_resource->fetch()){
-                                echo "<option value='" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
+                            while ($row_resources = $result_resource->fetch()) {
+                                echo "<option value='" . $row_resources['id_resource'] . ' ' . $row_resources['last_name'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                             }
                             echo "</select>";
 
@@ -92,12 +104,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
 
                     // Close connection
-                    unset($pdo);
                     ?>
                 </div>
                 <div class="form-group">
                     <label for="start">Quando?</label><br>
-                    <input type="text" id="datepicker" class="form-control">
+                    <input type="text" id="datepicker" name="date" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="start">A che ora?</label>
@@ -107,44 +118,89 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group">
                     <label for="start">Cliente</label>
-                    <input type="text" id="customer" class="form-control">
+
+                    <?php
+                    if ($_SESSION['type'] != 1) :
+                        ?>
+                        Voi
+                        <input type="text" id="customer" class="form-control" value="<?php echo $customerID; ?>">
+                    <?php
+                    else:
+                        // get all users
+                        $sql = "select * from members ";
+                        $result_resource = $pdo->query($sql);
+                        echo "<select class='custom-select d-block w-100' name='customer' required>";
+                        while ($row_resources = $result_resource->fetch()) {
+                            echo "<option value='" . $row_resources['id_resource'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
+                        }
+                        echo "</select>";
+                    endif; ?>
                 </div>
-                <div class='table-responsive'>
-                    <table class='table table-striped table-md'>
-                        <thead>
-                            <tr>
-                                <th>Prodotto</th>
-                                <th>Quantità</th>
-                                <th>Prezzo</th>
-                                <th>Totale</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <?php
+
+                $sql = "SELECT * FROM products ORDER BY name";
+                if ($result = $pdo->query($sql)) {
+                    if ($result->rowCount() > 0) {
+                        ?>
+                        <div class='table-responsive'>
+                            <table class='table table-striped table-md'>
+                                <thead>
+                                <tr>
+                                    <th>Prodotto</th>
+                                    <th>Quantità</th>
+                                    <th>Prezzo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                while ($row = $result->fetch()) {
+                                    $index = $row['id_product'];
+                                    echo '
+                                    <tr>
+                                            <td><strong>' . $row['name'] . ' </strong>
+                                                <input class="d-none" name="product[' . $row['id_product'] . '][product_id]" type="hidden" value="' . $row['id_product'] . '">' . '
+                                                  <div style="max-width: 300px;">' . $row['description'] . ' (' . $row['time'] . ' minuti)</div>
+                                            </td>
+                                            <td>
+                                                <select class="custom-select d-block w-100"  
+                                                 data-price="' . $row['price'] . '" 
+                                                 data-value="' . $index . '" 
+                                                 data-name="' . $row['name'] . '"
+                                                 name="product[' . $row['id_product'] . '][product_qty]">
+                                                    <option value="">Personne</option>
+                                                    <option  value="1">1</option>
+                                                    <option  value="2">2</option>
+                                                    <option  value="3">3</option>
+                                                    <option  value="4">4</option>
+                                                    <option  value="5">5</option>
+                                                </select>
+                                            </td>
+                                            <td><strong>' . $row['price'] . ' € </strong></td>
+                                    </tr>
+                                
+                            ';
+                                }
+
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
                 <div class="form-group">
-                    <input type="submit" value="Salva" class="btn btn-primary" />
-                    <a href="opening-time-management.php" class="btn btn-danger">Indietro</a>
+                    <input type="submit" value="Salva" class="btn btn-primary"/>
                 </div>
             </form>
         </main>
     </div>
 </div>
+<?php
 
+unset($pdo);
 
+?>
 
 <!--
 <div class="container">
@@ -221,7 +277,6 @@ $(document).ready(function() {
 });
 </script>
 -->
-
 
 
 <?php include('footer.php'); ?>
