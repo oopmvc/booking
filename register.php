@@ -1,119 +1,119 @@
 <?php require('includes/connection.php');
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: index.php'); exit(); }
+    //if logged in redirect to members page
+    if( $user->is_logged_in() ){ header('Location: index.php'); exit(); }
 
-//if form has been submitted process it
-if(isset($_POST['submit'])){
+    //if form has been submitted process it
+    if(isset($_POST['submit'])){
 
-    if (!isset($_POST['username']))   $error[] = "Controlla tutti i campi";
-    if (!isset($_POST['first_name'])) $error[] = "Controlla tutti i campi";
-    if (!isset($_POST['last_name']))  $error[] = "Controlla tutti i campi";
-    if (!isset($_POST['email']))      $error[] = "Controlla tutti i campi";
-    if (!isset($_POST['phone']))      $error[] = "Controlla tutti i campi";
-    if (!isset($_POST['password']))   $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['username']))   $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['first_name'])) $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['last_name']))  $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['email']))      $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['phone']))      $error[] = "Controlla tutti i campi";
+        if (!isset($_POST['password']))   $error[] = "Controlla tutti i campi";
 
-    $username = $_POST['username'];
+        $username = $_POST['username'];
 
-    //very basic validation
-    if(!$user->isValidUsername($username)) {
-        $error[] = 'Il nome utente deve essere composto da almeno 3 caratteri alfanumerici.';
-    } else {
-        $stmt = $pdo->prepare('SELECT username FROM members WHERE username = :username');
-        $stmt->execute(array(':username' => $username));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        //very basic validation
+        if(!$user->isValidUsername($username)) {
+            $error[] = 'Il nome utente deve essere composto da almeno 3 caratteri alfanumerici.';
+        } else {
+            $stmt = $pdo->prepare('SELECT username FROM members WHERE username = :username');
+            $stmt->execute(array(':username' => $username));
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if(!empty($row['username'])) {
-            $error[] = 'Il nome utente scelto è già stato utilizzato.';
+            if(!empty($row['username'])) {
+                $error[] = 'Il nome utente scelto è già stato utilizzato.';
+            }
+
+        }
+
+        if(strlen($_POST['password']) < 3) {
+            $error[] = 'La Password è troppo corta.';
+        }
+
+        if(strlen($_POST['passwordConfirm']) < 3) {
+            $error[] = 'La Password di conferma è troppo corta.';
+        }
+
+        if($_POST['password'] != $_POST['passwordConfirm']) {
+            $error[] = 'La Passwords non corrispondono.';
+        }
+
+        //email validation
+        $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error[] = 'Inserisci un indirizzo email valido.';
+        } else {
+            $stmt = $pdo->prepare('SELECT email FROM members WHERE email = :email');
+            $stmt->execute(array(':email' => $email));
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if(!empty($row['email'])){
+                $error[] = 'L\'e-mail specificata è già in uso.';
+            }
+
+        }
+
+
+        //if no errors have been created carry on
+        if(!isset($error)) {
+
+            //hash the password
+            $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+            //create the activasion code
+            $activasion = md5(uniqid(rand(),true));
+
+            $first_name = $_POST['first_name'];
+            $last_name  = $_POST['last_name'];
+            $phone      = $_POST['phone'];
+
+            try {
+
+                //insert into database with a prepared statement
+                $stmt = $pdo->prepare('INSERT INTO members (username, first_name, last_name, email, phone, password, active) VALUES (:username, :first_name, :last_name, :email, :phone, :password, :active)');
+
+                $stmt->execute(array(
+                    ':username' => $username,
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':email' => $email,
+                    ':phone' => $phone,
+                    ':password' => $hashedpassword,
+                    ':active' => $activasion
+                ));
+
+                $id = $pdo->lastInsertId('memberID');
+
+                //send email
+                $to = $_POST['email'];
+                $subject = "Conferma di registrazione";
+                $body = "<p>Grazie per aver effettuato la registrazione sul mio sito.</p>
+                <p>Per attivta il tuo account, per favore clicca su questo link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+                <p>Maurizio Barber Shop</p>";
+
+                $mail = new Mail();
+                $mail->setFrom(SITEEMAIL);
+                $mail->addAddress($to);
+                $mail->subject($subject);
+                $mail->body($body);
+                $mail->send();
+
+                //redirect to index page
+                //header('Location: index.php?action=joined');
+                header('Location: login.php?action=joined');
+                exit;
+
+                //else catch the exception and show the error.
+            } catch(PDOException $e) {
+                $error[] = $e->getMessage();
+            }
+
         }
 
     }
-
-    if(strlen($_POST['password']) < 3) {
-        $error[] = 'La Password è troppo corta.';
-    }
-
-    if(strlen($_POST['passwordConfirm']) < 3) {
-        $error[] = 'La Password di conferma è troppo corta.';
-    }
-
-    if($_POST['password'] != $_POST['passwordConfirm']) {
-        $error[] = 'La Passwords non corrispondono.';
-    }
-
-    //email validation
-    $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error[] = 'Inserisci un indirizzo email valido.';
-    } else {
-        $stmt = $pdo->prepare('SELECT email FROM members WHERE email = :email');
-        $stmt->execute(array(':email' => $email));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if(!empty($row['email'])){
-            $error[] = 'L\'e-mail specificata è già in uso.';
-        }
-
-    }
-
-
-    //if no errors have been created carry on
-    if(!isset($error)) {
-
-        //hash the password
-        $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
-
-        //create the activasion code
-        $activasion = md5(uniqid(rand(),true));
-
-        $first_name = $_POST['first_name'];
-        $last_name  = $_POST['last_name'];
-        $phone      = $_POST['phone'];
-
-        try {
-
-            //insert into database with a prepared statement
-            $stmt = $pdo->prepare('INSERT INTO members (username, first_name, last_name, email, phone, password, active) VALUES (:username, :first_name, :last_name, :email, :phone, :password, :active)');
-
-            $stmt->execute(array(
-                ':username' => $username,
-                ':first_name' => $first_name,
-                ':last_name' => $last_name,
-                ':email' => $email,
-                ':phone' => $phone,
-                ':password' => $hashedpassword,
-                ':active' => $activasion
-            ));
-
-            $id = $pdo->lastInsertId('memberID');
-
-            //send email
-            $to = $_POST['email'];
-            $subject = "Conferma di registrazione";
-            $body = "<p>Grazie per aver effettuato la registrazione sul mio sito.</p>
-            <p>Per attivta il tuo account, per favore clicca su questo link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-            <p>Maurizio Barber Shop</p>";
-
-            $mail = new Mail();
-            $mail->setFrom(SITEEMAIL);
-            $mail->addAddress($to);
-            $mail->subject($subject);
-            $mail->body($body);
-            $mail->send();
-
-            //redirect to index page
-            //header('Location: index.php?action=joined');
-            header('Location: login.php?action=joined');
-            exit;
-
-            //else catch the exception and show the error.
-        } catch(PDOException $e) {
-            $error[] = $e->getMessage();
-        }
-
-    }
-
-}
 
 //include header template
 require('header.php');

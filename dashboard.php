@@ -31,8 +31,7 @@ $userType = $_SESSION['type'];
                             <div class="card-body">
                                 <a class="text-white" href="product-management.php">
                                     <h1 class="card-title">
-                                        0
-                                        <!-- <php echo($reservation_qty = $pdo->query("SELECT count(id_reservation) FROM reservations")->fetchColumn()); ?> -->
+                                        <?php echo($reservation_qty = $pdo->query("SELECT count(id_order) FROM orders")->fetchColumn()); ?>
                                     </h1>
                                     Prenotazioni
                                 </a>
