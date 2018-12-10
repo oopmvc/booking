@@ -12,21 +12,21 @@ $customerID = $_SESSION["memberID"];
 
         <?php include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
 
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 try {
                     $customerID;
                     $sql = 'INSERT INTO `orders`(
-          `order_date`, 
-          `start_time`, 
-          `resource`, 
+          `order_date`,
+          `start_time`,
+          `resource`,
           `customer`)
               VALUES (
-                    :order_date ,     
-                    :start_time ,   
-                    :resource ,    
+                    :order_date ,
+                    :start_time ,
+                    :resource ,
                     :customer
                     )';
                     $statement = $pdo->prepare($sql);
@@ -42,8 +42,8 @@ $customerID = $_SESSION["memberID"];
                         $products = $_POST['product'];
 
                         $sql = 'INSERT INTO `order_details`(
-          `order_id`, 
-          `product_id`, 
+          `order_id`,
+          `product_id`,
           `product_quantity`) ';
                         $values = "";
                         $productNbr = count($products);
@@ -53,7 +53,7 @@ $customerID = $_SESSION["memberID"];
                             $values .= "( '"
                                 . $lastInsertedId . "' , '"
                                 . $product['product_id'] . "' , '"
-                                . $product['product_qty'] . "' 
+                                . $product['product_qty'] . "'
                    )  ";
                             if ($i < $productNbr)
                                 $values .= " , ";
@@ -162,12 +162,12 @@ $customerID = $_SESSION["memberID"];
                                                   <div style="max-width: 300px;">' . $row['description'] . ' (' . $row['time'] . ' minuti)</div>
                                             </td>
                                             <td>
-                                                <select class="custom-select d-block w-100"  
-                                                 data-price="' . $row['price'] . '" 
-                                                 data-value="' . $index . '" 
+                                                <select class="custom-select d-block w-100"
+                                                 data-price="' . $row['price'] . '"
+                                                 data-value="' . $index . '"
                                                  data-name="' . $row['name'] . '"
                                                  name="product[' . $row['id_product'] . '][product_qty]">
-                                                    <option value="">Personne</option>
+                                                    <option value="">Persone</option>
                                                     <option  value="1">1</option>
                                                     <option  value="2">2</option>
                                                     <option  value="3">3</option>
@@ -177,7 +177,7 @@ $customerID = $_SESSION["memberID"];
                                             </td>
                                             <td><strong>' . $row['price'] . ' € </strong></td>
                                     </tr>
-                                
+
                             ';
                                 }
 

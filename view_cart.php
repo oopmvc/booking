@@ -10,6 +10,8 @@ include('header.php');
             <h1 class="pt-4">Controlla la tua prenotazione</h1>
         </div>
     </div>
+
+    <div class="col-lg-6">
     <?php
     if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
         $total 			= 0;
@@ -23,7 +25,7 @@ include('header.php');
 
             $item_price 	= sprintf("%01.2f",($product_price * $product_qty));  // price x qty = total item price
 
-            $cart_box 		.=  "<li>  $product_name (Qty : $product_qty) <span> &euro; . $item_price </span></li>";
+            $cart_box 		.=  "<li>  $product_name x$product_qty <span> $item_price  &euro;</span></li>";
 
             $subtotal 		= ($product_price * $product_qty); //Multiply item quantity * price
             $total 			= ($total + $subtotal); //Add up to total price
@@ -43,7 +45,7 @@ include('header.php');
 //        $shipping_cost = ($shipping_cost)?'Shipping Cost : '.$currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
 
         //Print Shipping, VAT and Total
-        $cart_box .= "<li class=\"view-cart-total\"> <br>Payable Amount : &euro; ".sprintf("%01.2f", $grand_total)."</li>";
+        $cart_box .= "<li class=\"view-cart-total\"> <br><strong>Totale: ".sprintf("%01.2f", $grand_total). " &euro;</strong></li>";
         $cart_box .= "</ul>";
 
         echo $cart_box;
@@ -53,14 +55,11 @@ include('header.php');
         echo '<a class="btn btn-lg btn-block btn-primary mb-4" href="index.php">Torna indietro</a>';
     }
     ?>
+    </div>
 
     <div class="row">
-        <div class="col-lg-12 mb-4">
+        <div class="col-lg-6 col-md-6 mb-4">
             <?php
-
-
-
-
 
                 // do not work - test it ------------------------------------------------------------------------------------------
 

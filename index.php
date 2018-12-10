@@ -4,14 +4,14 @@ include('header.php');
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2">
             <h1 class="pt-4">Sistema di prenotazione</h1>
             <p class="lead mb-5">Da oggi puoi prenotare i nostri servizi ovunque tu sia.</p>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-8 order-md-1">
+        <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 order-md-1">
             <h4 class="mb-3"><span class="bg-dark">1</span> Scegli uno o più servizi</h4>
 
             <div class="needs-validation">
@@ -27,17 +27,17 @@ include('header.php');
                             $index = $row['id_product'];
                             echo '
                                     <div class="row pb-5">
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-9 col-md-6 pb-3">
                                             <input class="d-none" name="product" type="hidden" value="' . $row['id_product'] . '">' . '
                                               <strong>' . $row['name'] . ' ' . $row['price'] . ' € </strong><br>' . $row['description'] . ' (' . $row['time'] . ' minuti)
                                         </div>
-                                        <div class="col-lg-2">
-                                            <select class="custom-select d-block w-100"  
-                                             data-price="'. $row['price']  .'" 
-                                             data-value="' . $index . '" 
+                                        <div class="col-lg-3 col-xs-6">
+                                            <select class="custom-select d-block w-100"
+                                             data-price="'. $row['price']  .'"
+                                             data-value="' . $index . '"
                                              data-name="'. $row['name'] .'"
                                              name="qty" required>
-                                                <option value="">Personne</option>
+                                                <option value="">Persone</option>
                                                 <option  value="1">1</option>
                                                 <option  value="2">2</option>
                                                 <option  value="3">3</option>
@@ -46,7 +46,7 @@ include('header.php');
                                             </select>
                                         </div>
                                     </div>
-                                
+
                             ';
                         }
                         echo '</form>';
@@ -117,56 +117,40 @@ include('header.php');
                 </div>
                 <!-- END STEP 3: scegli con chi -->
 
-                <button class="mt-4 mb-5 btn btn-lg btn-block btn-danger" type="button"
+                <!-- <button class="mt-4 mb-5 btn btn-lg btn-block btn-danger" type="button"
                         onclick="submitProductRequets()">Prenota ora
-                </button>
-            </div>
-        </div>
+                </button> -->
 
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span>La tua prenotazione</span>  <!--class="text-muted"-->
+                    <span class="badge badge-secondary badge-pill">
 
-        <!-- BEGIN carrello -->
+                        <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
+                            <?php
+                            if (isset($_SESSION['products'])):
+                                if (isset($_SESSION['products'])) {
+                                    echo count($_SESSION["products"]);
+                                } else {
+                                    echo 0;
+                                } endif;
 
-        <div class="col-md-4 order-md-2 mb-4">
-            <!-- <h4 class="mb-3">Orari di apertura</h4>
-            <hr class="mb-4">
-            <ul style="list-style:none; padding:0px;">
-                <li><strong>Lun</strong> CHIUSO </li>
-                <li><strong>Mar</strong> 8.00 - 13.20 / 15.10 - 20.30</li>
-                <li><strong>Mer</strong> 8.00 - 13.20 / 15.10 - 20.30</li>
-                <li><strong>Gio</strong> 8.00 - 13.20 / 15.10 - 20.30</li>
-                <li><strong>Ven</strong> 8.00 - 13.20 / 15.10 - 20.30</li>
-                <li><strong>Sab</strong> 8.00 - 20.30</li>
-                <li><strong>Dom</strong> CHIUSO</li>
-            </ul>
-            <hr class="mb-4"> -->
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span>La tua prenotazione</span>  <!--class="text-muted"-->
-                <span class="badge badge-secondary badge-pill">
-                    
-                    <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
-                        <?php
-                        if (isset($_SESSION['products'])):
-                            if (isset($_SESSION['products'])) {
-                                echo count($_SESSION["products"]);
-                            } else {
-                                echo 0;
-                            } endif;
+                            ?>
+                    </a>
+                    </span>
 
-                        ?>
-                </a>
-                </span>
+                    </h4>
+                    <div id="cartResumer">
+                        <ul id="LastActionOncartResume"></ul>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
+                    <a onclick="submitProductRequets()" href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
 
-                </h4>
-                <div id="cartResumer">
-                    <ul id="LastActionOncartResume"></ul>
                 </div>
-                <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
-                <a href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
-                <hr>
+                <!-- END carrello -->
 
             </div>
-            <!-- END carrello -->
-
         </div>
+
+
     </div>
     <?php include('footer.php'); ?>

@@ -1,4 +1,4 @@
-        <footer>
+        <!-- <footer>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-10">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
 
         <!--
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

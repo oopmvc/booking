@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 <!doctype html>
 <html lang="it">
 <head>
-    <title>Prenotazione - Maurizio Barber Shop</title>
+    <title>Prenotazione</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -75,7 +75,7 @@ error_reporting(E_ALL);
             var form_data = "products_selection=" + JSON.stringify(tableObject) + "&ressource=" + jQuery("#resource").val() +
                 "&slotTime=" + jQuery("#timeSlotSelection").val() +
                 "&date=" + jQuery('#datepicker').val() +
-                "&ressourceName=" + jQuery("#resource option:selected").text();
+                "&resourceName=" + jQuery("#resource option:selected").text();
             console.log(tableObject)
             // check if all fields are ok
             if (
@@ -153,10 +153,10 @@ error_reporting(E_ALL);
                 data: "save_to_db=true",
                 success: function (xhr) {
                     if (xhr === true) {
-                        alert("Order processed succesfully, \n thank you");
+                        alert("Prenotazione eseguita con successo!, \n grazie!");
                         window.location.href = "dashboard.php";
                     } else
-                        alert("Sorry, can't process you order now \nplease retry later");
+                        alert("Spiacente, prenotazione non accettata \nper favore riprova.");
                 }
             })
         }
@@ -215,21 +215,23 @@ error_reporting(E_ALL);
             // });
         }
 
-        function getOrderDetails(order_id, customer_name) {
+        function getOrderDetails(order_id, customer_name, resource_name) {
 
             if (order_id === false)
                 return;
             $.ajax({
                 url: "cart_process.php",
                 type: "POST",
-                data: {"order_id": order_id, "customer_name": customer_name},
+                data: {"order_id": order_id, "customer_name": customer_name, "resource_name": resource_name},
                 success: function (data) {
                     var html = "";
-                    html += "<b>Con:</b> <span>" + customer_name + "</span>";
-                    html += "<div>Produtto:</div>";
+                    html += "<b>Con:</b> <span>" + resource_name + "</span>";
+                    html += "<div><strong>Prodotti:</strong></div>";
                     html += "<ul>";
                     JSON.parse(data).forEach(item => {
-                    html += "<li>" +  item.name + " : " + item.product_quantity +  "</li>";
+                        if(item.product_quantity > 0) {
+                            html += "<li>" +  item.name + " : " + item.product_quantity +  "</li>";
+                        }
                     });
                     html += "</ul>";
 
@@ -285,8 +287,7 @@ error_reporting(E_ALL);
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><img src="img/logo-maurizio-02.png" alt="logo maurizio barber shop foggia"
-                                          class="img-fluid" style="max-width:70px;"></a>
+    <a class="navbar-brand" href="./">Booking</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -315,6 +316,6 @@ error_reporting(E_ALL);
         ?>
 
         <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
-        <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a>
+        <!-- <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a> -->
     </div>
 </nav>

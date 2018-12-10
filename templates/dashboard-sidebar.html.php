@@ -2,19 +2,16 @@
 $userType = $_SESSION['type'];
 ?>
 
-<nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+<nav class="col-lg-3 col-md-3 d-none d-md-block bg-dark sidebar">
     <div class="sidebar-sticky">
-
-        <a href="dashboard.php"><img src="img/logo-maurizio-02.png" alt="logo maurizio barber shop foggia"
-                                     class="img-fluid"></a>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted ">
-            <span class="text-white">Menu</span>
+            <span class="text-white"><strong>Menu</strong></span>
         </h6>
         <ul class="nav flex-column">
             <?php if ($userType == 1): ?>
                 <li class="nav-item">
                     <a class="nav-link active" href="dashboard.php">
-                        <i class="fas fa-home"></i> Pannello di Controllo
+                        <i class="fas fa-home"></i> Dashboard
                     </a>
                 </li>
             <?php endif; ?>
@@ -49,26 +46,26 @@ $userType = $_SESSION['type'];
 
         <?php if ($userType == 1): ?>
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-5 mb-1 text-muteds">
-                <span class="text-white">Report</span>
+                <span class="text-white"><strong>Report</strong></span>
             </h6>
 
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link" href="report-reservation-today.php">
-                        <i class="fas fa-chart-bar"></i> Prenotazioni di Oggi
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-chart-bar"></i> Prenotazioni (oggi)
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="report-reservation-week.php">
                         <i class="fas fa-chart-bar"></i> Prenotazioni della Settimana
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="report-reservation-all.php">
-                        <i class="fas fa-chart-bar"></i> Prenotazioni di Sempre
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-chart-bar"></i> Prenotazioni (tutte)
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="report-customer-not-active.php">
                         <i class="fas fa-chart-bar"></i> Clienti Inattivi
                     </a>
@@ -77,7 +74,7 @@ $userType = $_SESSION['type'];
                     <a class="nav-link" href="report-customer-top.php">
                         <i class="fas fa-chart-bar"></i> Clienti Top 100
                     </a>
-                </li>
+                </li> -->
             </ul>
         <?php endif; ?>
     </div>
