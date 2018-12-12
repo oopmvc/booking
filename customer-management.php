@@ -27,7 +27,7 @@ include('header.php');
             <?php
 
                 // Attempt select query execution
-                $sql = "SELECT * FROM members ORDER BY email";
+                $sql = "SELECT * FROM members ORDER BY last_name ASC, first_name ASC;";
                 if($result = $pdo->query($sql)){
                     if($result->rowCount() > 0){
                         echo
@@ -36,8 +36,8 @@ include('header.php');
                                     <thead>
                                         <tr>
                                             <th>Nome utente</th>
-                                            <th>Nome</th>
                                             <th>Cognome</th>
+                                            <th>Nome</th>
                                             <th>E-mail</th>
                                             <th>Cellulare</th>
                                             <th>Indirizzo</th>
@@ -53,8 +53,8 @@ include('header.php');
                         while($row = $result->fetch()) {
                             echo "<tr>";
                             echo "<td>" . $row['username']   . "</td>";
-                            echo "<td>" . $row['first_name'] . "</td>";
                             echo "<td>" . $row['last_name']  . "</td>";
+                            echo "<td>" . $row['first_name'] . "</td>";
                             echo "<td>" . $row['email']      . "</td>";
                             echo "<td>" . $row['phone']      . "</td>";
                             echo "<td>" . $row['address']    . "</td>";

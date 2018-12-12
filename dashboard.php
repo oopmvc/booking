@@ -25,11 +25,9 @@ $userType = $_SESSION['type'];
                                 <a class="text-white" href="reservation-management.php">
                                     <h1 class="card-title">
                                         <?php
-                                            //$query = "SELECT count(id_order) FROM orders WHERE order_date = '11-12-2018'";
                                             $today = date('d-m-Y');
-                                            $query = "SELECT count(id_order) FROM orders WHERE order_date = " . $today;
+                                            $query = "SELECT count(id_order) FROM orders WHERE order_date = '" . $today . "'";
                                             echo($reservation_qty = $pdo->query($query)->fetchColumn());
-                                            // echo ' ('. date('d-m-Y') . ')';
                                         ?>
                                     </h1>
                                     Prenotazioni di oggi

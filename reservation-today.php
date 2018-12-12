@@ -1,8 +1,11 @@
 <div class="table-responsive">
     <?php
 
+    $today = $today = date('d-m-Y');
+
     $type = $_SESSION['type'];
-    $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) ORDER BY order_date DESC";
+
+    $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) WHERE orders.order_date = '$today' ORDER BY order_date DESC";
 
     $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
 
