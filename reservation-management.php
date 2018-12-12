@@ -33,7 +33,8 @@ include('header.php');
                     <h1 class="h2">Prenotazioni</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <a href="reservation-create.php" class="float-right btn btn-sm btn-success ml-2" type="submit">
-                            Aggiungi Prenotazione</a>
+                            Aggiungi Prenotazione
+                        </a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -67,8 +68,8 @@ include('header.php');
                             <tr>
                                 <td>
                                     <a>
-                                        <i class="fa fa-calendar"></i> <?= $item["order_date"] ?> &nbsp;&nbsp;
-                                        <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])) ?>
+                                        <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
+                                        <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])); ?>
                                     </a>
                                 </td>
                                 <td>

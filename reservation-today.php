@@ -1,11 +1,11 @@
 <div class="table-responsive">
     <?php
 
-    $today = $today = date('d-m-Y');
+    $today = $today = date('Y-m-d');
 
     $type = $_SESSION['type'];
 
-    $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) WHERE orders.order_date = '$today' ORDER BY order_date DESC";
+    $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) WHERE orders.order_date = '$today' ORDER BY order_date ASC, start_time ASC;";
 
     $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
 
@@ -30,8 +30,8 @@
                 <tr>
                     <td>
                         <a>
-                            <i class="fa fa-calendar"></i> <?= $item["order_date"] ?> &nbsp;&nbsp;
-                            <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])) ?>
+                            <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
+                            <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])); ?>
                         </a>
                     </td>
                     <td>

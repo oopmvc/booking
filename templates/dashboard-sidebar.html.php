@@ -51,7 +51,7 @@ $userType = $_SESSION['type'];
 
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="report-reservation-today.php">
                         <i class="fas fa-chart-bar"></i> Prenotazioni (oggi)
                     </a>
                 </li>
@@ -61,7 +61,7 @@ $userType = $_SESSION['type'];
                     </a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="report-reservation-all.php">
                         <i class="fas fa-chart-bar"></i> Prenotazioni (tutte)
                     </a>
                 </li>

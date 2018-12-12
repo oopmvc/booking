@@ -15,25 +15,23 @@ $customerID = $_SESSION["memberID"];
         <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
 
             <?php
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
                 try {
-                    $customerID;
-                    $sql = 'INSERT INTO `orders`(
-          `order_date`,
-          `start_time`,
-          `resource`,
-          `customer`)
-              VALUES (
-                    :order_date ,
-                    :start_time ,
-                    :resource ,
-                    :customer
-                    )';
+
+                    $customerID = $_SESSION['memberID'];
+
+                    $sql = "INSERT INTO `orders`(`order_date`, `start_time`, `resource`, `customer`)
+                    VALUES (:order_date, :start_time, :resource, :customer)";
+
                     $statement = $pdo->prepare($sql);
 
-                    $statement->bindParam(":order_date", $_POST['date']);
+                    $order_date = date('d-m-Y', strtotime($_POST['date']));
+
+                    $statement->bindParam(":order_date", $order_date);
                     $statement->bindParam(":start_time", $_POST['slotTime']);
-                    $statement->bindParam(":resource", $_POST['ressource']);
+                    $statement->bindParam(":resource", $_POST['resource']);
                     $statement->bindParam(":customer", $customerID);
                     $statement->execute();
 
@@ -41,31 +39,57 @@ $customerID = $_SESSION["memberID"];
 
                         $products = $_POST['product'];
 
-                        $sql = 'INSERT INTO `order_details`(
-          `order_id`,
-          `product_id`,
-          `product_quantity`) ';
+                        $sql = "INSERT INTO `order_details`( `order_id`, `product_id`, `product_quantity`)";
                         $values = "";
                         $productNbr = count($products);
                         $i = 1;
 
+
+
+
+
+
+                        // foreach ($products as $key => $product) {
+                        //     $values .= "( '"
+                        //     . $lastInsertedId . "' , '"
+                        //     . $product['product_id'] . "' , '"
+                        //     . $product['product_qty'] . "'
+                        //     )  ";
+                        //     if ($i < $productNbr)
+                        //     $values .= " , ";
+                        //     $i++;
+                        // }
+
+
+
+
+
+                        //////////////////////////////////////////////////////////////////////////////////////
+                        // TODO insert OrderDetails only if Quantity > 0
+                        //////////////////////////////////////////////////////////////////////////////////////
+
                         foreach ($products as $key => $product) {
-                            $values .= "( '"
+                            if ($product['product_qty'] > 0) {
+                                echo 'qty: ' . $product['product_qty' . '<br>'] ;
+                                $values .= "( '"
                                 . $lastInsertedId . "' , '"
                                 . $product['product_id'] . "' , '"
                                 . $product['product_qty'] . "'
-                   )  ";
-                            if ($i < $productNbr)
+                                )";
+                            }
+                            if ($i < $productNbr) {
                                 $values .= " , ";
+                            }
                             $i++;
                         }
+                        
                         $sql .= " VALUES " . $values;
                         $statement = $pdo->prepare($sql);
                         if ($statement->execute()) {
-                            echo "<br><p></p><div class='alert alert-success'>Prenotazione salvata correttamente</div>";
+                            echo "<br><div class='alert alert-success'>Prenotazione salvata correttamente</div>";
                         }
                     } else
-                        echo "<br><div class='alert alert-danger'>La prenotazione non è stata salvata correttamente</div>";
+                    echo "<br><div class='alert alert-danger'>La prenotazione non è stata salvata correttamente</div>";
 
                 } // show error
                 catch (PDOException $exception) {
@@ -112,9 +136,21 @@ $customerID = $_SESSION["memberID"];
                 </div>
                 <div class="form-group">
                     <label for="start">A che ora?</label>
-                    <select class="form-control" id="slot_time" name="slot_time">
-                        <?php include('opening-time-hour.php'); ?>
-                    </select>
+
+                    <?php
+
+                    //include('opening-time-hour.php');
+
+                    // echo '<select class="form-control" id="slot_time" name="slot_time">';
+                    echo "<select class='custom-select d-block w-100' name='slot_time' required>";
+                    $sql = "SELECT * FROM slot_time ORDER BY start_slot ASC;";
+                    $result_slot_time = $pdo->query($sql);
+                    while ($row_slot_time = $result_slot_time->fetch()) {
+                        echo '<option value="' . $row_slot_time['start_slot'] . '">' . $row_slot_time['start_slot'] . "</option>";
+                    }
+                    echo '</select>';
+                    ?>
+
                 </div>
                 <div class="form-group">
                     <label for="start">Cliente</label>
@@ -124,7 +160,7 @@ $customerID = $_SESSION["memberID"];
                         ?>
                         Voi
                         <input type="text" id="customer" class="form-control" value="<?php echo $customerID; ?>">
-                    <?php
+                        <?php
                     else:
                         // get all users
                         $sql = "select * from members ";
@@ -145,43 +181,42 @@ $customerID = $_SESSION["memberID"];
                         <div class='table-responsive'>
                             <table class='table table-striped table-md'>
                                 <thead>
-                                <tr>
-                                    <th>Prodotto</th>
-                                    <th>Quantità</th>
-                                    <th>Prezzo</th>
-                                </tr>
+                                    <tr>
+                                        <th>Prodotto</th>
+                                        <th>Quantità</th>
+                                        <th>Prezzo</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                while ($row = $result->fetch()) {
-                                    $index = $row['id_product'];
-                                    echo '
-                                    <tr>
-                                            <td><strong>' . $row['name'] . ' </strong>
-                                                <input class="d-none" name="product[' . $row['id_product'] . '][product_id]" type="hidden" value="' . $row['id_product'] . '">' . '
-                                                  <div style="max-width: 300px;">' . $row['description'] . ' (' . $row['time'] . ' minuti)</div>
-                                            </td>
-                                            <td>
-                                                <select class="custom-select d-block w-100"
-                                                 data-price="' . $row['price'] . '"
-                                                 data-value="' . $index . '"
-                                                 data-name="' . $row['name'] . '"
-                                                 name="product[' . $row['id_product'] . '][product_qty]">
-                                                    <option value="">Persone</option>
-                                                    <option  value="1">1</option>
-                                                    <option  value="2">2</option>
-                                                    <option  value="3">3</option>
-                                                    <option  value="4">4</option>
-                                                    <option  value="5">5</option>
-                                                </select>
-                                            </td>
-                                            <td><strong>' . $row['price'] . ' € </strong></td>
-                                    </tr>
+                                    <?php
+                                    while ($row = $result->fetch()) {
+                                        $index = $row['id_product'];
+                                        echo '
+                                        <tr>
+                                        <td><strong>' . $row['name'] . ' </strong>
+                                        <input class="d-none" name="product[' . $row['id_product'] . '][product_id]" type="hidden" value="' . $row['id_product'] . '">' . '
+                                        <div style="max-width: 300px;">(' . $row['time'] . ' minuti)</div>
+                                        </td>
+                                        <td>
+                                        <select class="custom-select d-block w-100"
+                                        data-price="' . $row['price'] . '"
+                                        data-value="' . $index . '"
+                                        data-name="' . $row['name'] . '"
+                                        name="product[' . $row['id_product'] . '][product_qty]">
+                                        <option value="">Persone</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </select>
+                                        </td>
+                                        <td><strong>' . $row['price'] . ' € </strong></td>
+                                        </tr>
+                                        ';
+                                    }
 
-                            ';
-                                }
-
-                                ?>
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -196,87 +231,7 @@ $customerID = $_SESSION["memberID"];
         </main>
     </div>
 </div>
-<?php
 
-unset($pdo);
-
-?>
-
-<!--
-<div class="container">
-    <h2>Basic Inline Calendar</h2>
-    <div class="row">
-        <div class="col-xss-4">
-            <div id="basic" data-toggle="calendar"></div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-xss-4">
-            <div id="glob-data" data-toggle="calendar"></div>
-        </div>
-
-    </div>
-
-    <hr>
-    <div class="row">
-        <div class="col-xss-4">
-            <div id="custom-first-day" data-toggle="calendar"></div>
-        </div>
-    </div>
-
-    <hr>
-    <div class="row">
-        <div class="col-xss-4">
-            <div id="custom-name" data-toggle="calendar"></div>
-        </div>
-    </div>
-
-    <hr>
-    <div class="row">
-        <div class="col-xss-12">
-            <div id="show-next-month" data-toggle="calendar"></div>
-        </div>
-    </div>
-    <hr>
-</div>
-
-<script type="text/javascript" src="scripts/components/jquery.min.js"></script>
-<script type="text/javascript" src="scripts/dateTimePicker.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-
-    $('#basic').calendar();
-    $('#glob-data').calendar({
-        unavailable: ['*-*-8', '*-*-10']
-    });
-
-    $('#custom-first-day').calendar({
-        day_first: 2,
-        unavailable: ['2014-07-10'],
-        onSelectDate: function(date, month, year) {
-            alert([year, month, date].join('-') + ' is: ' + this.isAvailable(date, month, year));
-        }
-    });
-
-    $('#custom-name').calendar({
-        day_name: ['L', 'M', 'M', 'G', 'V', 'S', 'D'],
-        month_name: ['Gen','Feb','Mar','Apr','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
-        unavailable: ['2014-07-10']
-    });
-
-    $('#dynamic-data').calendar({
-        adapter: 'server/adapter.php'
-    });
-
-    $('#show-next-month').calendar({
-        num_next_month: 1,
-        num_prev_month: 1,
-        unavailable: ['*-*-9', '*-*-10']
-    });
-});
-</script>
--->
-
+<?php unset($pdo); ?>
 
 <?php include('footer.php'); ?>

@@ -2,10 +2,10 @@
 -- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 03, 2018 at 10:25 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.0.30
+-- Host: localhost
+-- Creato il: Dic 12, 2018 alle 18:03
+-- Versione del server: 10.1.32-MariaDB
+-- Versione PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Struttura della tabella `members`
 --
 
 CREATE TABLE `members` (
@@ -47,23 +47,23 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `members`
+-- Dump dei dati per la tabella `members`
 --
 
 INSERT INTO `members` (`memberID`, `type`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`, `address`, `postal_code`, `city`, `country`) VALUES
-(3, 2, 'admin', '$2y$10$8uUShxZkoZBzB0OkED9quuBn2exjETzPyFAvRpOgdu9to2.Wi7fcq', '7tein@yopmail.com', 'Yes', NULL, 'No', 'Vorname', 'admin', '46545555', NULL, NULL, NULL, NULL),
-(14, 0, 'giuseppe', '$2y$10$1mjhyCEm4BeT9l.IsFJTT.S4XEyHAimfqGk3HwnIWD7MUlogGX6Fm', 'giuseppe.lamatrice@webkom.agency', 'Yes', '6fc100c9b3cc32d7260640f8823f706a8914a7727878e314b08372e34dd7d633', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia');
+(3, 1, 'admin', '$2y$10$8uUShxZkoZBzB0OkED9quuBn2exjETzPyFAvRpOgdu9to2.Wi7fcq', '7tein@yopmail.com', 'Yes', NULL, 'No', 'Vorname', 'admin', '46545555', NULL, NULL, NULL, NULL),
+(14, 1, 'giuseppe', '$2y$10$1mjhyCEm4BeT9l.IsFJTT.S4XEyHAimfqGk3HwnIWD7MUlogGX6Fm', 'giuseppe.lamatrice@webkom.agency', 'Yes', '6fc100c9b3cc32d7260640f8823f706a8914a7727878e314b08372e34dd7d633', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Struttura della tabella `orders`
 --
 
 CREATE TABLE `orders` (
   `id_order` int(11) NOT NULL,
-  `order_date` varchar(255) DEFAULT NULL,
-  `start_time` time DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `start_time` time(4) DEFAULT NULL,
   `resource` int(11) DEFAULT NULL,
   `customer` varchar(30) DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
@@ -71,38 +71,21 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `orders`
+-- Dump dei dati per la tabella `orders`
 --
 
 INSERT INTO `orders` (`id_order`, `order_date`, `start_time`, `resource`, `customer`, `status`, `note`) VALUES
-(1, '02-10-2018', '03:30:00', 1, '30', '0', ''),
-(2, '02-10-2018', '16:00:00', 1, '15', '0', ''),
-(3, NULL, NULL, NULL, '15', NULL, NULL),
-(4, NULL, NULL, NULL, '15', NULL, NULL),
-(5, NULL, NULL, NULL, '3', NULL, NULL),
-(6, NULL, NULL, NULL, '15', NULL, NULL),
-(7, NULL, NULL, NULL, '15', NULL, NULL),
-(8, NULL, NULL, NULL, '15', NULL, NULL),
-(9, NULL, NULL, NULL, '15', NULL, NULL),
-(10, NULL, NULL, NULL, '15', NULL, NULL),
-(11, NULL, NULL, NULL, '15', NULL, NULL),
-(12, NULL, NULL, NULL, '15', NULL, NULL),
-(13, NULL, NULL, NULL, '15', NULL, NULL),
-(14, NULL, NULL, NULL, '15', NULL, NULL),
-(15, NULL, NULL, NULL, '15', NULL, NULL),
-(16, NULL, NULL, NULL, '15', NULL, NULL),
-(17, '02-10-2018', '00:00:00', 1, '15', NULL, NULL),
-(18, '02-10-2018', '00:00:00', 1, '15', NULL, NULL),
-(19, '02-10-2018', '00:00:00', 1, '15', NULL, NULL),
-(20, '02-10-2018', '00:00:00', 1, '30', NULL, NULL),
-(21, '02-10-2018', '13:30:00', 1, '15', NULL, NULL),
-(22, '02-10-2018', '13:30:00', 1, '15', NULL, NULL),
-(23, '31-10-2018', '00:00:00', 1, '3', NULL, NULL);
+(33, '0000-00-00', NULL, NULL, '3', NULL, NULL),
+(34, '0000-00-00', NULL, NULL, '3', NULL, NULL),
+(35, '0000-00-00', NULL, NULL, '3', NULL, NULL),
+(36, '0000-00-00', NULL, NULL, '3', NULL, NULL),
+(37, '0000-00-00', NULL, NULL, '3', NULL, NULL),
+(38, '0000-00-00', NULL, NULL, '3', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_details`
+-- Struttura della tabella `order_details`
 --
 
 CREATE TABLE `order_details` (
@@ -112,66 +95,10 @@ CREATE TABLE `order_details` (
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `order_details`
---
-
-INSERT INTO `order_details` (`id`, `order_id`, `product_quantity`, `product_id`) VALUES
-(1, 12, 1, 7),
-(2, 12, 1, 1),
-(3, 14, 1, 1),
-(4, 14, 1, 3),
-(5, 14, 1, 2),
-(6, 14, 1, 7),
-(7, 14, 1, 4),
-(8, 15, 1, 1),
-(9, 15, 1, 3),
-(10, 15, 1, 2),
-(11, 15, 1, 7),
-(12, 15, 1, 4),
-(13, 16, 1, 1),
-(14, 16, 1, 3),
-(15, 16, 1, 2),
-(16, 16, 1, 7),
-(17, 16, 1, 4),
-(18, 17, 1, 1),
-(19, 17, 1, 3),
-(20, 17, 1, 2),
-(21, 17, 1, 7),
-(22, 17, 1, 4),
-(23, 18, 1, 1),
-(24, 18, 1, 3),
-(25, 18, 1, 2),
-(26, 18, 1, 7),
-(27, 18, 1, 4),
-(28, 19, 1, 1),
-(29, 19, 1, 3),
-(30, 19, 1, 2),
-(31, 19, 1, 7),
-(32, 19, 1, 4),
-(33, 20, 1, 1),
-(34, 20, 1, 3),
-(35, 20, 1, 2),
-(36, 20, 1, 7),
-(37, 20, 1, 4),
-(38, 21, 1, 3),
-(39, 21, 1, 2),
-(40, 21, 1, 7),
-(41, 21, 1, 4),
-(42, 21, 1, 1),
-(43, 22, 1, 3),
-(44, 22, 1, 2),
-(45, 22, 1, 7),
-(46, 22, 1, 4),
-(47, 22, 1, 1),
-(48, 23, 1, 1),
-(49, 23, 1, 7),
-(50, 23, 1, 6);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Struttura della tabella `products`
 --
 
 CREATE TABLE `products` (
@@ -183,7 +110,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `products`
+-- Dump dei dati per la tabella `products`
 --
 
 INSERT INTO `products` (`id_product`, `name`, `description`, `time`, `price`) VALUES
@@ -198,7 +125,7 @@ INSERT INTO `products` (`id_product`, `name`, `description`, `time`, `price`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resources`
+-- Struttura della tabella `resources`
 --
 
 CREATE TABLE `resources` (
@@ -209,7 +136,7 @@ CREATE TABLE `resources` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `resources`
+-- Dump dei dati per la tabella `resources`
 --
 
 INSERT INTO `resources` (`id_resource`, `first_name`, `last_name`, `description`) VALUES
@@ -222,7 +149,7 @@ INSERT INTO `resources` (`id_resource`, `first_name`, `last_name`, `description`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slot_time`
+-- Struttura della tabella `slot_time`
 --
 
 CREATE TABLE `slot_time` (
@@ -239,7 +166,7 @@ CREATE TABLE `slot_time` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `slot_time`
+-- Dump dei dati per la tabella `slot_time`
 --
 
 INSERT INTO `slot_time` (`id_slot_time`, `start_slot`, `end_slot`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`) VALUES
@@ -270,81 +197,81 @@ INSERT INTO `slot_time` (`id_slot_time`, `start_slot`, `end_slot`, `sunday`, `mo
 (26, '15:00:00', '15:30:00', 0, 0, 0, 0, 0, 0, 1);
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `members`
+-- Indici per le tabelle `members`
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`memberID`);
 
 --
--- Indexes for table `orders`
+-- Indici per le tabelle `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id_order`);
 
 --
--- Indexes for table `order_details`
+-- Indici per le tabelle `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `products`
+-- Indici per le tabelle `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id_product`);
 
 --
--- Indexes for table `resources`
+-- Indici per le tabelle `resources`
 --
 ALTER TABLE `resources`
   ADD PRIMARY KEY (`id_resource`);
 
 --
--- Indexes for table `slot_time`
+-- Indici per le tabelle `slot_time`
 --
 ALTER TABLE `slot_time`
   ADD PRIMARY KEY (`id_slot_time`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `members`
+-- AUTO_INCREMENT per la tabella `members`
 --
 ALTER TABLE `members`
   MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT per la tabella `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT for table `order_details`
+-- AUTO_INCREMENT per la tabella `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT per la tabella `products`
 --
 ALTER TABLE `products`
   MODIFY `id_product` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `resources`
+-- AUTO_INCREMENT per la tabella `resources`
 --
 ALTER TABLE `resources`
   MODIFY `id_resource` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `slot_time`
+-- AUTO_INCREMENT per la tabella `slot_time`
 --
 ALTER TABLE `slot_time`
   MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;

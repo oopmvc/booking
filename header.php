@@ -47,7 +47,7 @@ error_reporting(E_ALL);
         function addProductSelection(form) {
             tmpProduct = form;
             jQuery([document.documentElement, document.body]).animate({
-                scrollTop: jQuery('#ressroucesSelection').offset().top
+                scrollTop: jQuery('#resourcesSelection').offset().top
             }, 1600)
         }
 
@@ -72,7 +72,7 @@ error_reporting(E_ALL);
                 }
             )
             //user clicks form submit button
-            var form_data = "products_selection=" + JSON.stringify(tableObject) + "&ressource=" + jQuery("#resource").val() +
+            var form_data = "products_selection=" + JSON.stringify(tableObject) + "&resource=" + jQuery("#resource").val() +
                 "&slotTime=" + jQuery("#timeSlotSelection").val() +
                 "&date=" + jQuery('#datepicker').val() +
                 "&resourceName=" + jQuery("#resource option:selected").text();
@@ -82,7 +82,7 @@ error_reporting(E_ALL);
                 jQuery("#resource").val() === ""
                 || jQuery("#timeSlotSelection").val() === ""
                 || jQuery('#datepicker').val() === "" || selectedOptions.length === 0) {
-                alert("Please fill all the required fields");
+                alert("Tutti i campi sono obbligatori!");
                 return false;
             }
             jQuery.ajax({ //make ajax request to cart_process.php
@@ -93,10 +93,10 @@ error_reporting(E_ALL);
                 success: function (data) { //on Ajax success
                     if (data !== "false") {
                         jQuery("#LastActionOncartResume").html(data)
-                        alert('Product add to cart')
+                        alert('Servizio aggiunto al carrello')
                         window.location.href = "/view_cart.php";
                     } else {
-                        alert("Can't process request")
+                        alert("Impossibile continuare con la richiesta")
                     }
                 }
             }).done()
@@ -111,7 +111,7 @@ error_reporting(E_ALL);
          */
         function fetchDateAvailability() {
             jQuery('#timeSlotSelection').attr("disabled", "disabled")
-            var form_data = "checkTimeSlot=true&ressource=" + jQuery("#resource").val()
+            var form_data = "checkTimeSlot=true&resource=" + jQuery("#resource").val()
                 + "&date=" + jQuery('#datepicker').val(); //prepare form data for Ajax post
             // check if all fields are ok
             jQuery.ajax({ //make ajax request to cart_process.php

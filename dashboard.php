@@ -25,7 +25,7 @@ $userType = $_SESSION['type'];
                                 <a class="text-white" href="reservation-management.php">
                                     <h1 class="card-title">
                                         <?php
-                                            $today = date('d-m-Y');
+                                            $today = date('Y-m-d');
                                             $query = "SELECT count(id_order) FROM orders WHERE order_date = '" . $today . "'";
                                             echo($reservation_qty = $pdo->query($query)->fetchColumn());
                                         ?>
