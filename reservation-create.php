@@ -40,14 +40,11 @@ $customerID = $_SESSION["memberID"];
                         $products = $_POST['product'];
 
                         $sql = "INSERT INTO `order_details`( `order_id`, `product_id`, `product_quantity`)";
+
                         $values = "";
-                        $productNbr = count($products);
-                        $i = 1;
 
-
-
-
-
+                        // $productNbr = count($products);
+                        // $i = 1;
 
                         // foreach ($products as $key => $product) {
                         //     $values .= "( '"
@@ -60,30 +57,39 @@ $customerID = $_SESSION["memberID"];
                         //     $i++;
                         // }
 
-
-
-
-
                         //////////////////////////////////////////////////////////////////////////////////////
-                        // TODO insert OrderDetails only if Quantity > 0
+                        // todo insert OrderDetails only if Quantity > 0
                         //////////////////////////////////////////////////////////////////////////////////////
+                        $productBuyed = 0;
+                        foreach ($products as $key => $product) {
+                            if($product['product_qty'] > 0) {
+                                $productBuyed += 1;
+                            }
+                        }
+
+                        $i = 1;
 
                         foreach ($products as $key => $product) {
+
                             if ($product['product_qty'] > 0) {
-                                echo 'qty: ' . $product['product_qty' . '<br>'] ;
+                                echo 'qty: ' . $product['product_qty'] . '<br>';
                                 $values .= "( '"
-                                . $lastInsertedId . "' , '"
-                                . $product['product_id'] . "' , '"
-                                . $product['product_qty'] . "'
+                                    . $lastInsertedId . "' , '"
+                                    . $product['product_id'] . "' , '"
+                                    . $product['product_qty'] . "'
                                 )";
                             }
-                            if ($i < $productNbr) {
-                                $values .= " , ";
+
+                            if ($i < $productBuyed) {
+                                $values .= ",";
                             }
+
                             $i++;
+
                         }
-                        
-                        $sql .= " VALUES " . $values;
+
+                        $sql .= " VALUES " . $values . ';';
+                        echo 'query: ' . $sql . '<br>';
                         $statement = $pdo->prepare($sql);
                         if ($statement->execute()) {
                             echo "<br><div class='alert alert-success'>Prenotazione salvata correttamente</div>";
