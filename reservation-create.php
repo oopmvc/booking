@@ -27,10 +27,9 @@ $customerID = $_SESSION["memberID"];
 
                     $statement = $pdo->prepare($sql);
 
-                    $order_date = date('d-m-Y', strtotime($_POST['date']));
-
+                    $order_date = date('Y-m-d', strtotime($_POST['date']));
                     $statement->bindParam(":order_date", $order_date);
-                    $statement->bindParam(":start_time", $_POST['slotTime']);
+                    $statement->bindParam(":start_time", $_POST['slot_time']);
                     $statement->bindParam(":resource", $_POST['resource']);
                     $statement->bindParam(":customer", $customerID);
                     $statement->execute();
@@ -43,28 +42,14 @@ $customerID = $_SESSION["memberID"];
 
                         $values = "";
 
-                        // $productNbr = count($products);
-                        // $i = 1;
-
-                        // foreach ($products as $key => $product) {
-                        //     $values .= "( '"
-                        //     . $lastInsertedId . "' , '"
-                        //     . $product['product_id'] . "' , '"
-                        //     . $product['product_qty'] . "'
-                        //     )  ";
-                        //     if ($i < $productNbr)
-                        //     $values .= " , ";
-                        //     $i++;
-                        // }
-
-                        //////////////////////////////////////////////////////////////////////////////////////
-                        // todo insert OrderDetails only if Quantity > 0
-                        //////////////////////////////////////////////////////////////////////////////////////
                         $productBuyed = 0;
+
                         foreach ($products as $key => $product) {
+
                             if($product['product_qty'] > 0) {
                                 $productBuyed += 1;
                             }
+
                         }
 
                         $i = 1;
@@ -72,7 +57,6 @@ $customerID = $_SESSION["memberID"];
                         foreach ($products as $key => $product) {
 
                             if ($product['product_qty'] > 0) {
-                                echo 'qty: ' . $product['product_qty'] . '<br>';
                                 $values .= "( '"
                                     . $lastInsertedId . "' , '"
                                     . $product['product_id'] . "' , '"
@@ -89,14 +73,14 @@ $customerID = $_SESSION["memberID"];
                         }
 
                         $sql .= " VALUES " . $values . ';';
-                        echo 'query: ' . $sql . '<br>';
+
                         $statement = $pdo->prepare($sql);
                         if ($statement->execute()) {
                             echo "<br><div class='alert alert-success'>Prenotazione salvata correttamente</div>";
                         }
-                    } else
-                    echo "<br><div class='alert alert-danger'>La prenotazione non è stata salvata correttamente</div>";
-
+                    } else {
+                        echo "<br><div class='alert alert-danger'>La prenotazione non è stata salvata correttamente</div>";
+                    }
                 } // show error
                 catch (PDOException $exception) {
                     die('ERROR: ' . $exception->getMessage());
@@ -104,6 +88,7 @@ $customerID = $_SESSION["memberID"];
 
             }
             ?>
+
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Nuova Prenotazione</h1>
             </div>
@@ -118,7 +103,7 @@ $customerID = $_SESSION["memberID"];
 
                     if ($result_resource = $pdo->query($sql_resource)) {
                         if ($result_resource->rowCount() > 0) {
-                            echo "<select class='custom-select d-block w-100' id='resource' required>";
+                            echo "<select class='custom-select d-block w-100' id='resource' name='resource' required>";
                             while ($row_resources = $result_resource->fetch()) {
                                 echo "<option value='" . $row_resources['id_resource'] . ' ' . $row_resources['last_name'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                             }
@@ -145,16 +130,14 @@ $customerID = $_SESSION["memberID"];
 
                     <?php
 
-                    //include('opening-time-hour.php');
-
-                    // echo '<select class="form-control" id="slot_time" name="slot_time">';
-                    echo "<select class='custom-select d-block w-100' name='slot_time' required>";
+                    echo "<select class='custom-select d-block w-100'  id='slot_time' name='slot_time' required>";
                     $sql = "SELECT * FROM slot_time ORDER BY start_slot ASC;";
                     $result_slot_time = $pdo->query($sql);
                     while ($row_slot_time = $result_slot_time->fetch()) {
                         echo '<option value="' . $row_slot_time['start_slot'] . '">' . $row_slot_time['start_slot'] . "</option>";
                     }
                     echo '</select>';
+
                     ?>
 
                 </div>
@@ -162,6 +145,7 @@ $customerID = $_SESSION["memberID"];
                     <label for="start">Cliente</label>
 
                     <?php
+
                     if ($_SESSION['type'] != 1) :
                         ?>
                         Voi
@@ -176,7 +160,10 @@ $customerID = $_SESSION["memberID"];
                             echo "<option value='" . $row_resources['id_resource'] .  "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
                         }
                         echo "</select>";
-                    endif; ?>
+                    endif;
+
+                    ?>
+
                 </div>
                 <?php
 

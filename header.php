@@ -225,7 +225,6 @@ error_reporting(E_ALL);
                 data: {"order_id": order_id, "customer_name": customer_name, "resource_name": resource_name},
                 success: function (data) {
                     var html = "";
-                    html += "<b>Con:</b> <span>" + resource_name + "</span>";
                     html += "<div><strong>Prodotti:</strong></div>";
                     html += "<ul>";
                     JSON.parse(data).forEach(item => {

@@ -3,6 +3,7 @@ require('includes/connection.php');
 include('classes/user-checked.php');
 include('header.php');
 ?>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -20,7 +21,6 @@ include('header.php');
         </div>
     </div>
 </div>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -45,10 +45,11 @@ include('header.php');
                 $type = $_SESSION['type'];
                 $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) ORDER BY order_date DESC";
 
+
                 $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
 
                 if ($result_resource = $pdo->prepare($sql_resource)) {
-                    ($result_resource->execute());
+                    $result_resource->execute();
                     $result = ($result_resource->fetchAll());
                     // var_dump($result[20]);
                     ?>
@@ -66,23 +67,24 @@ include('header.php');
                         foreach ($result as $item):
                             ?>
                             <tr>
+                                <!-- Data e ora -->
                                 <td>
                                     <a>
-                                        <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
-                                        <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])); ?>
+                                        <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;
+                                        <i class="fa fa-clock"></i>    <?= date('H:i',   strtotime($item["start_time"])); ?> &nbsp;
                                     </a>
                                 </td>
+                                <!-- Collaboratore -->
                                 <td>
                                     <?php echo $item['first_name'] . " " . $item['last_name']; ?>
                                 </td>
-                                <td><?php echo $item['resource']; ?></td>
+                                <!-- Cliente -->
+                                <td><?php echo $item['customer']; ?></td>
+                                <!-- Dettagli Prenotazione -->
                                 <td>
                                     <!-- <i class="fas fa-times"></i> Annullato | -->
-                                    <span
-                                        data-toggle="modal"
-                                        data-target="#exampleModal"
-                                        onclick="getOrderDetails(<?php echo $item['id_order'] ?> , '<?php echo $item["first_name"] ." ". $item["last_name"]    ?>')">
-                                        <i class="fa fa-info"></i> Dettagli
+                                    <span data-toggle="modal" data-target="#exampleModal" onclick="getOrderDetails(<?php echo $item['id_order'] ?> , '<?php echo $item["first_name"] ." ". $item["last_name"]    ?>')">
+                                        <i class="fa fa-info"></i> Vedi dettagli
                                     </span>
                                 </td>
                             </tr>
