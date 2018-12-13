@@ -43,8 +43,10 @@ include('header.php');
                 <?php
 
                 $type = $_SESSION['type'];
-                $sql_resource = "SELECT * FROM orders left JOIN resources on (orders.resource = resources.id_resource) ORDER BY order_date DESC";
-
+                $sql_resource = "SELECT * FROM orders LEFT JOIN resources on (orders.resource = resources.id_resource) ORDER BY order_date DESC";
+                // $sql_resource = "SELECT orders.id_order, members.first_name, members.last_name, orders.order_date, orders.start_time FROM orders
+                //         JOIN members on (orders.customer = members.memberID)
+                //     ORDER BY order_date DESC, start_time DESC";
 
                 $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
 
@@ -63,10 +65,12 @@ include('header.php');
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        foreach ($result as $item):
-                            ?>
+
+
+                        <?php foreach ($result as $item): ?>
                             <tr>
+
+
                                 <!-- Data e ora -->
                                 <td>
                                     <a>
@@ -74,21 +78,29 @@ include('header.php');
                                         <i class="fa fa-clock"></i>    <?= date('H:i',   strtotime($item["start_time"])); ?> &nbsp;
                                     </a>
                                 </td>
+
+
                                 <!-- Collaboratore -->
-                                <td>
-                                    <?php echo $item['first_name'] . " " . $item['last_name']; ?>
-                                </td>
+                                <td><?php echo $item['first_name'] . " " . $item['last_name']; ?></td>
+
+
                                 <!-- Cliente -->
-                                <td><?php echo $item['customer']; ?></td>
+                                <td><?php echo $item['first_name'] . " " . $item['last_name']; ?></td>
+
+
                                 <!-- Dettagli Prenotazione -->
                                 <td>
                                     <!-- <i class="fas fa-times"></i> Annullato | -->
                                     <span data-toggle="modal" data-target="#exampleModal" onclick="getOrderDetails(<?php echo $item['id_order'] ?> , '<?php echo $item["first_name"] ." ". $item["last_name"]    ?>')">
-                                        <i class="fa fa-info"></i> Vedi dettagli
+                                        <i class="fa fa-info"></i> Vedi Prodotti
                                     </span>
                                 </td>
+
+
                             </tr>
                         <?php endforeach; ?>
+
+
                         </tbody>
                     </table>
                     <?php

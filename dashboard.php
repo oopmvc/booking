@@ -41,7 +41,7 @@ $userType = $_SESSION['type'];
                             <div class="card-body">
                                 <a class="text-white" href="customer-management.php">
                                     <h1 class="card-title">
-                                        <?php echo($product_qty = $pdo->query("SELECT count(memberID) FROM members")->fetchColumn()); ?>
+                                        <?php echo($product_qty = $pdo->query("SELECT count(memberID) FROM members WHERE type!='1'")->fetchColumn()); ?>
                                     </h1>
                                     Clienti
                                 </a>

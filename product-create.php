@@ -2,10 +2,14 @@
 require('includes/connection.php');
 include('classes/user-checked.php');
 include('header.php');
+$userType = $_SESSION['type'];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
+
+        // if you dont are admin redirect to index page
+        include('check-role.php');
 
         // insert query
         $query_create_product = "INSERT INTO products (name, description, time, price) VALUES (:name, :description, :time, :price)";

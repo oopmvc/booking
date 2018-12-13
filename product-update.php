@@ -3,8 +3,12 @@
 require('includes/connection.php');
 include('classes/user-checked.php');
 include('header.php');
+$userType = $_SESSION['type'];
 
 try {
+
+    // if you dont are admin redirect to index page
+    include('check-role.php');
 
     $id_product = $_GET['id_product'];
     $query = "SELECT * FROM products WHERE id_product = :id_product";
