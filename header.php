@@ -160,18 +160,43 @@ error_reporting(E_ALL);
                 }
             })
         }
-
+ function handleTimeSlot (){
+     console.log("page ready")
+     if([...document.querySelectorAll('#timeSlotSelection')].length > 0 ){
+     var date = new Date();
+    [...document.querySelectorAll('#timeSlotSelection option')].forEach(item =>
+  {
+ var a = item.value
+    if(Date.parse('01/01/2011 '+ date.getHours()+":"+date.getMinutes() + ":"+date.getSeconds())
+    > Date.parse('01/01/2011 '+ a)) {
+        item.disabled = true ;}})}};
 
         jQuery(document).ready(function () {
+
+
+
+
+            handleTimeSlot();
             jQuery("#LastActionOncartResume").load("cart_process.php", {"load_cart": "1"});
             jQuery("#datepicker").datepicker({
                 minDate: 0,
                 dateFormat: 'dd-mm-yy',
+                closeText: 'Chiudi',
+                prevText: 'Prec',
+                nextText: 'Succ',
+                currentText: 'Oggi',
+                monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno', 'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+                monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu', 'Lug','Ago','Set','Ott','Nov','Dic'],
+                dayNames: ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'],
+                dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+                dayNamesMin: ['Do','Lu','Ma','Me','Gio','Ve','Sa'],
                 beforeShowDay: function (date) {
                     var day = date.getDay();
                     return [(day != 0 && day != 1)];
                 }
             });
+
+
             //Add Item to Cart
             jQuery(".form-item").submit(function (e) {
             });
@@ -305,21 +330,21 @@ error_reporting(E_ALL);
         </ul>
 
         <?php
-        if (isset($_SESSION['username'])) {
-            echo('
+if (isset($_SESSION['username'])) {
+    echo ('
                     <a class="text-white btn btn-sm mr-2" href="member-read.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
                 ');
-        }
+}
 
-        if (!isset($_SESSION['username'])) {
-            echo '
+if (!isset($_SESSION['username'])) {
+    echo '
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
                     <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
                 ';
-        }
-        ?>
+}
+?>
 
         <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
         <!-- <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a> -->

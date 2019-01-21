@@ -1,7 +1,7 @@
 <?php
-require('includes/connection.php');
-include('classes/user-checked.php');
-include('header.php');
+require 'includes/connection.php';
+include 'classes/user-checked.php';
+include 'header.php';
 ?>
 
 <!-- Modal -->
@@ -26,7 +26,7 @@ include('header.php');
     <div class="row">
 
         <?php
-        include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
+include __DIR__ . '/templates/dashboard-sidebar.html.php';?>
         <main role="main" class="col-lg-9 col-md-9 ml-sm-auto px-4">
             <?php if ($_SESSION['type'] == 1): ?>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -37,24 +37,24 @@ include('header.php');
                         </a>
                     </div>
                 </div>
-            <?php endif; ?>
+            <?php endif;?>
 
             <div class="table-responsive">
                 <?php
 
-                $type = $_SESSION['type'];
-                $sql_resource = "SELECT * FROM orders LEFT JOIN resources on (orders.resource = resources.id_resource) ORDER BY order_date DESC";
-                // $sql_resource = "SELECT orders.id_order, members.first_name, members.last_name, orders.order_date, orders.start_time FROM orders
-                //         JOIN members on (orders.customer = members.memberID)
-                //     ORDER BY order_date DESC, start_time DESC";
+$type = $_SESSION['type'];
+$sql_resource = "SELECT * FROM orders LEFT JOIN resources on (orders.resource = resources.id_resource) ";
+// $sql_resource = "SELECT orders.id_order, members.first_name, members.last_name, orders.order_date, orders.start_time FROM orders
+//         JOIN members on (orders.customer = members.memberID)
+//     ORDER BY order_date DESC, start_time DESC";
 
-                $sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
-
-                if ($result_resource = $pdo->prepare($sql_resource)) {
-                    $result_resource->execute();
-                    $result = ($result_resource->fetchAll());
-                    // var_dump($result[20]);
-                    ?>
+$sql_resource .= ($type != 1) ? " where customer = " . $_SESSION['memberID'] : "";
+$sql_resource .= " ORDER BY order_date DESC ";
+if ($result_resource = $pdo->prepare($sql_resource)) {
+    $result_resource->execute();
+    $result = ($result_resource->fetchAll());
+    // var_dump($result[20]);
+    ?>
                     <table id="myTable" class="table table-striped table-sm">
                         <thead>
                         <tr>
@@ -74,9 +74,9 @@ include('header.php');
                                 <!-- Data e ora -->
                                 <td>
                                     <a>
-                                        ID: <?= $item["id_order"]; ?> &nbsp;
-                                        <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;
-                                        <i class="fa fa-clock"></i>    <?= date('H:i',   strtotime($item["start_time"])); ?> &nbsp;
+                                        ID: <?=$item["id_order"];?> &nbsp;
+                                        <i class="fa fa-calendar"></i> <?=date('d-m-Y', strtotime($item["order_date"]));?> &nbsp;
+                                        <i class="fa fa-clock"></i>    <?=date('H:i', strtotime($item["start_time"]));?> &nbsp;
                                     </a>
                                 </td>
 
@@ -92,26 +92,26 @@ include('header.php');
                                 <!-- Dettagli Prenotazione -->
                                 <td>
                                     <!-- <i class="fas fa-times"></i> Annullato | -->
-                                    <span data-toggle="modal" data-target="#exampleModal" onclick="getOrderDetails(<?php echo $item['id_order'] ?> , '<?php echo $item["first_name"] ." ". $item["last_name"]    ?>')">
+                                    <span data-toggle="modal" data-target="#exampleModal" onclick="getOrderDetails(<?php echo $item['id_order'] ?> , '<?php echo $item["first_name"] . " " . $item["last_name"] ?>')">
                                         <i class="fa fa-info"></i> Vedi Prodotti
                                     </span>
                                 </td>
 
 
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
 
 
                         </tbody>
                     </table>
                     <?php
-                } else {
-                    echo "Nessuna prenotazione da visualizzare";
-                }
-                ?>
+} else {
+    echo "Nessuna prenotazione da visualizzare";
+}
+?>
             </div>
         </main>
     </div>
 </div>
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php';?>

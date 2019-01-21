@@ -11,8 +11,8 @@
 //
 // }
 
-require('includes/connection.php');
-include('header.php');
+require 'includes/connection.php';
+include 'header.php';
 ?>
 
 <div class="container">
@@ -30,15 +30,15 @@ include('header.php');
             <div class="needs-validation">
                 <!-- STEP 1: scegli servizi -->
                 <?php
-                // Attempt select query execution
-                $sql = "SELECT * FROM products ORDER BY name";
-                if ($result = $pdo->query($sql)) {
-                    if ($result->rowCount() > 0) {
-                        echo '<form class="form-item" name="reservation-form" >';
-                        while ($row = $result->fetch()) {
+// Attempt select query execution
+$sql = "SELECT * FROM products ORDER BY name";
+if ($result = $pdo->query($sql)) {
+    if ($result->rowCount() > 0) {
+        echo '<form class="form-item" name="reservation-form" >';
+        while ($row = $result->fetch()) {
 //                            var_dump($row);
-                            $index = $row['id_product'];
-                            echo '
+            $index = $row['id_product'];
+            echo '
                                     <div class="row pb-5">
                                         <div class="col-lg-9 col-md-6 pb-3">
                                             <input class="d-none" name="product" type="hidden" value="' . $row['id_product'] . '">' . '
@@ -46,9 +46,9 @@ include('header.php');
                                         </div>
                                         <div class="col-lg-3 col-xs-6">
                                             <select class="custom-select d-block w-100"
-                                             data-price="'. $row['price']  .'"
+                                             data-price="' . $row['price'] . '"
                                              data-value="' . $index . '"
-                                             data-name="'. $row['name'] .'"
+                                             data-name="' . $row['name'] . '"
                                              name="qty" required>
                                                 <option value="">Persone</option>
                                                 <option  value="1">1</option>
@@ -61,17 +61,17 @@ include('header.php');
                                     </div>
 
                             ';
-                        }
-                        echo '</form>';
-                        // Free result set
-                        unset($result);
-                    } else {
-                        echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
-                    }
-                } else {
-                    echo "ERRORE: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
-                }
-                ?>
+        }
+        echo '</form>';
+        // Free result set
+        unset($result);
+    } else {
+        echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
+    }
+} else {
+    echo "ERRORE: Non posso eseguire la richiesta " . $sql . mysqli_error($link);
+}
+?>
                 <!-- END STEP 1: scegli servizi -->
 
 
@@ -83,27 +83,27 @@ include('header.php');
 
                         <?php
 
-                        // Attempt select query execution
-                        $sql_resource = "SELECT * FROM resources";
+// Attempt select query execution
+$sql_resource = "SELECT * FROM resources";
 
-                        if ($result_resource = $pdo->query($sql_resource)) {
-                            if ($result_resource->rowCount() > 0) {
-                                echo "<select class='custom-select d-block w-100' onchange='fetchDateAvailability()' id='resource' required>";
-                                while ($row_resources = $result_resource->fetch()) {
-                                    echo "<option value='" . $row_resources['id_resource'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
-                                }
-                                echo "</select>";
+if ($result_resource = $pdo->query($sql_resource)) {
+    if ($result_resource->rowCount() > 0) {
+        echo "<select class='custom-select d-block w-100' onchange='fetchDateAvailability()' id='resource' required>";
+        while ($row_resources = $result_resource->fetch()) {
+            echo "<option value='" . $row_resources['id_resource'] . "'>" . $row_resources['first_name'] . ' ' . $row_resources['last_name'] . "</option>";
+        }
+        echo "</select>";
 
-                                // Free result set
-                                unset($row_resource);
-                            } else {
-                                echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
-                            }
-                        } else {
-                            echo "ERROR: Non posso eseguire la richiesta " . $sql_resource . mysqli_error($link);
-                        }
+        // Free result set
+        unset($row_resource);
+    } else {
+        echo "<p class='lead'><em>Nessun collaboratore trovato.</em></p>";
+    }
+} else {
+    echo "ERROR: Non posso eseguire la richiesta " . $sql_resource . mysqli_error($link);
+}
 
-                        ?>
+?>
 
                     </div>
                 </div>
@@ -121,10 +121,10 @@ include('header.php');
                         <label for="slot_time">Fascia oraria</label>
 
                         <?php
-                        echo '<select disabled  class="custom-select d-block w-100"  id="timeSlotSelection" >';
-                        require 'opening-time-hour.php';
-                        echo '</select>';
-                        ?>
+echo '<select   class="custom-select d-block w-100"  id="timeSlotSelection" >';
+require 'opening-time-hour.php';
+echo '</select>';
+?>
 
                     </div>
                 </div>
@@ -166,4 +166,4 @@ include('header.php');
 
 
     </div>
-    <?php include('footer.php'); ?>
+    <?php include 'footer.php';?>

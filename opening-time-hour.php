@@ -1,20 +1,4 @@
 <option value="" disabled="disabled">-</option>
-<!--<option value="00:00:00">00:00</option>-->
-<!--<option value="00:30:00">00:30</option>-->
-<!--<option value="01:00:00">01:00</option>-->
-<!--<option value="01:30:00">01:30</option>-->
-<!--<option value="02:00:00">02:00</option>-->
-<!--<option value="02:30:00">02:30</option>-->
-<!--<option value="03:00:00">03:00</option>-->
-<!--<option value="03:30:00">03:30</option>-->
-<!--<option value="04:00:00">04:00</option>-->
-<!--<option value="04:30:00">04:30</option>-->
-<!--<option value="05:00:00">05:00</option>-->
-<!--<option value="05:30:00">05:30</option>-->
-<!--<option value="06:00:00">06:00</option>-->
-<!--<option value="06:30:00">06:30</option>-->
-<!--<option value="07:00:00">07:00</option>-->
-<!--<option value="07:30:00">07:30</option>-->
 <option value="08:00:00">08:00</option>
 <option value="08:30:00">08:30</option>
 <option value="09:00:00">09:00</option>

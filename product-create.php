@@ -1,15 +1,14 @@
 <?php
-require('includes/connection.php');
-include('classes/user-checked.php');
-include('header.php');
+require 'includes/connection.php';
+include 'classes/user-checked.php';
+include 'header.php';
 $userType = $_SESSION['type'];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
 
         // if you dont are admin redirect to index page
-        include('check-role.php');
+        include 'check-role.php';
 
         // insert query
         $query_create_product = "INSERT INTO products (name, description, time, price) VALUES (:name, :description, :time, :price)";
@@ -18,10 +17,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $statement = $pdo->prepare($query_create_product);
 
         // posted values
-        $name           = $_POST['name'];
-        $description    = $_POST['description'];
-        $time           = $_POST['time'];
-        $price          = $_POST['price'];
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $time = $_POST['time'];
+        $price = $_POST['price'];
 
         // bind the parameters
         $statement->bindParam(':name', $name);
@@ -30,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $statement->bindParam(':price', $price);
 
         // Execute the query
-        if($statement->execute()){
+        if ($statement->execute()) {
             echo "<div class='alert alert-success'>Servizio salvato correttamente!</div>";
         } else {
             echo "<div class='alert alert-danger'>Errore nel salvataggio del servizio.</div>";
@@ -39,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // show error
-    catch(PDOException $exception){
+     catch (PDOException $exception) {
         die('ERROR: ' . $exception->getMessage());
     }
 
@@ -52,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid">
     <div class="row">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+        <?php include __DIR__ . '/templates/dashboard-sidebar.html.php';?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
 
@@ -60,7 +59,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h1 class="h2">Aggiungi Prodotto</h1>
             </div>
 
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-group">
                     <label for="name">Nome</label>
                     <input type="text" name="name" class="form-control" />
@@ -88,4 +87,4 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php';?>
