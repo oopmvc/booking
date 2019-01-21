@@ -74,6 +74,7 @@ include('header.php');
                                 <!-- Data e ora -->
                                 <td>
                                     <a>
+                                        ID: <?= $item["id_order"]; ?> &nbsp;
                                         <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;
                                         <i class="fa fa-clock"></i>    <?= date('H:i',   strtotime($item["start_time"])); ?> &nbsp;
                                     </a>

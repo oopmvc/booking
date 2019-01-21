@@ -56,7 +56,7 @@ error_reporting(E_ALL);
          * Add to cart
          *
          */
-        function submitProductRequets() {
+        function submitProductRequest() {
             // get selected options
             tableObject = [];
             selectedOptions =

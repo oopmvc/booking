@@ -1,7 +1,20 @@
 <?php
+//require_once('routes.php');
+//
+// function __autoload($class_name) {
+//
+//     if(file_exists('./classes/' . $class_name . '.php')){
+//         require_once './classes/' . $class_name . '.php';
+//     } else if(file_exists('./controllers/' . $class_name . '.php')) {
+//         require_once './controllers/' . $class_name . '.php';
+//     }
+//
+// }
+
 require('includes/connection.php');
 include('header.php');
 ?>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2">
@@ -63,9 +76,9 @@ include('header.php');
 
 
                 <!-- BEGIN STEP 2: scegli con chi -->
-                <h4 class="pt-4 mb-4" id="ressroucesSelection"><span class="bg-dark">2</span> Scegli con chi</h4>
+                <h4 class="pt-4 mb-4" id="resourcesSelection"><span class="bg-dark">2</span> Scegli con chi</h4>
                 <div class="row">
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-5">
                         <label for="country">Scegli con chi</label>
 
                         <?php
@@ -100,11 +113,11 @@ include('header.php');
                 <!-- BEGIN STEP 3: scegli quando -->
                 <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-5">
                         <label for="date">Giorno</label>
                         <input type="text" id="datepicker" class="form-control" onchange="fetchDateAvailability()">
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-5">
                         <label for="slot_time">Fascia oraria</label>
 
                         <?php
@@ -123,10 +136,10 @@ include('header.php');
 
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span>La tua prenotazione</span>  <!--class="text-muted"-->
-                    <span class="badge badge-secondary badge-pill">
+                    <!--<span class="badge badge-secondary badge-pill">
 
-                        <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
-                            <?php
+                         <a href="#" class="cart-box" id="cart-info" title="Vedi carrello">
+                            <php
                             if (isset($_SESSION['products'])):
                                 if (isset($_SESSION['products'])) {
                                     echo count($_SESSION["products"]);
@@ -135,15 +148,15 @@ include('header.php');
                                 } endif;
 
                             ?>
-                    </a>
-                    </span>
+                        </a>
+                    </span>-->
 
                     </h4>
                     <div id="cartResumer">
                         <ul id="LastActionOncartResume"></ul>
                     </div>
                     <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
-                    <a onclick="submitProductRequets()" href="view_cart.php" class="btn btn-lg btn-block btn-danger">Conferma</a>
+                    <a onclick="submitProductRequest()" href="view_cart.php" class="btn btn-lg btn-block btn-danger mb-5">Conferma</a>
 
                 </div>
                 <!-- END carrello -->

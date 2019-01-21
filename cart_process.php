@@ -7,11 +7,10 @@ setlocale(LC_MONETARY, "it_IT"); // IT national format (see : http://php.net/mon
  */
 if (isset($_POST['checkTimeSlot'])) {
     $formattedDate = date('Y-m-d', strtotime($_POST['date']));
-    $sql = "SELECT start_time FROM orders WHERE order_date = :order_dateValue AND resource = :ressource";
+    $sql = "SELECT start_time FROM orders WHERE order_date = :order_dateValue AND resource = :resource";
     $statement = $pdo->prepare($sql);
     $statement->bindParam(":order_dateValue", $_POST['date']);
-    $statement->bindParam(":ressource", $_POST['ressource']);
-
+    $statement->bindParam(":resource", $_POST['resource']);
 
     $statement->execute();
     $statement->rowCount();
@@ -31,8 +30,8 @@ if (isset($_POST['products_selection'])) {
         $new_product['product_name'] = $product->name; //fetch product name from database
         $new_product['product_price'] = $product->price;  //fetch product price from database
         $new_product['product_qty'] = $product->qty;  //fetch product price from database
-        $new_product['ressource'] = $_POST['ressource'];  //fetch product price from database
-        $new_product['ressourceName'] = $_POST['ressourceName'];  //fetch product price from database
+        $new_product['resource'] = $_POST['resource'];  //fetch product price from database
+        $new_product['resourceName'] = $_POST['resourceName'];  //fetch product price from database
 
         $new_product['date'] = $_POST['date'];  //fetch product price from database
         $new_product['slotTime'] = $_POST['slotTime'];  //fetch product price from database
@@ -44,7 +43,7 @@ if (isset($_POST['products_selection'])) {
             }
         }
         /**
-         * store information for order : customer / starttime / ressource /  order_date
+         * store information for order : customer / starttime / resource /  order_date
          * This data will be saved to order table
          * Information about the order details will be stored
          * inside orders_details table
@@ -54,13 +53,13 @@ if (isset($_POST['products_selection'])) {
         }
         $_SESSION["order_details"] = array(
             "customer" => isset($_SESSION["memberID"]) ? $_SESSION["memberID"] : "",
-            "ressource" => $_POST['ressource'],
+            "resource" => $_POST['resource'],
             "date" => $_POST['date'],
             "slotTime" => $_POST['slotTime'],
         );
 
 
-        $_SESSION['ressourceName'] = $new_product['ressourceName']; //update products with new item array
+        $_SESSION['resourceName'] = $new_product['resourceName']; //update products with new item array
         $_SESSION['products'][$product->product_id] = $new_product; //update products with new item array
     }
 
@@ -112,7 +111,7 @@ function GenerateCartView()
                              if ($i > 0)
                                  break;
                              ?>
-                             <?php echo $_POST["ressourceName"] ?>
+                             <?php echo $_POST["resourceName"] ?>
                              <?php
                              $i++;
                          endforeach;
@@ -205,7 +204,7 @@ if (isset($_POST["load_cart"]) && $_POST["load_cart"] == 1) {
                              if ($i > 0)
                                  break;
                              ?>
-                             <?php echo $product["ressourceName"] ?>
+                             <?php echo $product["resourceName"] ?>
                              <?php
                              $i++;
                          endforeach;
@@ -310,7 +309,7 @@ if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
                              if ($i > 0)
                                  break;
                              ?>
-                             <?php echo $product["ressourceName"] ?>
+                             <?php echo $product["resourceName"] ?>
                              <?php
                              $i++;
                          endforeach;
@@ -375,23 +374,23 @@ if (isset($_POST['save_to_db'])) {
     $customerID = ($_SESSION["memberID"]);
 
     $sql = 'INSERT INTO `orders`(
-          `order_date`, 
-          `start_time`, 
-          `resource`, 
-          `customer`, 
-          `status`, 
+          `order_date`,
+          `start_time`,
+          `resource`,
+          `customer`,
+          `status`,
           `note`)    VALUES (
-                    :order_date ,     
-                    :start_time ,   
-                    :resource ,    
-                    :customer ,   
-                    :status ,     
+                    :order_date ,
+                    :start_time ,
+                    :resource ,
+                    :customer ,
+                    :status ,
                     :note )';
     $statement = $pdo->prepare($sql);
 
     $statement->bindParam(":order_date", $order_details['date']);
     $statement->bindParam(":start_time", $order_details['slotTime']);
-    $statement->bindParam(":resource", $order_details['ressource']);
+    $statement->bindParam(":resource", $order_details['resource']);
     $statement->bindParam(":customer", $order_details['customer']);
     $statement->bindParam(":status", $order_details['status']);
     $statement->bindParam(":note", $order_details['note']);
@@ -402,8 +401,8 @@ if (isset($_POST['save_to_db'])) {
         $products = $_SESSION['products'];
 
         $sql = 'INSERT INTO `order_details`(
-          `order_id`, 
-          `product_id`, 
+          `order_id`,
+          `product_id`,
           `product_quantity`) ';
         $values = "";
         $productNbr = count($products);
@@ -412,7 +411,7 @@ if (isset($_POST['save_to_db'])) {
             $values .= "( '"
                 . $lastInsertedId . "' , '"
                 . $product['product_id'] . "' , '"
-                . $product['product_qty'] . "' 
+                . $product['product_qty'] . "'
                    )  ";
             if ($i < $productNbr)
                 $values .= " , ";
@@ -423,10 +422,10 @@ if (isset($_POST['save_to_db'])) {
         if ($statement->execute()) {
             $pdo->lastInsertId();
             //send email to customer
-            $ressourceName = "";
+            $resourceName = "";
             $requested_product = "<b>prodotti</b><br><ul>";
             foreach ($_SESSION['products'] as $value) {
-                $ressourceName = $value['ressourceName'];
+                $resourceName = $value['resourceName'];
                 $requested_product .= "<li> " . $value['product_name'] . " prezzo " . $value['product_price'] . "&euro; </li>";
             }
 
@@ -435,7 +434,7 @@ if (isset($_POST['save_to_db'])) {
             $body = "Si riceve questa email a seguito di una prenotazione effettuata sul sito mauriziobarbershop.com, Di seguito i dettagli della prenotazione: <br>";
             $body .= " <ul>
              <li>La data: " . $order_details['date'] . " alle " . $order_details['slotTime'] . " </li>
-             <li>Con : " . $ressourceName . " </li>";
+             <li>Con : " . $resourceName . " </li>";
 
             $body .= '</ul>';
             $body .= $requested_product . "</ul>";

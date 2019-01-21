@@ -6,22 +6,22 @@ include('header.php');
 
 <div class="container mb-4">
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="pt-4">Controlla la tua prenotazione</h1>
+        <div class="col-lg-6 col-md-6 offset-lg-2 offset-md-2">
+            <h1 class="pt-4">La tua prenotazione</h1>
         </div>
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-md-6 offset-lg-2 offset-md-2">
     <?php
     if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
-        $total 			= 0;
+        $total          = 0;
         $list_tax 		= '';
         $cart_box 		= '<ul class="view-cart">';
         foreach($_SESSION["products"] as $product){ //Print each item, quantity and price.
             $product_name   = $product["product_name"];
             $product_qty    = $product["product_qty"];
             $product_price  = $product["product_price"];
-//            $product_code   = $product["product_code"];
+            // $product_code   = $product["product_code"];
 
             $item_price 	= sprintf("%01.2f",($product_price * $product_qty));  // price x qty = total item price
 
@@ -58,7 +58,7 @@ include('header.php');
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-6 offset-lg-2">
             <?php
 
                 // do not work - test it ------------------------------------------------------------------------------------------
