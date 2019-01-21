@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Dic 12, 2018 alle 18:03
+-- Creato il: Gen 21, 2019 alle 11:52
 -- Versione del server: 10.1.32-MariaDB
 -- Versione PHP: 7.2.5
 
@@ -75,12 +75,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id_order`, `order_date`, `start_time`, `resource`, `customer`, `status`, `note`) VALUES
-(33, '0000-00-00', NULL, NULL, '3', NULL, NULL),
-(34, '0000-00-00', NULL, NULL, '3', NULL, NULL),
-(35, '0000-00-00', NULL, NULL, '3', NULL, NULL),
-(36, '0000-00-00', NULL, NULL, '3', NULL, NULL),
-(37, '0000-00-00', NULL, NULL, '3', NULL, NULL),
-(38, '0000-00-00', NULL, NULL, '3', NULL, NULL);
+(75, '2018-12-13', '08:00:00.0000', 1, '3', NULL, NULL),
+(76, '2018-12-13', '11:00:00.0000', 3, '3', NULL, NULL),
+(77, '0000-00-00', '13:30:00.0000', 3, '14', NULL, NULL),
+(78, '0000-00-00', '09:00:00.0000', 8, '14', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,6 +92,22 @@ CREATE TABLE `order_details` (
   `product_quantity` int(11) NOT NULL,
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_quantity`, `product_id`) VALUES
+(122, 75, 2, 6),
+(123, 75, 2, 5),
+(124, 76, 1, 1),
+(125, 76, 1, 6),
+(126, 76, 1, 5),
+(127, 77, 1, 5),
+(128, 77, 1, 6),
+(129, 77, 1, 1),
+(130, 78, 2, 1),
+(131, 78, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -250,13 +264,13 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT per la tabella `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT per la tabella `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT per la tabella `products`

@@ -257,13 +257,10 @@ error_reporting(E_ALL);
             xfbml: true,
             version: 'v3.1'
         });
-    };
-
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response)
         });
-    }
+    };
 
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -275,14 +272,24 @@ error_reporting(E_ALL);
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    function statusChangeCallback(response) {
+        if(response.status === 'connected') {
+            console.log('Loggato e autenticato.');
+        } else {
+            console.log('Non autenticato');
+        }
+    }
 </script>
+<!-- Facebook Login END -->
+
+
 <script type="text/javascript">
     function addResourceCart() {
         var r = document.getElementById("resource").value;
         document.getElementById("resourceCart").innerHTML = r;
     }
 </script>
-<!-- Facebook Login END -->
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
