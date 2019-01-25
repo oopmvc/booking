@@ -273,80 +273,56 @@ error_reporting(E_ALL);
                         <body>
 
 
-                            <!-- Facebook Login BEGIN -->
-                            <script>
-                            window.fbAsyncInit = function () {
-                                FB.init({
-                                    appId: '251349018864231',
-                                    autoLogAppEvents: true,
-                                    xfbml: true,
-                                    version: 'v3.1'
-                                });
-                                FB.getLoginStatus(function(response) {
-                                    statusChangeCallback(response)
-                                });
-                            };
 
-                            (function (d, s, id) {
+                            <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
                                 var js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) {
-                                    return;
-                                }
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s); js.id = id;
+                                js.src = 'https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v3.2&appId=251349018864231&autoLogAppEvents=1';
                                 fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));
+                            }(document, 'script', 'facebook-jssdk'));</script>
 
-                            function statusChangeCallback(response) {
-                                if(response.status === 'connected') {
-                                    console.log('Loggato e autenticato.');
-                                } else {
-                                    console.log('Non autenticato');
-                                }
+
+
+                            <script type="text/javascript">
+                            function addResourceCart() {
+                                var r = document.getElementById("resource").value;
+                                document.getElementById("resourceCart").innerHTML = r;
                             }
-                        </script>
-                        <!-- Facebook Login END -->
+                            </script>
 
 
-                        <script type="text/javascript">
-                        function addResourceCart() {
-                            var r = document.getElementById("resource").value;
-                            document.getElementById("resourceCart").innerHTML = r;
-                        }
-                    </script>
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                                <a class="navbar-brand" href="./">Booking</a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
 
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
 
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a class="navbar-brand" href="./">Booking</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                                </ul>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
+                                <?php
+                                if (isset($_SESSION['username'])) {
+                                    echo ('
+                                    <a class="text-white btn btn-sm mr-2" href="member-read.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
+                                    ');
+                                }
 
-                        </ul>
-                        
-                        <?php
-                        if (isset($_SESSION['username'])) {
-                            echo ('
-                            <a class="text-white btn btn-sm mr-2" href="member-read.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
-                            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
-                            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
-                            ');
-                        }
+                                if (!isset($_SESSION['username'])) {
+                                    echo '
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+                                    ';
+                                }
+                                ?>
 
-                        if (!isset($_SESSION['username'])) {
-                            echo '
-                            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
-                            <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
-                            ';
-                        }
-                        ?>
-
-                        <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
-                        <!-- <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a> -->
-                    </div>
-                </nav>
+                                <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
+                                <!-- <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a> -->
+                            </div>
+                        </nav>
