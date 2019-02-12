@@ -94,6 +94,7 @@ error_reporting(E_ALL);
         } else {
             console.log('Non autenticato');
         }
+<<<<<<< HEAD
     }
     </script>
     <!-- Facebook Login END -->
@@ -173,3 +174,171 @@ error_reporting(E_ALL);
         </ul>
 
     </nav>
+=======
+        function handleTimeSlot (){
+            console.log("page ready")
+            if([...document.querySelectorAll('#timeSlotSelection')].length > 0 ){
+                var date = new Date();
+                [...document.querySelectorAll('#timeSlotSelection option')].forEach(item =>
+                    {
+                        var a = item.value
+                        if(Date.parse('01/01/2011 '+ date.getHours()+":"+date.getMinutes() + ":"+date.getSeconds())
+                        > Date.parse('01/01/2011 '+ a)) {
+                            item.disabled = true ;}})}};
+
+                            jQuery(document).ready(function () {
+
+
+
+
+                                handleTimeSlot();
+                                jQuery("#LastActionOncartResume").load("cart_process.php", {"load_cart": "1"});
+                                jQuery("#datepicker").datepicker({
+                                    minDate: 0,
+                                    dateFormat: 'dd-mm-yy',
+                                    closeText: 'Chiudi',
+                                    prevText: 'Prec',
+                                    nextText: 'Succ',
+                                    currentText: 'Oggi',
+                                    monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno', 'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+                                    monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu', 'Lug','Ago','Set','Ott','Nov','Dic'],
+                                    dayNames: ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'],
+                                    dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+                                    dayNamesMin: ['D','L','M','M','G','V','S'],
+                                    beforeShowDay: function (date) {
+                                        var day = date.getDay();
+                                        return [(day != 0 && day != 1)];
+                                    }
+                                });
+
+
+                                //Add Item to Cart
+                                jQuery(".form-item").submit(function (e) {
+                                });
+
+                                //Remove items from cart
+
+                                // jQuery("#productInCartNames").on('click', '.remove-item', function (e) {
+                                // });
+
+                                //Show Items in Cart
+                                jQuery(".cart-box").click(function (e) { //when user clicks on cart box
+                                    e.preventDefault();
+                                    jQuery(".shopping-cart-box").fadeIn(); //display cart box
+                                    jQuery("#shopping-cart-results").html('<img src="img/ajax-loader.gif">'); //show loading image
+                                    jQuery("#cartresumer").load("cart_process.php", {"load_cart": "1"}); //Make ajax request using jQuery Load() & update results
+                                });
+                                jQuery(".close-shopping-cart-box").click(function (e) { //user click on cart box close link
+                                    e.preventDefault();
+                                    jQuery(".shopping-cart-box").fadeOut(); //close cart-box
+                                });
+                            });
+
+                            function deleteFromCart($key) {
+                                event.preventDefault();
+                                var pcode = $key; //jQuery(this).attr("data-code"); //get product code
+                                $.ajax({
+                                    url: "cart_process.php",
+                                    type: "GET",
+                                    dataType: "html", //expect json value from server
+                                    data: {"remove_code": pcode},
+                                    success: function (xhr) {
+
+                                        jQuery("#LastActionOncartResume").html(xhr); //update Item count in cart-info
+                                        jQuery(".cart-box").trigger("click"); //trigger click on cart-box to update the items list
+                                    }
+                                }).done(function (xhr) {
+
+                                });
+                                // jQuery.getJSON("cart_process.php", , function (data) { //get Item count from Server
+                                //
+                                // });
+                            }
+
+                            function getOrderDetails(order_id, customer_name, resource_name) {
+
+                                if (order_id === false)
+                                return;
+                                $.ajax({
+                                    url: "cart_process.php",
+                                    type: "POST",
+                                    data: {"order_id": order_id, "customer_name": customer_name, "resource_name": resource_name},
+                                    success: function (data) {
+                                        var html = "";
+                                        html += "<div><strong>Prodotti:</strong></div>";
+                                        html += "<ul>";
+                                        JSON.parse(data).forEach(item => {
+                                            if(item.product_quantity > 0) {
+                                                html += "<li>" +  item.name + " : " + item.product_quantity +  "</li>";
+                                            }
+                                        });
+                                        html += "</ul>";
+
+                                        $("#modalBodyContainer").html(html);
+                                        $(".modal").modal();
+                                    }
+                                });
+
+                            }
+                            </script>
+                            <!-- END shopping cart -->
+
+
+                        </head>
+                        <body>
+
+
+
+                            <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s); js.id = id;
+                                js.src = 'https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v3.2&appId=251349018864231&autoLogAppEvents=1';
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+                            <script type="text/javascript">
+                            function addResourceCart() {
+                                var r = document.getElementById("resource").value;
+                                document.getElementById("resourceCart").innerHTML = r;
+                            }
+                            </script>
+
+
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                                <a class="navbar-brand" href="./">Booking</a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+
+                                </ul>
+
+                                <?php
+                                if (isset($_SESSION['username'])) {
+                                    echo ('
+                                    <a class="text-white btn btn-sm mr-2" href="member-read.php?username=' . $_SESSION['username'] . '">Ciao ' . $_SESSION['username'] . '</a>' . '
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="dashboard.php">Dashboard</a>
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="logout.php">Esci</a>
+                                    ');
+                                }
+
+                                if (!isset($_SESSION['username'])) {
+                                    echo '
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+                                    <a class="btn btn-sm btn-info my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+                                    ';
+                                }
+                                ?>
+
+                                <a class="btn btn-sm btn-primary" href="reservation-create.php">Prenota ora</a>
+                                <!-- <a class="btn btn-sm btn-primary ml-2" href="/maurizio-barber-shop">Home</a> -->
+                            </div>
+                        </nav>
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83

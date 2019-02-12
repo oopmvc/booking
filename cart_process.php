@@ -1,6 +1,6 @@
 <?php
 
-include_once('includes/connection.php'); //include config file
+include_once 'includes/connection.php'; //include config file
 setlocale(LC_MONETARY, "it_IT"); // IT national format (see : http://php.net/money_format)
 /**
  * Check for time slot availability
@@ -14,9 +14,17 @@ if (isset($_POST['checkTimeSlot'])) {
 
     $statement->execute();
     $statement->rowCount();
+<<<<<<< HEAD
     if ($statement->rowCount() > 0)
+=======
+    $statement->rowCount();
+    if ($statement->rowCount() > 0) {
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
         echo json_encode($statement->fetchAll());
-    else  echo 0;
+    } else {
+        echo 0;
+    }
+
 }
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -27,14 +35,24 @@ if (isset($_POST['products_selection'])) {
     foreach ($products as $product) {
         $new_product['product_id'] = $product->product_id; //fetch product name from database
         $new_product['product_name'] = $product->name; //fetch product name from database
+<<<<<<< HEAD
         $new_product['product_price'] = $product->price;  //fetch product price from database
         $new_product['product_qty'] = $product->qty;  //fetch product price from database
         $new_product['resource'] = $_POST['resource'];  //fetch product price from database
         $new_product['resourceName'] = $_POST['resourceName'];  //fetch product price from database
         $new_product['date'] = $_POST['date'];  //fetch product price from database
         $new_product['slotTime'] = $_POST['slotTime'];  //fetch product price from database
+=======
+        $new_product['product_price'] = $product->price; //fetch product price from database
+        $new_product['product_qty'] = $product->qty; //fetch product price from database
+        $new_product['resource'] = $_POST['resource']; //fetch product price from database
+        $new_product['resourceName'] = $_POST['resourceName']; //fetch product price from database
 
-        if (isset($_SESSION['products'])) {  //if session var already exist
+        $new_product['date'] = $_POST['date']; //fetch product price from database
+        $new_product['slotTime'] = $_POST['slotTime']; //fetch product price from database
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
+
+        if (isset($_SESSION['products'])) { //if session var already exist
 
             if (isset($_SESSION['products'][$new_product['product_id']])) { //check item exist in products array
                 unset($_SESSION['products'][$new_product['product_id']]); //unset old item
@@ -55,7 +73,6 @@ if (isset($_POST['products_selection'])) {
             "date" => $_POST['date'],
             "slotTime" => $_POST['slotTime'],
         );
-
 
         $_SESSION['resourceName'] = $new_product['resourceName']; //update products with new item array
         $_SESSION['products'][$product->product_id] = $new_product; //update products with new item array
@@ -79,22 +96,22 @@ function GenerateCartView()
                 <div id="productInCartNames">
                     <ul>
                         <?php
-                        if (isset($_SESSION['products'])):
-                            foreach ($_SESSION['products'] as $key => $product): ?>
-                                <li class="d-flex">
-                                        <span>
-                                            <?php echo $product["product_name"] ?>
-                                        </span>
-                                    <span>
-                                            (Qty:<?php echo $product["product_qty"] ?>)
-                                        </span>
-                                    <a href="#" class="remove-item" data-code="<?php echo $key ?>"
-                                       onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
+if (isset($_SESSION['products'])):
+            foreach ($_SESSION['products'] as $key => $product): ?>
+						                                <li class="d-flex">
+						                                        <span>
+						                                            <?php echo $product["product_name"] ?>
+						                                        </span>
+						                                    <span>
+						                                            (Qty:<?php echo $product["product_qty"] ?>)
+						                                        </span>
+						                                    <a href="#" class="remove-item" data-code="<?php echo $key ?>"
+						                                       onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
 
-                                </li>
-                            <?php endforeach;
-                        endif;
-                        ?>
+						                                </li>
+						                            <?php endforeach;
+        endif;
+        ?>
                     </ul>
                 </div>
 
@@ -103,57 +120,61 @@ function GenerateCartView()
             <strong>Con chi </strong>
             <span id="who">
                      <?php
-                     if (isset($_SESSION['products'])):
-                         $i = 0;
-                         foreach ($_SESSION['products'] as $product):
-                             if ($i > 0)
-                                 break;
-                             ?>
-                             <?php echo $_POST["resourceName"] ?>
-                             <?php
-                             $i++;
-                         endforeach;
-                     endif;
-                     ?>
+if (isset($_SESSION['products'])):
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                             <?php echo $_POST["resourceName"] ?>
+												                             <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                 </span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
             <strong>Quando</strong>
             <span id="when">
                         <?php
-                        if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                            $i = 0;
-                            foreach ($_SESSION['products'] as $product):
-                                if ($i > 0)
-                                    break;
-                                ?>
-                                <?php echo $product["slotTime"] ?>
-                                <?php
-                                $i++;
-                            endforeach;
-                        endif;
-                        ?>
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                                <?php echo $product["slotTime"] ?>
+												                                <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                     </span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
             <span><strong>Totale</strong></span>
             <span id="cartTotal">
                          <?php
-                         if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                             $total = 0;
-                             foreach ($_SESSION['products'] as $product):
-                                 $total += $product['product_price'] * $product['product_qty']; ?>
-                             <?php
-                             endforeach;
-                             echo $total . " &euro;"; endif;
-                         ?>
+            $total = 0;
+            foreach ($_SESSION['products'] as $product):
+                $total += $product['product_price'] * $product['product_qty'];?>
+												                             <?php
+    endforeach;
+            echo $total . " &euro;";endif;
+        ?>
             </span>
         </li>
 
         <?php
-    } else {
+} else {
         die("Carrello è vuoto!"); //we have empty cart
     }
 }
@@ -171,23 +192,23 @@ if (isset($_POST["load_cart"]) && $_POST["load_cart"] == 1) {
                     <div id="productInCartNames">
                         <ul>
                             <?php
-                            if (isset($_SESSION['products'])):
-                                foreach ($_SESSION['products'] as $key => $product): ?>
-                                    <li class="d-flex">
-                                        <span>
-                                        <?php echo $product["product_name"] ?>
-                                        </span>
-                                        <span>
-                                        (Qty:<?php echo $product["product_qty"] ?>)
-                                        </span>
+if (isset($_SESSION['products'])):
+            foreach ($_SESSION['products'] as $key => $product): ?>
+						                                    <li class="d-flex">
+						                                        <span>
+						                                        <?php echo $product["product_name"] ?>
+						                                        </span>
+						                                        <span>
+						                                        (Qty:<?php echo $product["product_qty"] ?>)
+						                                        </span>
 
-                                        <a href="#" class="remove-item" data-code="<?php echo $key ?>"
-                                           onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
+						                                        <a href="#" class="remove-item" data-code="<?php echo $key ?>"
+						                                           onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
 
-                                    </li>
-                                <?php endforeach;
-                            endif;
-                            ?>
+						                                    </li>
+						                                <?php endforeach;
+        endif;
+        ?>
                         </ul>
                     </div>
             </li>
@@ -196,18 +217,20 @@ if (isset($_POST["load_cart"]) && $_POST["load_cart"] == 1) {
                 <strong>Con chi </strong>
                 <span id="who">
                      <?php
-                     if (isset($_SESSION['products'])):
-                         $i = 0;
-                         foreach ($_SESSION['products'] as $product):
-                             if ($i > 0)
-                                 break;
-                             ?>
-                             <?php echo $product["resourceName"] ?>
-                             <?php
-                             $i++;
-                         endforeach;
-                     endif;
-                     ?>
+if (isset($_SESSION['products'])):
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                             <?php echo $product["resourceName"] ?>
+												                             <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                 </span>
             </li>
 
@@ -215,19 +238,21 @@ if (isset($_POST["load_cart"]) && $_POST["load_cart"] == 1) {
                 <strong>Quando</strong>
                 <span id="when">
                         <?php
-                        if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                            $i = 0;
-                            foreach ($_SESSION['products'] as $product):
-                                if ($i > 0)
-                                    break;
-                                ?>
-                                <?php echo $product["slotTime"] ?>
-                                <?php
-                                $i++;
-                            endforeach;
-                        endif;
-                        ?>
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                                <?php echo $product["slotTime"] ?>
+												                                <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                     </span>
             </li>
 
@@ -235,25 +260,24 @@ if (isset($_POST["load_cart"]) && $_POST["load_cart"] == 1) {
                 <span><strong>Totale</strong></span>
                 <span id="cartTotal">
                          <?php
-                         if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                             $total = 0;
-                             foreach ($_SESSION['products'] as $product):
-                                 $total += $product['product_price'] * $product['product_qty']; ?>
-                             <?php
-                             endforeach;
-                             echo $total . " &euro;"; endif;
-                         ?>
+            $total = 0;
+            foreach ($_SESSION['products'] as $product):
+                $total += $product['product_price'] * $product['product_qty'];?>
+												                             <?php
+    endforeach;
+            echo $total . " &euro;";endif;
+        ?>
                     </span>
             </li>
 
         </ul>
         <?php
-    } else {
+} else {
         die("Carrello è vuoto!"); //we have empty cart
     }
 }
-
 
 /** remove item from shopping cart */
 if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
@@ -276,23 +300,23 @@ if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
                     <div id="productInCartNames">
                         <ul>
                             <?php
-                            if (isset($_SESSION['products'])):
-                                foreach ($_SESSION['products'] as $key => $product): ?>
-                                    <li class="d-flex">
-                                        <span>
-                                        <?php echo $product["product_name"] ?>
-                                        </span>
-                                        <span>
-                                        (Qty:<?php echo $product["product_qty"] ?>)
-                                        </span>
+if (isset($_SESSION['products'])):
+            foreach ($_SESSION['products'] as $key => $product): ?>
+						                                    <li class="d-flex">
+						                                        <span>
+						                                        <?php echo $product["product_name"] ?>
+						                                        </span>
+						                                        <span>
+						                                        (Qty:<?php echo $product["product_qty"] ?>)
+						                                        </span>
 
-                                        <a href="#" class="remove-item" data-code="<?php echo $key ?>"
-                                           onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
+						                                        <a href="#" class="remove-item" data-code="<?php echo $key ?>"
+						                                           onclick="deleteFromCart(<?php echo $key ?>)">&times;</a>
 
-                                    </li>
-                                <?php endforeach;
-                            endif;
-                            ?>
+						                                    </li>
+						                                <?php endforeach;
+        endif;
+        ?>
                         </ul>
                     </div>
             </li>
@@ -301,18 +325,20 @@ if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
                 <strong>Con chi </strong>
                 <span id="who">
                      <?php
-                     if (isset($_SESSION['products'])):
-                         $i = 0;
-                         foreach ($_SESSION['products'] as $product):
-                             if ($i > 0)
-                                 break;
-                             ?>
-                             <?php echo $product["resourceName"] ?>
-                             <?php
-                             $i++;
-                         endforeach;
-                     endif;
-                     ?>
+if (isset($_SESSION['products'])):
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                             <?php echo $product["resourceName"] ?>
+												                             <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                 </span>
             </li>
 
@@ -320,19 +346,21 @@ if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
                 <strong>Quando</strong>
                 <span id="when">
                         <?php
-                        if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                            $i = 0;
-                            foreach ($_SESSION['products'] as $product):
-                                if ($i > 0)
-                                    break;
-                                ?>
-                                <?php echo $product["slotTime"] ?>
-                                <?php
-                                $i++;
-                            endforeach;
-                        endif;
-                        ?>
+            $i = 0;
+            foreach ($_SESSION['products'] as $product):
+                if ($i > 0) {
+                    break;
+                }
+
+                ?>
+												                                <?php echo $product["slotTime"] ?>
+												                                <?php
+        $i++;
+            endforeach;
+        endif;
+        ?>
                     </span>
             </li>
 
@@ -340,33 +368,34 @@ if (isset($_GET["remove_code"]) && isset($_SESSION["products"])) {
                 <span><strong>Totale</strong></span>
                 <span id="cartTotal">
                          <?php
-                         if (isset($_SESSION['products'])):
+if (isset($_SESSION['products'])):
 
-                             $total = 0;
-                             foreach ($_SESSION['products'] as $product):
-                                 $total += $product['product_price'] * $product['product_qty']; ?>
-                             <?php
-                             endforeach;
-                             echo $total . " &euro;"; endif;
-                         ?>
+            $total = 0;
+            foreach ($_SESSION['products'] as $product):
+                $total += $product['product_price'] * $product['product_qty'];?>
+												                             <?php
+    endforeach;
+            echo $total . " &euro;";endif;
+        ?>
                     </span>
             </li>
 
         </ul>
         <?php
-    } else {
+} else {
         echo "Carrello è vuoto!";
     }
 }
-
 
 /**
  * Save cart to orders
  */
 if (isset($_POST['save_to_db'])) {
 //    var_dump($_SESSION["order_details"]);
-    if ($_SESSION["order_details"]['customer'] == "")
+
+    if ($_SESSION["order_details"]['customer'] == "") {
         $_SESSION["order_details"]['customer'] = $_SESSION['memberID'];
+    }
 
     $order_details = $_SESSION["order_details"];
     $customerID = ($_SESSION["memberID"]);
@@ -386,7 +415,9 @@ if (isset($_POST['save_to_db'])) {
                     :note )';
     $statement = $pdo->prepare($sql);
 
-    $statement->bindParam(":order_date", $order_details['date']);
+    $order_date = DateTime::createFromFormat('j-m-Y', $order_details['date']);
+    $order_date = $order_date->format('Y-m-d');
+    $statement->bindParam(":order_date", $order_date);
     $statement->bindParam(":start_time", $order_details['slotTime']);
     $statement->bindParam(":resource", $order_details['resource']);
     $statement->bindParam(":customer", $order_details['customer']);
@@ -411,8 +442,10 @@ if (isset($_POST['save_to_db'])) {
                 . $product['product_id'] . "' , '"
                 . $product['product_qty'] . "'
                    )  ";
-            if ($i < $productNbr)
+            if ($i < $productNbr) {
                 $values .= " , ";
+            }
+
             $i++;
         }
         $sql .= " VALUES " . $values;
@@ -435,6 +468,11 @@ if (isset($_POST['save_to_db'])) {
                 . " Collaboratore: " . $resourceName
                 . " Servizi: "       . $requested_product;
 
+<<<<<<< HEAD
+=======
+            $body .= '</ul>';
+            $body .= $requested_product . "</ul>";
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
             if ($order_details['note'] != "") {
                 $body .= "<ul><li>Commento: " . $order_details['note'] . " </li></ul>";
             }
@@ -447,10 +485,11 @@ if (isset($_POST['save_to_db'])) {
 
             echo json_encode(true);
         }
-    } else
+    } else {
         echo json_encode(false);
-}
+    }
 
+}
 
 /**
  * Get order details

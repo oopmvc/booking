@@ -63,6 +63,10 @@ include('header.php');
 					'into this app.';
 				}
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			// This function is called when someone finishes with the Login
 			// Button.  See the onlogin handler attached to it in the sample
 			// code below.
@@ -71,6 +75,10 @@ include('header.php');
 					statusChangeCallback(response);
 				});
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			window.fbAsyncInit = function() {
 				FB.init({
 					appId      : '251349018864231',
@@ -79,6 +87,10 @@ include('header.php');
 					xfbml      : true,  // parse social plugins on this page
 					version    : '3.2' // The Graph API version to use for the call
 				});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 				// Now that we've initialized the JavaScript SDK, we call
 				// FB.getLoginStatus().  This function gets the state of the
 				// person visiting this page and can return one of three states to
@@ -90,10 +102,20 @@ include('header.php');
 				//    your app or not.
 				//
 				// These three cases are handled in the callback function.
+<<<<<<< HEAD
 				FB.getLoginStatus(function(response) {
 					statusChangeCallback(response);
 				});
 			};
+=======
+
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
+				});
+
+			};
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			// Load the SDK asynchronously
 			(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
@@ -102,6 +124,10 @@ include('header.php');
 				js.src = "https://connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			// Here we run a very simple test of the Graph API after login is
 			// successful.  See statusChangeCallback() for when this call is made.
 			function testAPI() {
@@ -113,12 +139,24 @@ include('header.php');
 				});
 			}
 			</script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			<!--
 			Below we include the Login Button social plugin. This button uses
 			the JavaScript SDK to present a graphical Login button that triggers
 			the FB.login() function when clicked.
+<<<<<<< HEAD
 			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 			</fb:login-button>
+=======
+
+
+			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+			</fb:login-button>
+
+>>>>>>> 4012f3db60ead5929e4fbf374a6361be61431f83
 			<div id="status">
 			</div> -->
 
