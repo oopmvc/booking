@@ -14,7 +14,6 @@ if (isset($_POST['checkTimeSlot'])) {
 
     $statement->execute();
     $statement->rowCount();
-    $statement->rowCount();
     if ($statement->rowCount() > 0)
         echo json_encode($statement->fetchAll());
     else  echo 0;
@@ -32,7 +31,6 @@ if (isset($_POST['products_selection'])) {
         $new_product['product_qty'] = $product->qty;  //fetch product price from database
         $new_product['resource'] = $_POST['resource'];  //fetch product price from database
         $new_product['resourceName'] = $_POST['resourceName'];  //fetch product price from database
-
         $new_product['date'] = $_POST['date'];  //fetch product price from database
         $new_product['slotTime'] = $_POST['slotTime'];  //fetch product price from database
 
@@ -426,20 +424,20 @@ if (isset($_POST['save_to_db'])) {
             $requested_product = "<b>prodotti</b><br><ul>";
             foreach ($_SESSION['products'] as $value) {
                 $resourceName = $value['resourceName'];
-                $requested_product .= "<li> " . $value['product_name'] . " prezzo " . $value['product_price'] . "&euro; </li>";
+                $requested_product .= " " . $value['product_name'] . " prezzo " . $value['product_price'] . "&euro;.";
             }
 
-            $subject = "Maurizio Barber Shop : Conferma della prenotazione";
+            $subject = "Conferma della Prenotazione";
 
-            $body = "Si riceve questa email a seguito di una prenotazione effettuata sul sito mauriziobarbershop.com, Di seguito i dettagli della prenotazione: <br>";
-            $body .= " <ul>
-             <li>La data: " . $order_details['date'] . " alle " . $order_details['slotTime'] . " </li>
-             <li>Con : " . $resourceName . " </li>";
+            $body = "Ricevi questa e-mail a seguito della tua prenotazione. "
+                . " Giorno: "        . $order_details['date']
+                . " Ora: "           . $order_details['slotTime']
+                . " Collaboratore: " . $resourceName
+                . " Servizi: "       . $requested_product;
 
-            $body .= '</ul>';
-            $body .= $requested_product . "</ul>";
-            if ($order_details['note'] != "")
+            if ($order_details['note'] != "") {
                 $body .= "<ul><li>Commento: " . $order_details['note'] . " </li></ul>";
+            }
 
             $to = $_SESSION['user_email'];
             $from = "From: " . SITEEMAIL;

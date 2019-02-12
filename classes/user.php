@@ -1,23 +1,15 @@
 <?php
 
-
 include('password.php');
-
 
 class User extends Password {
 
-
-
     private $_pdo;
-
-
 
     function __construct($pdo){
         parent::__construct();
         $this->_pdo = $pdo;
     }
-
-
 
     private function get_user_hash($username){
         try {
@@ -29,8 +21,6 @@ class User extends Password {
         }
     }
 
-
-
     public function isValidUsername($username) {
         if (strlen($username) < 3) return false;
         if (strlen($username) > 17) return false;
@@ -38,13 +28,11 @@ class User extends Password {
         return true;
     }
 
-
-
-    public function &login($username,$password) {
+    public function login($username,$password) {
         if (!$this->isValidUsername($username)) return false;
         if (strlen($password) < 3) return false;
         $row = $this->get_user_hash($username);
-        if($this->password_verify($password,$row['password']) == 1){
+        if($this->password_verify($password,$row['password']) == 1) {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $row['username'];
             $_SESSION['memberID'] = $row['memberID'];
@@ -54,19 +42,54 @@ class User extends Password {
         }
     }
 
-
-
     public function logout() {
         session_destroy();
     }
-
-
 
     public function is_logged_in() {
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             return true;
         }
     }
+
+    function checkUser($userData = array()) {
+        if(!empty($userData)) {
+            // Check whether user data already exists in database
+            $prevQuery = "SELECT * FROM " . $this->members
+                . " WHERE oauth_provider = '"   . $userData['oauth_provider']
+                . "' AND oauth_uid = '"         . $userData['oauth_uid']
+                . "'";
+            $prevResult = $this->db->query($prevQuery);
+            if($prevResult->num_rows > 0){
+                // Update user data if already exists
+                $query = "UPDATE " . $this->members
+                    . " SET first_name = '"         . $userData['first_name']
+                    . "', last_name = '"            . $userData['last_name']
+                    . "', email = '"                . $userData['email']
+                    . " WHERE oauth_provider = '"   . $userData['oauth_provider']
+                    . "' AND oauth_uid = '"         . $userData['oauth_uid']
+                    . "'";
+                $update = $this->db->query($query);
+            } else {
+                // Insert user data
+                $query = "INSERT INTO " . $this->members
+                    . " SET oauth_provider = '" . $userData['oauth_provider']
+                    . "', oauth_uid = '"    . $userData['oauth_uid']
+                    . "', first_name = '"   . $userData['first_name']
+                    . "', last_name = '"    . $userData['last_name']
+                    . "', email = '"        . $userData['email'];
+                $insert = $this->db->query($query);
+            }
+
+            // Get user data from the database
+            $result = $this->db->query($prevQuery);
+            $userData = $result->fetch_assoc();
+        }
+
+        // Return user data
+        return $userData;
+    }
+    
 }
 
 ?>

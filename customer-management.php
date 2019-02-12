@@ -4,25 +4,21 @@ include('classes/user-checked.php');
 include('header.php');
 ?>
 
-<div class="container-fluid">
-    <div class="row">
+<div id="wrapper">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+    <?php include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
-        <main role="main" class="col-lg-9 col-md-9 ml-sm-auto px-4">
+    <div id="content-wrapper">
 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Clienti</h1>
-                <!-- <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Esporta</button>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        Questa settimana
-                    </button>
-                </div> -->
-            </div>
+        <div class="container-fluid">
+
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item active">Clienti</li>
+            </ol>
+
+            <main role="main">
 
             <?php
 
@@ -83,7 +79,8 @@ include('header.php');
                 // mysqli_close($link);
             ?>
 
-        </main>
+            </main>
+        </div>
     </div>
 </div>
 

@@ -17,6 +17,7 @@
         <table id="myTable" class="table table-striped table-sm">
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Data/ora</th>
                 <th>Collaboratore</th>
                 <th>Cliente</th>
@@ -29,8 +30,11 @@
                 ?>
                 <tr>
                     <td>
+                        <?= $item["id_order"]; ?>
+                    </td>
+                    <td>
                         <a>
-                            <i class="fa fa-calendar"></i> <?= date('d-m-Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
+                            <i class="fa fa-calendar"></i> <?= date('d/m/Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
                             <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])); ?>
                         </a>
                     </td>

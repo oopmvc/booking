@@ -6,11 +6,11 @@
     /*** LOCAL ***/
     if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false) {
         define('DB_SERVER', 'localhost');
-        define('DB_USERNAME', 'admin');
-        define('DB_PASSWORD', 'admin');
+        define('DB_USERNAME', 'root');
+        define('DB_PASSWORD', '');
         define('DB_NAME', 'mauriziobarbershop');
         // if you remove last char (slash) from follow URL then you can create activation link problem
-        define('DIR', 'http://localhost/maurizio-barber-shop/');
+        define('DIR', 'http://192.168.64.2/maurizio-barber-shop/');
     /*** PRODUCTION ***/
     } else {
         define('DB_SERVER', 'localhost');

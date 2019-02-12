@@ -1,7 +1,10 @@
 <?php require('includes/connection.php');
 
     //if logged in redirect to members page
-    if( $user->is_logged_in() ){ header('Location: index.php'); exit(); }
+    if( $user->is_logged_in() ){
+        header('Location: index.php');
+        exit();
+    }
 
     //if form has been submitted process it
     if(isset($_POST['submit'])){

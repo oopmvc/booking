@@ -3,13 +3,13 @@ include('phpmailer.php');
 class Mail extends PhpMailer
 {
     // Set default variables for all new objects
-    public $From     = 'info@mauriziobarbershop.com';
+    public $From     = 'booking@mauriziobarbershop.com';
     public $FromName = 'Maurizio Barber Shop';
     public $Host     = 'mail.mauriziobarbershop.com';
     public $Mailer   = 'smtp';
     public $SMTPAuth = true;
     public $Username = 'info@mauriziobarbershop.com';
-    public $Password = 'k4uss4o8aguu';
+    public $Password = 'Maurixio2019.';
     public $SMTPSecure = 'tls';
     public $WordWrap = 75;
 
