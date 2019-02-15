@@ -30,14 +30,15 @@ function submitProductRequest() {
     //user clicks form submit button
     var form_data = "products_selection=" + JSON.stringify(tableObject) + "&resource=" + jQuery("#resource").val() +
     "&slotTime=" + jQuery("#timeSlotSelection").val() +
-    "&date=" + jQuery('#datepicker').val() +
+    "&datepicker=" + jQuery('#datepicker').val() +
     "&resourceName=" + jQuery("#resource option:selected").text();
     console.log(tableObject)
+
     // check if all fields are ok
-    if (
-        jQuery("#resource").val() === ""
-        || jQuery("#timeSlotSelection").val() === ""
-        || jQuery('#datepicker').val() === "" || selectedOptions.length === 0) {
+    if (jQuery("#resource").val() === "" ||
+        jQuery("#timeSlotSelection").val() === "" ||
+        jQuery('#datepicker').val() === "" ||
+        selectedOptions.length === 0) {
             alert("Tutti i campi sono obbligatori!");
             return false;
         }
@@ -68,7 +69,7 @@ function submitProductRequest() {
     function fetchDateAvailability() {
         jQuery('#timeSlotSelection').attr("disabled", "disabled")
         var form_data = "checkTimeSlot=true&resource=" + jQuery("#resource").val()
-        + "&date=" + jQuery('#datepicker').val(); //prepare form data for Ajax post
+        + "&datepicker=" + jQuery('#datepicker').val(); //prepare form data for Ajax post
         // check if all fields are ok
         jQuery.ajax({ //make ajax request to cart_process.php
             url: "cart_process.php",
@@ -93,6 +94,7 @@ function submitProductRequest() {
                 jQuery('#timeSlotSelection').removeAttr("disabled")
             }
         })
+        console.log(xhr);
         console.log("controllo disponibilità risorsa effettuato!");
     }
 

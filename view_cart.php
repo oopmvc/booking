@@ -4,80 +4,88 @@ setlocale(LC_MONETARY,"it_IT");
 include('header.php');
 ?>
 
-<div class="container mb-4">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 offset-lg-2 offset-md-2">
-            <h1 class="pt-4">La tua prenotazione</h1>
-        </div>
-    </div>
+<div id="wrapper">
 
-    <div class="col-lg-6 col-md-6 offset-lg-2 offset-md-2">
-    <?php
-    if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
-        $total          = 0;
-        $list_tax 		= '';
-        $cart_box 		= '<ul class="view-cart">';
-        foreach($_SESSION["products"] as $product){ //Print each item, quantity and price.
-            $product_name   = $product["product_name"];
-            $product_qty    = $product["product_qty"];
-            $product_price  = $product["product_price"];
-            // $product_code   = $product["product_code"];
+    <div id="content-wrapper">
 
-            $item_price 	= sprintf("%01.2f",($product_price * $product_qty));  // price x qty = total item price
+        <div class="container-fluid">
 
-            $cart_box 		.=  "<li>  $product_name x$product_qty <span> $item_price  &euro;</span></li>";
+            <div class="row">
 
-            $subtotal 		= ($product_price * $product_qty); //Multiply item quantity * price
-            $total 			= ($total + $subtotal); //Add up to total price
-        }
-        $grand_total = $total ; //grand total
+                <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-2">
 
-//        foreach($taxes as $key => $value){ //list and calculate all taxes in array
-//            $tax_amount 	= round($total * ($value / 100));
-//            $tax_item[$key] = $tax_amount;
-//            $grand_total 	= $grand_total + $tax_amount;
-//        }
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item active">Carrello</li>
+                    </ol>
 
-//        foreach($tax_item as $key => $value){ //taxes List
-//            $list_tax .= $key. ' '. $currency. sprintf("%01.2f", $value).'<br />';
-//        }
+                    <?php
+                    if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
+                        $total          = 0;
+                        $list_tax 		= '';
+                        $cart_box 		= '<ul class="view-cart">';
+                        foreach($_SESSION["products"] as $product){ //Print each item, quantity and price.
+                            $product_name   = $product["product_name"];
+                            $product_qty    = $product["product_qty"];
+                            $product_price  = $product["product_price"];
+                            // $product_code   = $product["product_code"];
 
-//        $shipping_cost = ($shipping_cost)?'Shipping Cost : '.$currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
+                            $item_price 	= sprintf("%01.2f",($product_price * $product_qty));  // price x qty = total item price
 
-        //Print Shipping, VAT and Total
-        $cart_box .= "<li class=\"view-cart-total\"> <br><strong>Totale: ".sprintf("%01.2f", $grand_total). " &euro;</strong></li>";
-        $cart_box .= "</ul>";
+                            $cart_box 		.=  "<li>  $product_name x$product_qty <span> $item_price  &euro;</span></li>";
 
-        echo $cart_box;
+                            $subtotal 		= ($product_price * $product_qty); //Multiply item quantity * price
+                            $total 			= ($total + $subtotal); //Add up to total price
+                        }
+                        $grand_total = $total ; //grand total
 
-    } else {
-        echo '<p class="lead">Il tuo carrello è vuoto!</p>';
-        echo '<a class="btn btn-lg btn-block btn-primary mb-4" href="index.php">Torna indietro</a>';
-    }
-    ?>
-    </div>
+                        // foreach($taxes as $key => $value){ //list and calculate all taxes in array
+                        //  $tax_amount 	= round($total * ($value / 100));
+                        //  $tax_item[$key] = $tax_amount;
+                        //  $grand_total 	= $grand_total + $tax_amount;
+                        // }
 
-    <div class="row">
-        <div class="col-lg-6 col-md-6 offset-lg-2">
-            <?php
+                        // foreach($tax_item as $key => $value){ //taxes List
+                        //  $list_tax .= $key. ' '. $currency. sprintf("%01.2f", $value).'<br />';
+                        // }
 
-                // do not work - test it ------------------------------------------------------------------------------------------
+                        // $shipping_cost = ($shipping_cost)?'Shipping Cost : '.$currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
 
-                if(isset($_SESSION['username']) && count($_SESSION['products']) > 0) {
-                    echo('<a class="btn btn-lg btn-block btn-danger mr-2" onclick="SubmitCart()" href="#">Prenota</a>');
-                }
+                        //Print Shipping, VAT and Total
+                        $cart_box .= "<li class=\"view-cart-total\"> <br><strong>Totale: ".sprintf("%01.2f", $grand_total). " &euro;</strong></li>";
+                        $cart_box .= "</ul>";
 
-                if(!isset($_SESSION['username'])) {
-                    echo '
-                        <a class="btn btn-sm btn-primary my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
-                        <a class="btn btn-sm btn-primary my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
-                    ';
-                }
-            ?>
-        </div>
-    </div>
-</div>
+                        echo $cart_box;
+
+                    } else {
+                        echo '<p class="lead">Il tuo carrello è vuoto!</p>';
+                        echo '<a class="btn btn-lg btn-block btn-danger mb-4" href="index.php">Torna indietro</a>';
+                    }
 
 
+                    // do not work - test it ------------------------------------------------------------------------------------------
+
+                    if(isset($_SESSION['username']) && count($_SESSION['products']) > 0) {
+                        echo('<a class="btn btn-block btn-danger mr-2" onclick="SubmitCart()" href="#">Prenota</a>');
+                    }
+
+                    if(!isset($_SESSION['username'])) {
+                        echo '
+                            <a class="btn btn btn-primary my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
+                            <a class="btn btn btn-primary my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+                        ';
+                    }
+                    ?>
+
+                </div><!-- END col -->
+
+            </div> <!-- END row -->
+
+        </div><!-- END container-fluid -->
+
+    </div><!-- END content-wrapper -->
+
+</div><!-- END wrapper -->
 
 <?php include('footer.php'); ?>

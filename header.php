@@ -15,29 +15,31 @@ error_reporting(E_ALL);
     <meta name="description" content="">
     <meta name="author" content="Webkom">
     <meta name="robots" content="noindex">
-
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
     <!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
     -->
+    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/custom.css">
 
 
     <!-- CSS calendar -->
-    <!-- <link rel="stylesheet" href="assets/style.css"> --
+    <!--
+    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/dateTimePicker.css">
     <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- BEGIN JCalendar -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- END JCalendar -->
