@@ -91,9 +91,9 @@ function submitProductRequest() {
                     })
                 }
                 jQuery('#timeSlotSelection').removeAttr("disabled")
-
             }
         })
+        console.log("controllo disponibilità risorsa effettuato!");
     }
 
     /**
@@ -116,6 +116,7 @@ function submitProductRequest() {
             }
         })
     }
+
     function handleTimeSlot (){
         console.log("page ready")
         if([...document.querySelectorAll('#timeSlotSelection')].length > 0 ){
@@ -128,9 +129,6 @@ function submitProductRequest() {
                         item.disabled = true ;}})}};
 
                         jQuery(document).ready(function () {
-
-
-
 
                             handleTimeSlot();
                             jQuery("#LastActionOncartResume").load("cart_process.php", {"load_cart": "1"});

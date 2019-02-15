@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Creato il: Gen 21, 2019 alle 11:52
--- Versione del server: 10.1.32-MariaDB
--- Versione PHP: 7.2.5
+-- Host: localhost:3306
+-- Creato il: Feb 14, 2019 alle 13:32
+-- Versione del server: 10.0.37-MariaDB-cll-lve
+-- Versione PHP: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mauriziobarbershop`
+-- Database: `avodvovr_bookingmauriziobarbershop`
 --
 
 -- --------------------------------------------------------
@@ -43,16 +43,19 @@ CREATE TABLE `members` (
   `address` varchar(255) DEFAULT NULL,
   `postal_code` varchar(10) DEFAULT NULL,
   `city` varchar(40) DEFAULT NULL,
-  `country` varchar(40) DEFAULT NULL
+  `country` varchar(40) DEFAULT NULL,
+  `oauth_provide` enum('','facebook') DEFAULT NULL,
+  `oauth_uid` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `members`
 --
 
-INSERT INTO `members` (`memberID`, `type`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`, `address`, `postal_code`, `city`, `country`) VALUES
-(3, 1, 'admin', '$2y$10$8uUShxZkoZBzB0OkED9quuBn2exjETzPyFAvRpOgdu9to2.Wi7fcq', '7tein@yopmail.com', 'Yes', NULL, 'No', 'Vorname', 'admin', '46545555', NULL, NULL, NULL, NULL),
-(14, 1, 'giuseppe', '$2y$10$1mjhyCEm4BeT9l.IsFJTT.S4XEyHAimfqGk3HwnIWD7MUlogGX6Fm', 'giuseppe.lamatrice@webkom.agency', 'Yes', '6fc100c9b3cc32d7260640f8823f706a8914a7727878e314b08372e34dd7d633', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia');
+INSERT INTO `members` (`memberID`, `type`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `first_name`, `last_name`, `phone`, `address`, `postal_code`, `city`, `country`, `oauth_provide`, `oauth_uid`) VALUES
+(3, 1, 'admin', '$2y$10$feEj/dHQSbM67LdfOawANO9OeX4e4Ij8eVX/nsD/ezp/mz8xvYFki', 'giuseppelamatrice@gmail.com', 'Yes', 'acba6ba0683ed58a38c862cb7d4ca83c1629a857afdedafe35faf91e2306056c', 'Yes', 'Maurizio', 'Pizzuto', '3472295261', 'Via Benedetto Croce 8/10', '71121', 'Foggia', 'Italia', NULL, NULL),
+(14, 1, 'giuseppe', '$2y$10$tGdlCrMpCMCTWE.2.Yqxu.w.o11JmEpgakJWtBdT/dAZ8/IO7dcp6', 'giuseppe.lamatrice@webkom.agency', 'Yes', '7feff99bf2bad247a9fa3a65f9566bae213b8d542604af8459c0e701a80e2d94', 'Yes', 'Giuseppe', 'Lamatrice', '+393472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia', NULL, NULL),
+(20, 0, 'ildottore87fg', '$2y$10$/zV7Mx3J3nUWGU5o6kdu5OXcT3wiyvSbXgRR/QmbM9ZjT0zRYCaCW', 'ildottore87fg@gmail.com', 'Yes', '4d59cf3282574d3d677e6c7dcd9dcafccdf5aad61e2dc09b66a2844d71932872', 'Yes', 'Valentino', 'Rossi', '3472295261', 'Via A. Manzoni 179', '71121', 'Foggia', 'Italia', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -75,10 +78,16 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id_order`, `order_date`, `start_time`, `resource`, `customer`, `status`, `note`) VALUES
-(75, '2018-12-13', '08:00:00.0000', 1, '3', NULL, NULL),
-(76, '2018-12-13', '11:00:00.0000', 3, '3', NULL, NULL),
-(77, '0000-00-00', '13:30:00.0000', 3, '14', NULL, NULL),
-(78, '0000-00-00', '09:00:00.0000', 8, '14', NULL, NULL);
+(85, '2019-02-13', '12:00:00.0000', 4, '14', NULL, NULL),
+(86, '2019-02-12', '12:30:00.0000', 1, '14', NULL, NULL),
+(87, '2019-02-12', '09:30:00.0000', 3, '14', NULL, NULL),
+(88, '2019-02-13', '12:00:00.0000', 1, '3', NULL, NULL),
+(89, '2019-02-13', '17:00:00.0000', 1, '3', NULL, NULL),
+(90, '2019-02-13', '10:00:00.0000', 1, '3', NULL, NULL),
+(91, '0000-00-00', '00:00:09.0000', 1, '3', NULL, NULL),
+(92, '2019-02-13', '09:30:00.0000', 1, '3', NULL, NULL),
+(93, '2019-02-13', '09:30:00.0000', 1, '3', NULL, NULL),
+(94, '2019-02-13', '09:30:00.0000', 1, '3', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -98,16 +107,17 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_quantity`, `product_id`) VALUES
-(122, 75, 2, 6),
-(123, 75, 2, 5),
-(124, 76, 1, 1),
-(125, 76, 1, 6),
-(126, 76, 1, 5),
-(127, 77, 1, 5),
-(128, 77, 1, 6),
-(129, 77, 1, 1),
-(130, 78, 2, 1),
-(131, 78, 2, 6);
+(136, 85, 1, 6),
+(137, 86, 1, 6),
+(138, 87, 1, 6),
+(139, 88, 1, 6),
+(140, 89, 1, 6),
+(141, 89, 2, 5),
+(142, 90, 1, 6),
+(143, 91, 1, 6),
+(144, 92, 1, 6),
+(145, 93, 1, 6),
+(146, 94, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -118,23 +128,23 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_quantity`, `product_id`)
 CREATE TABLE `products` (
   `id_product` int(15) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `description` text NOT NULL,
   `time` varchar(50) NOT NULL,
-  `price` decimal(6,2) NOT NULL
+  `price` decimal(6,2) NOT NULL,
+  `active` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `products`
 --
 
-INSERT INTO `products` (`id_product`, `name`, `description`, `time`, `price`) VALUES
-(1, 'Basic Cut', 'Servizio base di taglio di capelli. Dopo uno shampoo facoltativo si passa al taglio e ad unâ€™asciugatura tradizionale. Trattamento ideale per chi non pretende troppo dalla propria acconciatura e per chi â€œva di frettaâ€.', '14', '10.00'),
-(2, 'Cut & Hairstyle', 'Trattamento classico di taglio e pettinatura. Dopo uno shampoo facoltativo, si passa al taglio dei capelli, lavaggio, asciugatura e lavoro di hair styling per dare al capello lâ€™acconciatura desiderata. Ideale per chi vuole presentarsi un modo impec', '20', '14.00'),
-(3, 'Razor Fade', 'Trattamento che segue al classico shampoo e taglio. Qui si aggiunge il lavoro di precisione e professionale di un vero hair stylist che permette di avere la sfumatura che non irrita il proprio cuoio capelluto.', '21', '15.00'),
-(4, 'Razor Fade & Hairstyle', 'La sfumatura puÃ² essere qualcosa di piÃ¹ che un tipo di taglio, puÃ² diventare uno stile caratteristico della persona. Questo trattamento prevede una cura specifica dellâ€™hair styling del capello e delle sfumature a rasoio che permettono di persona', '30', '20.00'),
-(5, 'Children Hair Cut', 'll servizio per bambini rapido ed efficace. Questo trattamento Ã¨ stato studiato ed ottimizzato proprio per permettere di preparare i piÃ¹ piccoli il piÃ¹ velocemente possibile senza sacrificare la qualitÃ  di un servizio professionale.', '14', '10.00'),
-(6, 'Beard Renovation', 'Trattamento riservato esclusivamente alla barba. Con la Beard Renivation ci prenderemo cura della tua barba attraverso shampoo e balsami specifici, tagli e spunte adatte al tuo viso e infine pulirla con oli naturali cosÃ¬ da mantenere morbidezza e lu', '30', '20.00'),
-(7, 'Relax Superior', 'Il trattamento completo per chi desidera trattare al meglio i propri capelli e il proprio stile. Dopo uno shampoo specifico per il capello e il cuoio capelluto, passiamo ad individuare il talgio migliore per te studiando capigliatura e forma de capel', '60', '40.00');
+INSERT INTO `products` (`id_product`, `name`, `description`, `time`, `price`, `active`) VALUES
+(2, 'Cut & Hairstyle', 'Trattamento di taglio e pettinatura. Dopo uno shampoo, si passa al taglio dei capelli, lavaggio, asciugatura e lavoro di hair styling per dare al capello lâ€™acconciatura desiderata. Ideale per chi vuole presentarsi un modo impeccabile.', '25', '15.00', b'0'),
+(3, 'Razor Fade', 'Trattamento che segue allo shampoo e taglio. Qui si aggiunge il lavoro di precisione e professionale di un vero hair stylist che permette di avere la sfumatura che non irrita il proprio cuoio capelluto.', '25', '15.00', b'1'),
+(4, 'Razor Fade & Hairstyle', 'La sfumatura puÃ² essere qualcosa di piÃ¹ che un tipo di taglio, puÃ² diventare uno stile caratteristico della persona. Questo trattamento prevede una cura specifica dellâ€™hair styling del capello e delle sfumature dello shave che permettono di personalizzare il taglio fin nei minimi dettagli.', '30', '20.00', b'1'),
+(5, 'Children Hair Cut', 'l servizio per bambini rapido ed efficace. Questo trattamento Ã¨ stato studiato ed ottimizzato proprio per permettere di preparare i piÃ¹ piccoli il piÃ¹ velocemente possibile senza sacrificare la qualitÃ  di un servizio professionale.', '15', '15.00', b'1'),
+(6, 'Beard Renovation', 'Trattamento riservato esclusivamente alla barba. Con la Beard Renivation ci prenderemo cura della tua barba attraverso shampoo e balsami specifici, tagli e spunte adatte al tuo viso e infine pulirla con oli naturali cosÃ¬ da mantenere morbidezza e lucentezza.', '30', '20.00', b'1'),
+(7, 'Relax Superior', 'Il trattamento completo per chi desidera trattare al meglio i propri capelli e il proprio stile. Dopo uno shampoo specifico per il capello e il cuoio capelluto, passiamo ad individuare il talgio migliore per te studiando capigliatura e forma de capello. Soltanto dopo lavoriamo di fino per proporre alla tua immagine lo stile migliore. Un servizio per chi non si accontenta del solito â€œtaglioâ€.', '60', '40.00', b'1');
 
 -- --------------------------------------------------------
 
@@ -154,7 +164,7 @@ CREATE TABLE `resources` (
 --
 
 INSERT INTO `resources` (`id_resource`, `first_name`, `last_name`, `description`) VALUES
-(1, 'Maurizio', 'P.', 'TOP'),
+(1, 'Maurizio', 'Pizzuto', 'Collaboratore'),
 (2, 'Davide', '', 'Collaboratore'),
 (3, 'Antonio', '', 'Collaboratore'),
 (4, 'Alessandro', '', 'Collaboratore'),
@@ -258,19 +268,19 @@ ALTER TABLE `slot_time`
 -- AUTO_INCREMENT per la tabella `members`
 --
 ALTER TABLE `members`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT per la tabella `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT per la tabella `products`
@@ -288,7 +298,7 @@ ALTER TABLE `resources`
 -- AUTO_INCREMENT per la tabella `slot_time`
 --
 ALTER TABLE `slot_time`
-  MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_slot_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

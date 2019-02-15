@@ -63,6 +63,31 @@ $userType = $_SESSION['type'];
                     <span>Prenotazioni (tutte)</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>
+
+                        <?php
+
+                            $username = urlencode("ildottore87fg");
+                            $password = urlencode("lmtgpp87");
+                            $api_id   = urlencode("3637566");
+
+                            $credits = file_get_contents("https://api.clickatell.com/http/getbalance"
+                                . "?user=" . $username
+                                . "&password=" . $password
+                                . "&api_id=" . $api_id);
+
+                            echo $credits;
+
+                        ?>
+
+                    </span>
+                </a>
+            </li>
+
+
 
         <?php endif; ?>
 

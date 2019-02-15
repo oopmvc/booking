@@ -1,7 +1,26 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dettagli Prenotazione</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBodyContainer"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="table-responsive">
     <?php
 
-    $today = $today = date('Y-m-d');
+    $today = date('Y-m-d');
 
     $type = $_SESSION['type'];
 
@@ -34,8 +53,8 @@
                     </td>
                     <td>
                         <a>
-                            <i class="fa fa-calendar"></i> <?= date('d/m/Y', strtotime($item["order_date"])); ?> &nbsp;&nbsp;
-                            <i class="fa fa-clock"></i>    <?= date('H:i', strtotime($item["start_time"])); ?>
+                            <i class="fa fa-calendar"></i> <?= date('d/m/Y',    strtotime($item["order_date"])); ?> &nbsp;&nbsp;
+                            <i class="fa fa-clock"></i>    <?= date('H:i',      strtotime($item["start_time"])); ?>
                         </a>
                     </td>
                     <td>

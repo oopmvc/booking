@@ -4,21 +4,28 @@ include('classes/user-checked.php');
 include('header.php');
 ?>
 
+<div id="wrapper">
 
+    <?php include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
-<div class="container-fluid">
-    <div class="row">
+    <div id="content-wrapper">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+        <div class="container-fluid">
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
-            <h1 class="h2">Prenotazioni di Oggi</h1>
-            <?php include('reservation-today.php'); ?>
-        </main>
-        
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item active">Prenotazioni di Oggi</li>
+            </ol>
+
+            <main role="main" class="">
+                <?php include('reservation-today.php'); ?>
+            </main>
+
+        </div>
+
     </div>
+
 </div>
-
-
 
 <?php include('footer.php'); ?>

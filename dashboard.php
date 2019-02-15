@@ -231,8 +231,10 @@ $userType = $_SESSION['type'];
 
         </div><!-- END container-fluid -->
 
-        <?php include('footer.php'); ?>
+
 
     </div><!-- END content-wrapper -->
 
 </div><!-- END wrapper -->
+
+<?php include('footer.php'); ?>

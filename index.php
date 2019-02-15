@@ -115,7 +115,7 @@ include 'header.php';
                 <h4 class="pt-4 mb-4"><span class="bg-dark">3</span> Scegli quando</h4>
                 <div class="row">
                     <div class="col-md-6 mb-5">
-                        <label for="date">Giorno</label>
+                        <label for="datepicker">Giorno</label>
                         <input type="text" id="datepicker" class="form-control" onchange="fetchDateAvailability()">
                     </div>
                     <div class="col-md-6 mb-5">

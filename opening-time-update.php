@@ -63,75 +63,83 @@ catch(PDOException $exception){
 
 
 
-<div class="container-fluid">
-    <div class="row">
+<div id="wrapper">
 
-        <?php include(__DIR__.'/templates/dashboard-sidebar.html.php'); ?>
+    <?php include(__DIR__ . '/templates/dashboard-sidebar.html.php'); ?>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
+    <div id="content-wrapper">
 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Modifica Prodotto</h1>
-            </div>
+        <div class="container-fluid">
 
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id_slot_time={$id_slot_time}");?>" method="post">
-                <div class="form-group">
-                    <label for="name">Ora Inizio</label>
-                    <input type="text" name="start_slot" class="form-control" value="<?= $row->start_slot; ?>" />
-                </div>
-                <div class="form-group">
-                    <label for="name">Ora Fine</label>
-                    <input type="text" name="end_slot" class="form-control" value="<?= $row->end_slot; ?>" />
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?php
-                            if($row->sunday) { echo '1' . $row->sunday; } else { echo '0'; } ?>" id="sunday" name="sunday" <?php if($row->sunday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="sunday">Domenica</label>
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item active">Modifica Prodotto</li>
+            </ol>
+
+            <main role="main" class="">
+
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id_slot_time={$id_slot_time}");?>" method="post">
+                    <div class="form-group">
+                        <label for="name">Ora Inizio</label>
+                        <input type="text" name="start_slot" class="form-control" value="<?= $row->start_slot; ?>" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->monday; ?>" id="monday" name="monday" <?php if($row->monday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="monday">Lunedì</label>
+                    <div class="form-group">
+                        <label for="name">Ora Fine</label>
+                        <input type="text" name="end_slot" class="form-control" value="<?= $row->end_slot; ?>" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->tuesday; ?>" id="tuesday" name="tuesday" <?php if($row->tuesday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="tuesday">Martedì</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?php
+                                if($row->sunday) { echo '1' . $row->sunday; } else { echo '0'; } ?>" id="sunday" name="sunday" <?php if($row->sunday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="sunday">Domenica</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->wednesday; ?>" id="wednesday" name="wednesday" <?php if($row->wednesday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="wednesday">Mercoledì</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->monday; ?>" id="monday" name="monday" <?php if($row->monday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="monday">Lunedì</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->thursday; ?>" id="thursday" name="thursday" <?php if($row->thursday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="thursday">Giovedì</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->tuesday; ?>" id="tuesday" name="tuesday" <?php if($row->tuesday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="tuesday">Martedì</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->friday; ?>" id="friday" name="friday"<?php if($row->friday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="friday">Venerdì</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->wednesday; ?>" id="wednesday" name="wednesday" <?php if($row->wednesday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="wednesday">Mercoledì</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $row->saturday; ?>" id="saturday" name="saturday" <?php if($row->saturday == '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="saturday">Sabato</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->thursday; ?>" id="thursday" name="thursday" <?php if($row->thursday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="thursday">Giovedì</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Salva" class="btn btn-primary" />
-                    <a href="opening-time-management.php" class="btn btn-danger">Indietro</a>
-                </div>
-            </form>
-        </main>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->friday; ?>" id="friday" name="friday"<?php if($row->friday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="friday">Venerdì</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $row->saturday; ?>" id="saturday" name="saturday" <?php if($row->saturday == '1') { echo 'checked'; } ?>>
+                            <label class="form-check-label" for="saturday">Sabato</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Salva" class="btn btn-primary" />
+                        <a href="opening-time-management.php" class="btn btn-danger">Indietro</a>
+                    </div>
+                </form>
+
+            </main>
+
+        </div>
     </div>
 </div>
 
