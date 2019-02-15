@@ -293,7 +293,7 @@ setlocale(LC_MONETARY, "it_IT"); // IT national format (see : http://php.net/mon
                                                             <?php echo $product["product_name"] ?>
                                                         </span>
                                                         <span>
-                                                            (Quantità:<?php echo $product["product_qty"] ?>)
+                                                            (Qty:<?php echo $product["product_qty"] ?>)
                                                         </span>
 
                                                         <a href="#" class="remove-item" data-code="<?php echo $key ?>"

@@ -2,15 +2,17 @@
 
 class Product {
 
+    protected $id_product;
     protected $nome;
     protected $descrizione;
     protected $prezzo;
 
-    public function __construct(string $nomeIndicato, string $descrizioneIndicata, int $prezzoIndicato) {
+    public function __construct(int $id, string $nome, string $descrizione, int $prezzo) {
 
-        $this->$nome        = $nomeIndicato;
-        $this->$descrizione = $descrizioneIndicata;
-        $this->$prezzo      = $prezzoIndicato;
+        $this->$id          = $id;
+        $this->$nome        = $nome;
+        $this->$descrizione = $descrizione;
+        $this->$prezzo      = $prezzo;
 
         echo "Ho creato un prodotto vuoto";
 
@@ -18,19 +20,9 @@ class Product {
 
     public function get_all_products() {
 
-        echo "
-            <ul>
-                <li>taglio</li>
-                <li>shampoo</li>
-                <li>barba</li>
-            </ul>
-        ";
-        echo "step 0" . "<br>";
-
-
         try {
-            /* Attempt to connect to MySQL database */
 
+            /* Attempt to connect to MySQL database */
             $pdo = new PDO("mysql:host=" . 'localhost' . ";dbname=" . 'mauriziobarbershop', 'localhost', 'Lamatrice1');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Suggested to comment on production websites
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -40,13 +32,13 @@ class Product {
             die("ERRORE: Connessione non riuscita. " . $e->getMessage());
         }
 
-        echo "step 1" . "<br>";
+
         $sql = "SELECT * FROM products ORDER BY name";
-        echo "step 2" . "<br>";
+
         if ($result = $pdo->query($sql)) {
-            echo "step 3" . "<br>";
+
             if ($result->rowCount() > 0) {
-                echo "step 4" . "<br>";
+
                 echo
                 "<div class='table-responsive'>
                     <table class='table table-striped table-sm'>
@@ -76,30 +68,28 @@ class Product {
                         // <a class='btn btn-sm btn-danger'      href='product-delete.php?id_product=" . $row['id_product'] . "' title='Elimina Prodotto'  data-toggle='tooltip'>Elimina</a>
                     echo "</tr>";
                 }
+
                 echo "
                     </tbody>
                 </table>";
                 // Free result set
                 unset($result);
             } else {
+
                 echo "<p class='lead'><em>Nessun servizio trovato.</em></p>";
+
             }
+
         } else {
+
             echo "ERRORE: Non posso eseguire la richiesta $sql. " . mysqli_error($link);
+
         }
-
-    }
-
-    public function saluta() {
-
-        echo "ciao";
 
     }
 
 }
 
-$taglio = new Product('c', 'd', 9);
+$taglio = new Product(1, 'c', 'd', 9);
 $taglio->get_all_products();
-$taglio->saluta();
-
 ?>

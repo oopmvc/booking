@@ -72,8 +72,8 @@ include('header.php');
 
                     if(!isset($_SESSION['username'])) {
                         echo '
-                            <a class="btn btn btn-primary my-2 my-sm-0 mr-2" href="login.php">Accedi</a>
-                            <a class="btn btn btn-primary my-2 my-sm-0 mr-2" href="register.php">Registrati</a>
+                            <a class="btn btn-primary mr-2" href="login.php">Accedi</a>
+                            <a class="btn btn-primary"      href="register.php">Registrati</a>
                         ';
                     }
                     ?>
