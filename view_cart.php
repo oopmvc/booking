@@ -12,7 +12,7 @@ include('header.php');
 
             <div class="row">
 
-                <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-2">
+                <div class="col-lg-6 col-md-12 col-sm-12 offset-lg-3 offset-md-0">
 
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">

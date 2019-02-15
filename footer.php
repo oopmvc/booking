@@ -16,7 +16,12 @@
         </script>
 
 
+
+
+
         <!-- FROM THIS CODE LINE ADDED FOR NEW WEB UI -->
+
+
 
 
         <!-- Bootstrap core JavaScript-->
@@ -39,4 +44,5 @@
         <script src="js/demo/chart-area-demo.js"></script>
 
     </body>
+    
 </html>

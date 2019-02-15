@@ -143,19 +143,15 @@ include 'header.php';
                         </div>
                         <!-- END STEP 3: scegli con chi -->
 
-                        <h4 class="d-flex justify-content-between align-items-center mb-3">
-                            <span>La tua prenotazione</span>
-                        </h4>
+
+
                         <div id="cartResumer">
                             <ul id="LastActionOncartResume"></ul>
                         </div>
-                        <!-- <button type="submit" class="btn btn-lg btn-block btn-danger">Prenota ora</button> -->
+
                         <a onclick="submitProductRequest()" href="view_cart.php" class="btn btn-lg btn-block btn-danger mb-5">Conferma</a>
 
-                        </div>
-                        <!-- END carrello -->
-
-                    </div>
+                    </div><!-- END needs-validation -->
 
                 </div><!-- END col -->
 
